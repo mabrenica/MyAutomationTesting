@@ -19,12 +19,11 @@ namespace Curogram_Automation_Testing.automationTestScripts.curogramWebApp.provi
     [Parallelizable]
     internal class ProviderLogin
     {
-        private IWebDriver driver;
-        public IDictionary<string, object> vars { get; private set; }
-        private IJavaScriptExecutor js;
+        private IWebDriver? driver;
+        public IDictionary<string, object>? vars { get; private set; }
+        private IJavaScriptExecutor? js;
 
 
-        [Test]
         public void ProviderLoginSuccess()
         {
             driver = new FirefoxDriver();
@@ -70,7 +69,6 @@ namespace Curogram_Automation_Testing.automationTestScripts.curogramWebApp.provi
             }
         }
 
-        [Test]
         public void IncorrectPassword()
         {
             driver = new FirefoxDriver();
@@ -120,7 +118,6 @@ namespace Curogram_Automation_Testing.automationTestScripts.curogramWebApp.provi
             }
         }
 
-        [Test]
         public void IncorrectEmailFormat()
         {
             driver = new FirefoxDriver();
@@ -166,6 +163,7 @@ namespace Curogram_Automation_Testing.automationTestScripts.curogramWebApp.provi
             }
         }
 
+        [Test]
         public void ProviderLoginTest()
         {
             ProviderLogin a= new ProviderLogin();

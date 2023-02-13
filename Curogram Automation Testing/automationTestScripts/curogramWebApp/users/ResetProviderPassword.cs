@@ -17,12 +17,14 @@ using System.Threading.Tasks;
 
 namespace Curogram_Automation_Testing.automationTestScripts.curogramWebApp.users.ResetProviderPassword
 {
+    [TestFixture]
+    [Parallelizable]
     internal class ResetProviderPassword
     {
 
-        private IWebDriver driver;
-        public IDictionary<string, object> vars { get; private set; }
-        private IJavaScriptExecutor js;
+        private IWebDriver? driver;
+        public IDictionary<string, object>? vars { get; private set; }
+        private IJavaScriptExecutor? js;
 
         public string waitForWindow(int timeout)
         {
@@ -47,7 +49,8 @@ namespace Curogram_Automation_Testing.automationTestScripts.curogramWebApp.users
                 return whNow.First().ToString();
             }
         }
-        public async Task Main()
+        [Test]
+        public async Task RestUserPassword()
         {
             driver = new FirefoxDriver();
             js = (IJavaScriptExecutor)driver;
@@ -88,10 +91,10 @@ namespace Curogram_Automation_Testing.automationTestScripts.curogramWebApp.users
                 var newPassword = new string(Enumerable.Repeat("abcdefghijklmnopqrstuvwxyz0123456789", 9)
                 .Select(s => s[rand.Next(s.Length)]).ToArray());
 
-                Console.WriteLine("Provider email: " + email);
-                Console.WriteLine("Provider firstname: " + firstName);
-                Console.WriteLine("Provider lastname: " + lastName);
-                Console.WriteLine("Provider newPaword: " + newPassword);
+                //Console.WriteLine("Provider email: " + email);
+                //Console.WriteLine("Provider firstname: " + firstName);
+                //Console.WriteLine("Provider lastname: " + lastName);
+                //Console.WriteLine("Provider newPaword: " + newPassword);
 
                 //Create user via api
 
@@ -122,7 +125,7 @@ namespace Curogram_Automation_Testing.automationTestScripts.curogramWebApp.users
                         if (response.IsSuccessStatusCode)
                         {
                             var responseContent = await response.Content.ReadAsStringAsync();
-                            Console.WriteLine(responseContent);
+                            //Console.WriteLine(responseContent);
                         }
                         else
                         {
@@ -210,6 +213,8 @@ namespace Curogram_Automation_Testing.automationTestScripts.curogramWebApp.users
                 driver.FindElement(By.XPath("//button[contains(text(),'Reset password')]")).Click();
                 Thread.Sleep(20000);
                 Assert.That(driver.FindElement(By.XPath("//div[contains(text(),'Quick Actions')]")).Text, Is.EqualTo("Quick Actions"));
+                driver.Close();
+                driver.SwitchTo().Window(vars["MailSacWindow"].ToString());
                 driver.Close();
                 Console.WriteLine("Reset Provider Login: Pass");
             }

@@ -14,9 +14,9 @@ namespace Curogram_Automation_Testing.automationTestScripts.curogramWebApp.AddUs
     [Parallelizable]
     public class AddUserTest
     {
-        private IWebDriver driver;
-        public IDictionary<string, object> vars { get; private set; }
-        private IJavaScriptExecutor js;
+        private IWebDriver? driver;
+        public IDictionary<string, object>? vars { get; private set; }
+        private IJavaScriptExecutor? js;
 
         public string waitForWindow(int timeout)
         {
@@ -28,7 +28,7 @@ namespace Curogram_Automation_Testing.automationTestScripts.curogramWebApp.AddUs
             {
                 Console.WriteLine("{0} Exception caught.", e);
             }
-            var whNow = ((IReadOnlyCollection<object>)driver.WindowHandles).ToList();
+            var whNow = (driver.WindowHandles as IReadOnlyCollection<object>).ToList();
             var whThen = ((IReadOnlyCollection<object>)vars["WindowHandles"]).ToList();
             if (whNow.Count > whThen.Count)
             {
@@ -149,10 +149,10 @@ namespace Curogram_Automation_Testing.automationTestScripts.curogramWebApp.AddUs
                 var fullName = firstName + " " + lastName;
 
 
-                Console.WriteLine("Generated Email: " + email);
-                Console.WriteLine("Generated First Name: " + firstName);
-                Console.WriteLine("Generated Last Name: " + lastName);
-                Console.WriteLine("Generated Full Name: " + fullName);
+                //Console.WriteLine("Generated Email: " + email);
+                //Console.WriteLine("Generated First Name: " + firstName);
+                //Console.WriteLine("Generated Last Name: " + lastName);
+                //Console.WriteLine("Generated Full Name: " + fullName);
 
                 Thread.Sleep(2000);
                 IWebElement inputField = driver.FindElement(By.XPath("//input[@type=\'email\']"));

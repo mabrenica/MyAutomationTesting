@@ -30,13 +30,13 @@ namespace Curogram_Automation_Testing.appManager
             //running in parallel
             ParallelOptions parallelOptions = new ParallelOptions
             {
-                MaxDegreeOfParallelism = 4
+                MaxDegreeOfParallelism = 5
             };
             Parallel.Invoke(parallelOptions,
 
              () => t1.ProviderLoginTest(),
-             () => t2.addUser()
-
+             () => t2.addUser(),
+             () => t3.RestUserPassword()
 
             );
 

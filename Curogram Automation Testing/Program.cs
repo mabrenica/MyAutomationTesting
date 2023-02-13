@@ -36,7 +36,8 @@ namespace Curogram_Automation_Testing
             {
                 startManager.ParallelRun();
             }
-            catch (Exception e) {
+            catch (Exception)
+            {
                 Console.WriteLine("Error in test execution");
             }
             initProg.TestComplete();
