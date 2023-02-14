@@ -40,7 +40,7 @@ namespace Curogram_Automation_Testing
             {
                 Console.WriteLine("Error in test execution");
             }
-            initProg.TestComplete();
+
 
 
 

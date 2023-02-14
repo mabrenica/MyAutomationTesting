@@ -14,6 +14,7 @@ using OpenQA.Selenium.DevTools.V107.ServiceWorker;
 using Curogram_Automation_Testing.automationTestScripts.curogramWebApp.AddUsers;
 using Curogram_Automation_Testing.automationTestScripts.curogramWebApp.users;
 using Curogram_Automation_Testing.automationTestScripts.curogramWebApp.users.ResetProviderPassword;
+using Curogram_Automation_Testing.automationTestScripts.curogramWebApp.Telemedicine;
 
 namespace Curogram_Automation_Testing.appManager
 {
@@ -26,6 +27,7 @@ namespace Curogram_Automation_Testing.appManager
             ProviderLogin t1= new ProviderLogin();
             AddUserTest t2 = new AddUserTest();
             ResetProviderPassword t3 = new ResetProviderPassword();
+            TelemedicineTest t4 = new TelemedicineTest();
 
             //running in parallel
             ParallelOptions parallelOptions = new ParallelOptions
@@ -36,7 +38,8 @@ namespace Curogram_Automation_Testing.appManager
 
              () => t1.ProviderLoginTest(),
              () => t2.addUser(),
-             () => t3.RestUserPassword()
+             () => t3.RestUserPassword(),
+             () => t4.Telemed()
 
             );
 
