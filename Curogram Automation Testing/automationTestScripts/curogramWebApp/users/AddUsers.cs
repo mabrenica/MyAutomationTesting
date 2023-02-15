@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 using NUnit.Framework;
@@ -148,11 +144,6 @@ namespace Curogram_Automation_Testing.automationTestScripts.curogramWebApp.AddUs
                     .Select(s => s[rand.Next(s.Length)]).ToArray()).Substring(1);
                 var fullName = firstName + " " + lastName;
 
-
-                //Console.WriteLine("Generated Email: " + email);
-                //Console.WriteLine("Generated First Name: " + firstName);
-                //Console.WriteLine("Generated Last Name: " + lastName);
-                //Console.WriteLine("Generated Full Name: " + fullName);
 
                 Thread.Sleep(2000);
                 IWebElement inputField = driver.FindElement(By.XPath("//input[@type=\'email\']"));

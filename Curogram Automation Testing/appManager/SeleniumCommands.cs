@@ -12,14 +12,15 @@ using OpenQA.Selenium.Interactions;
 using NUnit.Framework;
 using System.Runtime.ExceptionServices;
 using System.Timers;
+using Curogram_Automation_Testing.automationTestScripts.curogramWebApp.users.ResetProviderPassword;
 
 namespace Curogram_Automation_Testing.appManager
 {
     internal class SeleniumCommands
     {
-        private IWebDriver? driver = new FirefoxDriver();
+        private IWebDriver driver = new FirefoxDriver();
         public IDictionary<string, object>? vars { get; private set; }
-        private IJavaScriptExecutor? js;
+        private IJavaScriptExecutor js;
 
         //click on element
         public void ClickOn(string elementName)
@@ -34,17 +35,21 @@ namespace Curogram_Automation_Testing.appManager
         }
 
         //generate random strings
-        public string StringGenerator(int Seed)
+        public string StringGenerator()
         {
-            Random rand = new Random(Seed);
-            var newString = char.ToUpper(new string(Enumerable.Repeat("abcdefghijklmnopqrstuvwxyz", 9)
-                .Select(s => s[rand.Next(s.Length)]).ToArray())[0]) + new string(Enumerable.Repeat("abcdefghijklmnopqrstuvwxyz", 9)
+            Random ranInt = new Random();
+            var seedInt = ranInt.Next();
+
+            Random rand = new Random(seedInt);
+            var newString = char.ToUpper(new string(Enumerable.Repeat("abcdefghijklmnopqrstuvwxyz0123456789", 9)
+                .Select(s => s[rand.Next(s.Length)]).ToArray())[0]) + new string(Enumerable.Repeat("abcdefghijklmnopqrstuvwxyz0123456789", 9)
                 .Select(s => s[rand.Next(s.Length)]).ToArray()).Substring(1);
+
             return newString;
         }
 
         //Quit driver
-        public void DQuit()
+        public void DClose()
         {
             driver.Close();
         }
@@ -54,6 +59,23 @@ namespace Curogram_Automation_Testing.appManager
         {
             Thread.Sleep(time);
 
+        }
+
+        //Send Key
+        public void Type(string targetElement, string textInput)
+        {
+            js = (IJavaScriptExecutor)driver;
+            IWebElement inputField = driver.FindElement(By.XPath(targetElement));
+            js.ExecuteScript("arguments[0].value = '" + textInput + "';", inputField);
+            driver.FindElement(By.XPath(targetElement)).Click();
+            driver.FindElement(By.XPath(targetElement)).SendKeys(" ");
+            driver.FindElement(By.XPath(targetElement)).SendKeys(Keys.Backspace);
+        }
+
+        //Close the driver
+        public void DQuit()
+        {
+            driver.Quit();
         }
     }
 }

@@ -16,16 +16,14 @@ namespace Curogram_Automation_Testing.automationTestScripts.curogramWebApp.Telem
         public void Telemed()
         {
             SeleniumCommands a = new SeleniumCommands();
-            var patientEmail = a.StringGenerator(1)+"@mailsac.com";
-            var patientFirstName = a.StringGenerator(2);
-            var patientLastName = a.StringGenerator(3);
-            var patientFullName = patientFirstName+" "+ patientLastName;
-
 
 
             a.NavTo("https://app.staging.curogram.com");
+            a.Type("//input[@placeholder='Enter your email address']", "testrigorcpuser@curogram.com");
+            a.Type("//input[@placeholder='Enter password']", "password1");
+            a.ClickOn("//button[@type='submit']");
             a.Pause(5000);
-            a.DQuit();
+            a.DClose();
         }
     }
 }
