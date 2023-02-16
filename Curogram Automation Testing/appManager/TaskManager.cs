@@ -1,9 +1,10 @@
-﻿using Curogram_Automation_Testing.automationTestScripts.curogramWebApp.providerLoginPage;
-using Curogram_Automation_Testing.automationTestScripts.curogramWebApp.AddUsers;
-using Curogram_Automation_Testing.automationTestScripts.curogramWebApp.users.ResetProviderPassword;
-using Curogram_Automation_Testing.automationTestScripts.curogramWebApp.Telemedicine;
+﻿using Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.ProviderLoginPage;
+using Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.AddUsers;
+using Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Users.ResetProviderPassword;
+using Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telemedicine;
+using Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin;
 
-namespace Curogram_Automation_Testing.appManager
+namespace Curogram_Automation_Testing.AppManager
 {
     internal class TaskManager
     {

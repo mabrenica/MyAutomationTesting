@@ -1,5 +1,5 @@
 ﻿using Curogram_Automation_Testing.App_manager;
-using Curogram_Automation_Testing.appManager;
+using Curogram_Automation_Testing.AppManager;
 
 
 namespace Curogram_Automation_Testing

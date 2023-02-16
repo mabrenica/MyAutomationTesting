@@ -3,7 +3,7 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 using NUnit.Framework;
 
-namespace Curogram_Automation_Testing.automationTestScripts.curogramWebApp.AddUsers
+namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.AddUsers
 {
 
     [TestFixture]
@@ -220,7 +220,9 @@ namespace Curogram_Automation_Testing.automationTestScripts.curogramWebApp.AddUs
             catch (Exception e) 
             {
                 Console.WriteLine("Add user test: Fail - - " + e.Message);
-
+                var result = e.Message;
+                driver.Quit();
+                Assert.That(result, Is.EqualTo("Pass"));
             }
 }
     }

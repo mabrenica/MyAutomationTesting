@@ -11,9 +11,9 @@ using OpenQA.Selenium.Support.UI;
 using NUnit.Framework;
 using System.Net.Http.Headers;
 using System.Net;
-using Curogram_Automation_Testing.appManager;
+using Curogram_Automation_Testing.AppManager;
 
-namespace Curogram_Automation_Testing.automationTestScripts.curogramWebApp.users.ResetProviderPassword
+namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Users.ResetProviderPassword
 {
     [TestFixture]
     [Parallelizable]
@@ -23,7 +23,7 @@ namespace Curogram_Automation_Testing.automationTestScripts.curogramWebApp.users
         public static String LastName;
         public static String Email;
         public static String Password;
- 
+
         //modify class variables
         public static void ModifyVars()
         {
@@ -38,13 +38,13 @@ namespace Curogram_Automation_Testing.automationTestScripts.curogramWebApp.users
             ResetProviderPassword.Email = genEmail;
 
             var genPassword = stringGen.StringGenerator();
-            ResetProviderPassword.Password = genPassword;
+            ResetProviderPassword.Password = genPassword + 11;
         }
  
 
 
 
-        private IWebDriver? driver = new FirefoxDriver();
+        private IWebDriver? driver;
         public IDictionary<string, object>? vars { get; private set; }
         private IJavaScriptExecutor? js;
 
@@ -71,10 +71,9 @@ namespace Curogram_Automation_Testing.automationTestScripts.curogramWebApp.users
                 return whNow.First().ToString();
             }
         }
-  
+
         public async Task ApiRequest()
         {
-            ModifyVars();
             var handler = new HttpClientHandler();
             handler.AutomaticDecompression = ~DecompressionMethods.None;
 
@@ -167,7 +166,7 @@ namespace Curogram_Automation_Testing.automationTestScripts.curogramWebApp.users
                     return true;
                 });
                 driver.Navigate().Refresh();
-                driver.Manage().Window.Size = new System.Drawing.Size(1305, 700);
+                driver.Manage().Window.Maximize();
                 try
                 {
                     Thread.Sleep(5000);
@@ -208,7 +207,7 @@ namespace Curogram_Automation_Testing.automationTestScripts.curogramWebApp.users
                 driver.FindElement(By.XPath("//td[contains(text(),'[Curogram] Password reset')]")).Click();
                 Thread.Sleep(1000);
                 driver.FindElement(By.XPath("//a[@class='btn btn-info btn-xs']")).Click();
-                //vars["win9623"] = waitForWindow(2000);
+                vars["win9623"] = waitForWindow(2000);
                 driver.SwitchTo().Window(vars["win9623"].ToString());
                 Thread.Sleep(3000);
                 driver.FindElement(By.XPath("//a[contains(text(),'Your Password')]")).Click();
@@ -222,7 +221,7 @@ namespace Curogram_Automation_Testing.automationTestScripts.curogramWebApp.users
                 driver.FindElement(By.XPath("//input[@type='password']")).SendKeys(Keys.Backspace);
 
                 driver.FindElement(By.XPath("//button[contains(text(),'Reset password')]")).Click();
-                Thread.Sleep(20000);
+                Thread.Sleep(30000);
                 Assert.That(driver.FindElement(By.XPath("//div[contains(text(),'Quick Actions')]")).Text, Is.EqualTo("Quick Actions"));
                 driver.Close();
                 driver.SwitchTo().Window(vars["MailSacWindow"].ToString());
@@ -232,7 +231,9 @@ namespace Curogram_Automation_Testing.automationTestScripts.curogramWebApp.users
             catch (Exception e)
             {
                 Console.WriteLine("Reset Provider Password: Fail - - " + e.Message);
-
+                var result = e.Message;
+                driver.Quit();
+                Assert.That(result, Is.EqualTo("Pass"));
             }
         }
 

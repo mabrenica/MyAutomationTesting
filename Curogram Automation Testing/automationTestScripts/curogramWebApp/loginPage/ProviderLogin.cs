@@ -4,7 +4,7 @@ using OpenQA.Selenium.Support.UI;
 using NUnit.Framework;
 
 
-namespace Curogram_Automation_Testing.automationTestScripts.curogramWebApp.providerLoginPage
+namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.ProviderLoginPage
 {
     [TestFixture]
     [Parallelizable]
@@ -30,7 +30,8 @@ namespace Curogram_Automation_Testing.automationTestScripts.curogramWebApp.provi
                     return true;
                 });
                 driver.Navigate().Refresh();
-                driver.Manage().Window.Size = new System.Drawing.Size(1305, 700);
+                driver.Manage().Window.Maximize();
+                //driver.Manage().Window.Size = new System.Drawing.Size(1305, 700);
                 try
                 {
                     Thread.Sleep(5000);
@@ -75,7 +76,8 @@ namespace Curogram_Automation_Testing.automationTestScripts.curogramWebApp.provi
                     return true;
                 });
                 driver.Navigate().Refresh();
-                driver.Manage().Window.Size = new System.Drawing.Size(1305, 700);
+                driver.Manage().Window.Maximize();
+                //driver.Manage().Window.Size = new System.Drawing.Size(1305, 700);
                 driver.FindElement(By.XPath("//a[contains(@href, \'/login?hsLang=en\')]")).Click();
                 try
                 {
@@ -124,7 +126,8 @@ namespace Curogram_Automation_Testing.automationTestScripts.curogramWebApp.provi
                     return true;
                 });
                 driver.Navigate().Refresh();
-                driver.Manage().Window.Size = new System.Drawing.Size(1305, 700);
+                driver.Manage().Window.Maximize();
+                //driver.Manage().Window.Size = new System.Drawing.Size(1305, 700);
                 driver.FindElement(By.XPath("//a[contains(@href, \'/login?hsLang=en\')]")).Click();
                 try
                 {
