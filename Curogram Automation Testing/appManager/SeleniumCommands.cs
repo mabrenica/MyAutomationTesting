@@ -13,6 +13,8 @@ using NUnit.Framework;
 using System.Runtime.ExceptionServices;
 using System.Timers;
 using Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Users.ResetProviderPassword;
+using System.Data;
+using System.Security.Principal;
 
 namespace Curogram_Automation_Testing.AppManager
 {
@@ -21,12 +23,14 @@ namespace Curogram_Automation_Testing.AppManager
         private IWebDriver driver;
         public IDictionary<string, object>? vars { get; private set; }
         private IJavaScriptExecutor js;
+        public static List<string> windows = new List<string>();
 
         //Start driver
         public void StartDriver()
         {
-            driver = new FirefoxDriver();
+            driver = new ChromeDriver();
             driver.Manage().Window.Maximize();
+            SeleniumCommands.windows.Add(driver.CurrentWindowHandle);
         }
         //click on element
         public void ClickOn(string elementName)
@@ -37,7 +41,12 @@ namespace Curogram_Automation_Testing.AppManager
         //navigate to a website
         public void NavTo(string siteUrl)
         {
-            driver.Navigate().GoToUrl(siteUrl);
+            Task.Run(() =>
+            {               
+                driver.Navigate().GoToUrl(siteUrl);
+            }).Wait(TimeSpan.FromSeconds(30));
+
+            driver.Navigate().Refresh();
         }
 
         //generate random strings
@@ -82,6 +91,26 @@ namespace Curogram_Automation_Testing.AppManager
             driver.Quit();
         }
 
+        //Wait until element is present
+        public void WUntil(int timeOutInSeconds, string targetElement)
+        {
+            {
+                WebDriverWait wait = new WebDriverWait(driver, System.TimeSpan.FromSeconds(timeOutInSeconds));
+                wait.Until(driver => driver.FindElements(By.XPath(targetElement)).Count > 0);
+            }
+        }
 
+        //Window manager
+        public void newWindow()
+        {
+            driver.SwitchTo().NewWindow(WindowType.Window);
+            SeleniumCommands.windows.Add(driver.CurrentWindowHandle);
+        }
+
+        //Switch to window
+        public void SwitchWin(int windowNum)
+        {
+            driver.SwitchTo().Window(SeleniumCommands.windows[windowNum]);
+        }
     }
 }
