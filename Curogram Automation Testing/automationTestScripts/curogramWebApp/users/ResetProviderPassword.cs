@@ -28,16 +28,16 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Users
         public static void ModifyVars()
         {
             SeleniumCommands stringGen= new SeleniumCommands();
-            var genFirstName = stringGen.StringGenerator();
+            var genFirstName = stringGen.StringGenerator("allletters");
             ResetProviderPassword.FirstName = genFirstName;
 
-            var genLastName = stringGen.StringGenerator();
+            var genLastName = stringGen.StringGenerator("allletters");
             ResetProviderPassword.LastName = genLastName;   
 
-            var genEmail = stringGen.StringGenerator();
+            var genEmail = stringGen.StringGenerator("alphaneumeric");
             ResetProviderPassword.Email = genEmail;
 
-            var genPassword = stringGen.StringGenerator();
+            var genPassword = stringGen.StringGenerator("alphaneumeric");
             ResetProviderPassword.Password = genPassword + 11;
         }
  

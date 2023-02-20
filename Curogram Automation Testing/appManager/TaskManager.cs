@@ -12,11 +12,11 @@ namespace Curogram_Automation_Testing.AppManager
         public void ParallelRun()
         {
             //import methods as tasks to be executed
-            ProviderLogin t1= new ProviderLogin();
-            AddUserTest t2 = new AddUserTest();
-            ResetProviderPassword t3 = new ResetProviderPassword();
-            TelemedicineTest t4 = new TelemedicineTest();
-            CpAdminLoginTest t5 = new CpAdminLoginTest();
+            ProviderLogin t1= new();
+            AddUserTest t2 = new();
+            ResetProviderPassword t3 = new();
+            InstantTelemedicineTest t4 = new();
+            CpAdminLoginTest t5 = new();
 
             //running in parallel
             ParallelOptions parallelOptions = new ParallelOptions

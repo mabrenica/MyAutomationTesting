@@ -28,7 +28,11 @@ namespace Curogram_Automation_Testing.AppManager
         //Start driver
         public void StartDriver()
         {
-            driver = new ChromeDriver();
+                     
+            ChromeOptions options = new ChromeOptions();
+            options.AddArguments("use-fake-device-for-media-stream"); 
+            options.AddArguments("use-fake-ui-for-media-stream");
+            driver = new ChromeDriver(options);
             driver.Manage().Window.Maximize();
             SeleniumCommands.windows.Add(driver.CurrentWindowHandle);
         }
@@ -50,13 +54,32 @@ namespace Curogram_Automation_Testing.AppManager
         }
 
         //generate random strings
-        public string StringGenerator()
+        public string StringGenerator(string type)
         {
             Random ranInt = new Random();
             var seedInt = ranInt.Next();
             Random rand = new Random(seedInt);
-            var newString = char.ToUpper(new string(Enumerable.Repeat("abcdefghijklmnopqrstuvwxyz0123456789", 9)
-                .Select(s => s[rand.Next(s.Length)]).ToArray())[0]) + new string(Enumerable.Repeat("abcdefghijklmnopqrstuvwxyz0123456789", 9)
+            string allowedChars = "";
+
+            switch (type)
+            {
+                case "alphaneumeric":
+                    allowedChars = "abcdefghijklmnopqrstuvwxyz0123456789";
+                    break;
+                case "allletters":
+                    allowedChars = "abcdefghijklmnopqrstuvwxyz";
+                    break;
+                case "allnumbers":
+                    allowedChars = "0123456789";
+                    break;
+                default:
+                    allowedChars = "abcdefghijklmnopqrstuvwxyz0123456789";
+                    break;
+            }
+
+
+            var newString = char.ToUpper(new string(Enumerable.Repeat(allowedChars, 9)
+                .Select(s => s[rand.Next(s.Length)]).ToArray())[0]) + new string(Enumerable.Repeat(allowedChars, 9)
                 .Select(s => s[rand.Next(s.Length)]).ToArray()).Substring(1);
             return newString;
         }
