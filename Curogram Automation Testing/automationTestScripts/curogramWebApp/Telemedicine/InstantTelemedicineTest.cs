@@ -38,12 +38,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
         {
             var handler = new HttpClientHandler();
 
-            // If you are using .NET Core 3.0+ you can replace `~DecompressionMethods.None` to `DecompressionMethods.All`
             handler.AutomaticDecompression = ~DecompressionMethods.None;
-
-            // In production code, don't destroy the HttpClient through using, but better use IHttpClientFactory factory or at least reuse an existing HttpClient instance
-            // https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests
-            // https://www.aspnetmonsters.com/2016/08/2016-08-27-httpclientwrong/
             using (var httpClient = new HttpClient(handler))
             {
                 using (var request = new HttpRequestMessage(new HttpMethod("POST"), "https://api-v2.staging.curogram.com/practices/63d295fe2046a186b99b2537/patients"))
@@ -103,43 +98,47 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
                 a.ClickOn("//button[@type='submit']");
                 a.WUntil(60, "//span[contains(text(),'Appointments')]");
                 a.ClickOn("//span[contains(text(),'Appointments')]");
-                a.Pause(5000);
+                a.Pause(5);
 
                 //chosing practice using practice cover image
                 a.ClickOn("//div[@style='background-image: url(\"https://files.staging.curogram.com/9efe4805-ffe4-492d-bf70-66fff1fd45e3.png\");']");
 
-                //creating patient record
-                //a.Pause(5000);
-                //a.ClickOn("//span[contains(text(),'Patients')]");
-                //a.Pause(3000);
-                //a.ClickOn("//curogram-icon[@name='plus']");
-                //a.Pause(2000);
-                //a.Type("//input[@placeholder='First Name']", InstantTelemedicineTest.FirstName);
-                //a.Pause(1000);
-                //a.Type("//input[@placeholder='Last Name']", InstantTelemedicineTest.LastName);
-                //a.Pause(1000);
-                //a.Type("//input[@placeholder='Email 1']", InstantTelemedicineTest.Email + "@mailsac.com");
-                //a.Pause(2000);
-                //a.ClickOn("//button[contains(text(),'Create')]");
-                //a.Pause(5000);
-
                 //Opening patient conversation
-                a.Pause(5000);
+                a.Pause(5);
                 a.ClickOn("//curogram-icon[@apptooltip='New appointment']");
-                a.Pause(5000);
+                a.Pause(5);
                 a.ClickOn("//input[@placeholder='Find by name or phone number...']");
                 a.Type("//input[@placeholder='Find by name or phone number...']", InstantTelemedicineTest.FirstName);
-                a.Pause(5000);
+                a.Pause(5);
                 a.ClickOn("//li[@class='list__item ng-star-inserted']");
 
                 //Create instant telemedicine appointment
-                a.WUntil(60, "//button[@class='btn btn-primary']");
+                a.Pause(4);
                 a.ClickOn("//button[@class='btn btn-primary']");
-                //a.newWindow();
-                //a.SwitchWin(1);
-               // a.NavTo("https://mailsac.com");
-                //a.SwitchWin(0);
-                //a.DClose();
+                a.Pause(5);
+                a.SwitchWin(0);
+                a.ClickOn("//span[contains(text(),'Telemedicine')]");
+                a.Pause(3);
+                a.Type("//input[@placeholder='Find by name']", InstantTelemedicineTest.FirstName);
+                a.Pause(3);
+                a.ClickOn("//curogram-icon[@name='more']");
+                a.Pause(2);
+                a.ClickOn("//curogram-icon[@name='refresh-1']");
+                a.Pause(2);
+                a.Type("//input[@placeholder='Phone']", "9999999999");
+                a.Pause(2);
+                a.ClickOn("//button[@class='btn btn-peterriver']");
+                a.Pause(6);
+
+                //open conversation
+                a.ClickOn("//span[contains(text(),'Conversations')]");
+                a.Pause(4);
+                a.Type("//input[@placeholder='Find by name or phone number...']", InstantTelemedicineTest.FirstName);
+                a.Pause(4);
+                a.ClickOn("//div[@class='conversation-title text-truncate']");
+                a.Pause(4);
+
+
                 Console.WriteLine("Telemedicine Test: Pass");
             }
             catch (Exception e)

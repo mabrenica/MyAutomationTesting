@@ -34,7 +34,7 @@ namespace Curogram_Automation_Testing.AppManager
             options.AddArguments("use-fake-ui-for-media-stream");
             driver = new ChromeDriver(options);
             driver.Manage().Window.Maximize();
-            SeleniumCommands.windows.Add(driver.CurrentWindowHandle);
+            SeleniumCommands.windows.Add(driver.WindowHandles[0]);
         }
         //click on element
         public void ClickOn(string elementName)
@@ -91,9 +91,9 @@ namespace Curogram_Automation_Testing.AppManager
         }
 
         //Pause
-        public void Pause(int timeInMiliseconds)
+        public void Pause(int timeInSeconds)
         {
-            Thread.Sleep(timeInMiliseconds);
+            Thread.Sleep(TimeSpan.FromSeconds(timeInSeconds));
 
         }
 
@@ -124,12 +124,16 @@ namespace Curogram_Automation_Testing.AppManager
         }
 
         //Window manager
-        public void newWindow()
+        public void newWindow(int windowNum)
         {
             driver.SwitchTo().NewWindow(WindowType.Window);
-            SeleniumCommands.windows.Add(driver.CurrentWindowHandle);
+            SeleniumCommands.windows.Add(driver.WindowHandles[windowNum]);
         }
-
+        //Save open window
+        public void saveWindow(int windowNum)
+        {
+            SeleniumCommands.windows.Add(driver.WindowHandles[windowNum]);
+        }
         //Switch to window
         public void SwitchWin(int windowNum)
         {
