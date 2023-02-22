@@ -8,6 +8,7 @@ using System.Net.Http.Headers;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Curogram_Automation_Testing.CurogramApi.Practice;
 
 namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telemedicine
 {
@@ -19,70 +20,47 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
         public static String LastName;
         public static String Email;
 
+
         public static void ModifyVars()
         {
             SeleniumCommands stringGen = new SeleniumCommands();
             var genFirstName = stringGen.StringGenerator("allletters");
             InstantTelemedicineTest.FirstName = genFirstName;
-
             var genLastName = stringGen.StringGenerator("allletters");
             InstantTelemedicineTest.LastName = genLastName;
-
             var genEmail = stringGen.StringGenerator("allletters");
             InstantTelemedicineTest.Email = genEmail;
 
         }
 
+        //Update practice timezone to make sure automated messages are working
+        public async Task TimeZone()
+        {
+            var practiceName = "TestRigor Automation General (Do not change settings)";
+            var authToken = "Basic eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXZpY2VUeXBlIjoid2ViIiwiaXNzdWVyIjoiYXBpIiwiYWNjb3VudElkIjoiNjNlMzZmYTFhY2EyMTA1NGM2YzNjOGQ3IiwiY3JlYXRlZEF0IjoxNjc3MDgxNDc1MDc0LCJidXNpbmVzc0lkIjoiNjNkMjk1ZmUyMDQ2YTE4NmI5OWIyNTM3IiwiaWF0IjoxNjc3MDgxNDc1LCJleHAiOjE2Nzk2NzM0NzUsImlzcyI6ImFwaSJ9.akR27vti8P0wn2dnl8OPtPs2u4JPmzoxE_CQDJqJ7x4NIiejSsR8onbYaBYn2Zv2bqeeuMheMI6cqfvN4ScXB1oPYbzcsVWLI_QOKuUEuHWso9z1w6lss9k-zOD64aECe7lWwgLCdKDF5WLv59Pe0lkUsv5TXNZmM6OABOp_fUX9ccF8ge59gNMzLYOMCg762-eMz2Yl9zqKRZGw6I5K4AXSCwPOp20nDJ6CVP0bwXzQwba9wJ_76yHWTPWReLJU64eh5JQ_0Cdb-_L4IIvtPjavdzstwBrMd59XJh59e-aRoaS6Jd0QJpXu7xT4mgE__YZz2teoFzhHpEKNlQnKgw";
+            var response = await new AutoUpdateTimeZone().AutoTimeZone(authToken, practiceName);
+            Console.WriteLine(response);
+        }
+
         //Add Patient record through API
         public async Task AddPatientApi()
         {
-            var handler = new HttpClientHandler();
-
-            handler.AutomaticDecompression = ~DecompressionMethods.None;
-            using (var httpClient = new HttpClient(handler))
-            {
-                using (var request = new HttpRequestMessage(new HttpMethod("POST"), "https://api-v2.staging.curogram.com/practices/63d295fe2046a186b99b2537/patients"))
-                {
-                    request.Headers.TryAddWithoutValidation("Accept", "application/json, text/plain, */*");
-                    request.Headers.TryAddWithoutValidation("Accept-Language", "en-US,en;q=0.9");
-                    request.Headers.TryAddWithoutValidation("Authorization", "Basic eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXZpY2VUeXBlIjoid2ViIiwiaXNzdWVyIjoiYXBpIiwiYWNjb3VudElkIjoiNjNlMzZmYTFhY2EyMTA1NGM2YzNjOGQ3IiwiY3JlYXRlZEF0IjoxNjc2OTE3NDI1NzY1LCJidXNpbmVzc0lkIjoiNjNkMjk1ZmUyMDQ2YTE4NmI5OWIyNTM3IiwiaWF0IjoxNjc2OTE3NDI1LCJleHAiOjE2Nzk1MDk0MjUsImlzcyI6ImFwaSJ9.berD3cG1L965IDr40GrfODC7A_5STNgvu1Fc9FsRHPG53LhXHFTDtbVyy3qOUB3vjnBnB4Hd3h2oU0lrSDOMXGQ4j_FlSP3IafOk6vhv1xjoQH3MyLdyL3eLXUSVKIqKti8QfmH4Omnimu62r_DMh_eF7W5XKddIPsMnXg3qJN7kRpPLuX0m7GUo1_uG3SfwvmWnqc_0fSzKOQCwm3A7D-BiiQ_O2jH3eQRPQLWiwp8gnG3do9ICXFRqxDLQxI6YpfLZ8hzQb8xThNg9Kk67vNTUzvEnWdm29qbVCOMnI-PT2lEey_vwiG85jClzo1RqQfHklAi0YNKBcMxHd0qsvA");
-                    request.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-                    request.Headers.TryAddWithoutValidation("Origin", "https://app.staging.curogram.com");
-                    request.Headers.TryAddWithoutValidation("Referer", "https://app.staging.curogram.com/");
-                    request.Headers.TryAddWithoutValidation("Sec-Fetch-Dest", "empty");
-                    request.Headers.TryAddWithoutValidation("Sec-Fetch-Mode", "cors");
-                    request.Headers.TryAddWithoutValidation("Sec-Fetch-Site", "same-site");
-                    request.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36");
-                    request.Headers.TryAddWithoutValidation("sec-ch-ua", "\"Chromium\";v=\"110\", \"Not A(Brand\";v=\"24\", \"Google Chrome\";v=\"110\"");
-                    request.Headers.TryAddWithoutValidation("sec-ch-ua-mobile", "?0");
-                    request.Headers.TryAddWithoutValidation("sec-ch-ua-platform", "\"Windows\"");
-                    request.Headers.TryAddWithoutValidation("sec-gpc", "1");
-
-                    request.Content = new StringContent("{\"firstName\":\""+ InstantTelemedicineTest.FirstName + "\",\"lastName\":\""+ InstantTelemedicineTest.LastName + "\",\"emails\":[\""+ InstantTelemedicineTest.Email+ "@mailsac.com"+"\"]}");
-                    request.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-
-                    var response = await httpClient.SendAsync(request);
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var responseContent = await response.Content.ReadAsStringAsync();
-                        Console.WriteLine(responseContent);
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Request failed with status code: {response.StatusCode}");
-                    }
-                }
-            }
+            var firstName = InstantTelemedicineTest.FirstName;
+            var lastName = InstantTelemedicineTest.LastName;
+            var email = InstantTelemedicineTest.Email+"@mailsac.com";
+            var authToken = "Basic eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXZpY2VUeXBlIjoid2ViIiwiaXNzdWVyIjoiYXBpIiwiYWNjb3VudElkIjoiNjNlMzZmYTFhY2EyMTA1NGM2YzNjOGQ3IiwiY3JlYXRlZEF0IjoxNjc3MDgxNDc1MDc0LCJidXNpbmVzc0lkIjoiNjNkMjk1ZmUyMDQ2YTE4NmI5OWIyNTM3IiwiaWF0IjoxNjc3MDgxNDc1LCJleHAiOjE2Nzk2NzM0NzUsImlzcyI6ImFwaSJ9.akR27vti8P0wn2dnl8OPtPs2u4JPmzoxE_CQDJqJ7x4NIiejSsR8onbYaBYn2Zv2bqeeuMheMI6cqfvN4ScXB1oPYbzcsVWLI_QOKuUEuHWso9z1w6lss9k-zOD64aECe7lWwgLCdKDF5WLv59Pe0lkUsv5TXNZmM6OABOp_fUX9ccF8ge59gNMzLYOMCg762-eMz2Yl9zqKRZGw6I5K4AXSCwPOp20nDJ6CVP0bwXzQwba9wJ_76yHWTPWReLJU64eh5JQ_0Cdb-_L4IIvtPjavdzstwBrMd59XJh59e-aRoaS6Jd0QJpXu7xT4mgE__YZz2teoFzhHpEKNlQnKgw";
+            var response = await new CreatePatient().CreatePatientMethod(firstName, lastName, email, authToken);
+            Console.WriteLine(response);
         }
+
 
 
         [Test]
         public void Telemed()
         {
+            TimeZone();
             ModifyVars();
             AddPatientApi();
-            Console.WriteLine("First Name is :" + InstantTelemedicineTest.FirstName + " Last Name is : " + InstantTelemedicineTest.LastName);
-            var FullName = InstantTelemedicineTest.FirstName + " " + InstantTelemedicineTest.LastName;
             SeleniumCommands a = new SeleniumCommands();
             Console.WriteLine("Testing: Telemedicine Test");
            
@@ -103,7 +81,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
                 //chosing practice using practice cover image
                 a.ClickOn("//div[@style='background-image: url(\"https://files.staging.curogram.com/9efe4805-ffe4-492d-bf70-66fff1fd45e3.png\");']");
 
-                //Opening patient conversation
+                //Creating telemedicine appointment
                 a.Pause(5);
                 a.ClickOn("//curogram-icon[@apptooltip='New appointment']");
                 a.Pause(5);
@@ -111,24 +89,6 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
                 a.Type("//input[@placeholder='Find by name or phone number...']", InstantTelemedicineTest.FirstName);
                 a.Pause(5);
                 a.ClickOn("//li[@class='list__item ng-star-inserted']");
-
-                //Create instant telemedicine appointment
-                a.Pause(4);
-                a.ClickOn("//button[@class='btn btn-primary']");
-                a.Pause(5);
-                a.SwitchWin(0);
-                a.ClickOn("//span[contains(text(),'Telemedicine')]");
-                a.Pause(3);
-                a.Type("//input[@placeholder='Find by name']", InstantTelemedicineTest.FirstName);
-                a.Pause(3);
-                a.ClickOn("//curogram-icon[@name='more']");
-                a.Pause(2);
-                a.ClickOn("//curogram-icon[@name='refresh-1']");
-                a.Pause(2);
-                a.Type("//input[@placeholder='Phone']", "9999999999");
-                a.Pause(2);
-                a.ClickOn("//button[@class='btn btn-peterriver']");
-                a.Pause(6);
 
                 //open conversation
                 a.ClickOn("//span[contains(text(),'Conversations')]");
