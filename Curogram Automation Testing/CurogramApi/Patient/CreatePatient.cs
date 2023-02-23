@@ -8,7 +8,6 @@ namespace Curogram_Automation_Testing.CurogramApi.Practice
     [TestFixture]
     internal class CreatePatient
     {
-        [Test]
         public async Task<HttpResponseMessage> CreatePatientMethod(string firstName, string lastName, string email, string authToken)
         {
             var handler = new HttpClientHandler();
@@ -56,9 +55,9 @@ namespace Curogram_Automation_Testing.CurogramApi.Practice
 /* use this to call this method from a different class
          public async Task AddPatientApi()
         {
-            var firstName = InstantTelemedicineTest.FirstName;
-            var lastName = InstantTelemedicineTest.LastName;
-            var email = InstantTelemedicineTest.Email+"@mailsac.com";
+            var firstName = "{firstName}";
+            var lastName = "{lastName}";
+            var email = "{email}";
             var authToken = "Basic eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXZpY2VUeXBlIjoid2ViIiwiaXNzdWVyIjoiYXBpIiwiYWNjb3VudElkIjoiNjNlMzZmYTFhY2EyMTA1NGM2YzNjOGQ3IiwiY3JlYXRlZEF0IjoxNjc3MDgxNDc1MDc0LCJidXNpbmVzc0lkIjoiNjNkMjk1ZmUyMDQ2YTE4NmI5OWIyNTM3IiwiaWF0IjoxNjc3MDgxNDc1LCJleHAiOjE2Nzk2NzM0NzUsImlzcyI6ImFwaSJ9.akR27vti8P0wn2dnl8OPtPs2u4JPmzoxE_CQDJqJ7x4NIiejSsR8onbYaBYn2Zv2bqeeuMheMI6cqfvN4ScXB1oPYbzcsVWLI_QOKuUEuHWso9z1w6lss9k-zOD64aECe7lWwgLCdKDF5WLv59Pe0lkUsv5TXNZmM6OABOp_fUX9ccF8ge59gNMzLYOMCg762-eMz2Yl9zqKRZGw6I5K4AXSCwPOp20nDJ6CVP0bwXzQwba9wJ_76yHWTPWReLJU64eh5JQ_0Cdb-_L4IIvtPjavdzstwBrMd59XJh59e-aRoaS6Jd0QJpXu7xT4mgE__YZz2teoFzhHpEKNlQnKgw";
             var response = await new CreatePatient().CreatePatientMethod(firstName, lastName, email, authToken);
             Console.WriteLine(response);

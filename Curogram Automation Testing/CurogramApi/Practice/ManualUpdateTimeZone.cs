@@ -7,7 +7,7 @@ namespace Curogram_Automation_Testing.CurogramApi.Practice
     [TestFixture]
     internal class ManualUpdateTimeZone
     {
-        [Test]
+
         public async Task<HttpResponseMessage> UpdateTimeZone(string authToken, string practiceName, string timeZone)
         {
             var handler = new HttpClientHandler();

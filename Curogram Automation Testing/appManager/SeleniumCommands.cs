@@ -15,6 +15,7 @@ using System.Timers;
 using Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Users.ResetProviderPassword;
 using System.Data;
 using System.Security.Principal;
+using NUnit.Framework.Constraints;
 
 namespace Curogram_Automation_Testing.AppManager
 {
@@ -25,27 +26,28 @@ namespace Curogram_Automation_Testing.AppManager
         private IJavaScriptExecutor js;
         public static List<string> windows = new List<string>();
 
-        //Start driver
+        //1. Start driver and save window as root [0]
         public void StartDriver()
         {
                      
             ChromeOptions options = new ChromeOptions();
             options.AddArguments("use-fake-device-for-media-stream"); 
             options.AddArguments("use-fake-ui-for-media-stream");
+            options.AddArguments("--disable-notifications");
             driver = new ChromeDriver(options);
             driver.Manage().Window.Maximize();
             SeleniumCommands.windows.Add(driver.WindowHandles[0]);
         }
 
 
-        //click on element
+        //2. click on element
         public void ClickOn(string elementName)
         {
             driver.FindElement(By.XPath(elementName)).Click();
         }
 
 
-        //navigate to a website
+        //3. navigate to a website
         public void NavTo(string siteUrl)
         {
             Task.Run(() =>
@@ -57,7 +59,7 @@ namespace Curogram_Automation_Testing.AppManager
         }
 
 
-        //generate random strings
+        //4. generate random strings
         public string StringGenerator(string type)
         {
             Random ranInt = new Random();
@@ -89,14 +91,14 @@ namespace Curogram_Automation_Testing.AppManager
         }
 
 
-        //Quit driver
+        //5. Close current window
         public void DClose()
         {
             driver.Close();
         }
 
 
-        //Pause
+        //6. Pause
         public void Pause(int timeInSeconds)
         {
             Thread.Sleep(TimeSpan.FromSeconds(timeInSeconds));
@@ -104,7 +106,7 @@ namespace Curogram_Automation_Testing.AppManager
         }
 
 
-        //Send Key
+        //7. Send Key
         public void Type(string targetElement, string textInput)
         {
             js = (IJavaScriptExecutor)driver;
@@ -116,14 +118,14 @@ namespace Curogram_Automation_Testing.AppManager
         }
 
 
-        //Close the driver
+        //8. Close entire driver
         public void DQuit()
         {
             driver.Quit();
         }
 
 
-        //Wait until element is present
+        //9. Wait until element is present
         public void WUntil(int timeOutInSeconds, string targetElement)
         {
             {
@@ -133,7 +135,7 @@ namespace Curogram_Automation_Testing.AppManager
         }
 
 
-        //Open new window
+        //10. Open new window
         public void newWindow(int windowNum)
         {
             driver.SwitchTo().NewWindow(WindowType.Window);
@@ -141,24 +143,56 @@ namespace Curogram_Automation_Testing.AppManager
         }
 
 
-        //Save open window
+        //11. Save open window
         public void saveWindow(int windowNum)
         {
             SeleniumCommands.windows.Add(driver.WindowHandles[windowNum]);
         }
 
 
-        //Switch to window
+        //12. Switch to window
         public void SwitchWin(int windowNum)
         {
             driver.SwitchTo().Window(SeleniumCommands.windows[windowNum]);
         }
 
-        [Test]
-        public void addList()
+        //13. Save element text and returns value
+        public string SaveText(string elementName)
         {
-            SeleniumCommands.windows.Add( new string("testwindow"));
-            Console.WriteLine(SeleniumCommands.windows[0]);
-         }
+            var textName = driver.FindElement(By.XPath(elementName)).Text;
+            return textName;
+        }
+
+        //14.Verify if element is present
+        public string CheckElement(string elementName)
+        {
+            bool targetElement = driver.FindElement(By.XPath(elementName)).Displayed;
+            if (targetElement)
+            {
+                return "Passed";
+            }
+            else
+            {
+                throw new Exception($"Element not found: " + elementName);
+            };
+            
+        }
+
+
+        //15. Simulate Manual typing
+        public void TypeM(string targetElement, string text)
+        {
+            int charCount = text.Length;
+
+            for (int i = 0; i < charCount;) {           
+                driver.FindElement(By.XPath(targetElement)).SendKeys(Char.ToString(text[i++]));
+                Thread.Sleep(50);
+            };
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath(targetElement)).SendKeys(Keys.Space);
+            Thread.Sleep(1000);
+            driver.FindElement(By.XPath(targetElement)).SendKeys(Keys.Backspace);
+        }
+
     }
 }

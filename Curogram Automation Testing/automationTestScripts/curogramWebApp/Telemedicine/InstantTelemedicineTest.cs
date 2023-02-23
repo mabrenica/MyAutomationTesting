@@ -1,21 +1,14 @@
 ﻿using Curogram_Automation_Testing.AppManager;
-using Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Users.ResetProviderPassword;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using Curogram_Automation_Testing.CurogramApi.Practice;
 
 namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telemedicine
 {
     [TestFixture]
     [Parallelizable]
-    internal class InstantTelemedicineTest
+    class InstantTelemedicineTest
     {
+
         public static String FirstName;
         public static String LastName;
         public static String Email;
@@ -23,6 +16,8 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
 
         public static void ModifyVars()
         {
+
+
             SeleniumCommands stringGen = new SeleniumCommands();
             var genFirstName = stringGen.StringGenerator("allletters");
             InstantTelemedicineTest.FirstName = genFirstName;
@@ -30,8 +25,8 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
             InstantTelemedicineTest.LastName = genLastName;
             var genEmail = stringGen.StringGenerator("allletters");
             InstantTelemedicineTest.Email = genEmail;
-
         }
+
 
         //Update practice timezone to make sure automated messages are working
         public async Task TimeZone()
@@ -41,6 +36,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
             var response = await new AutoUpdateTimeZone().AutoTimeZone(authToken, practiceName);
             Console.WriteLine(response);
         }
+
 
         //Add Patient record through API
         public async Task AddPatientApi()
@@ -74,33 +70,69 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
                 a.Type("//input[@placeholder='Enter your email address']", "testrigorcpuser@curogram.com");
                 a.Type("//input[@placeholder='Enter password']", "password1");
                 a.ClickOn("//button[@type='submit']");
-                a.WUntil(60, "//span[contains(text(),'Appointments')]");
-                a.ClickOn("//span[contains(text(),'Appointments')]");
-                a.Pause(5);
+                a.WUntil(60, "//span[contains(text(),'Patients')]");
+                a.ClickOn("//span[contains(text(),'Patients')]");
+                a.Pause(4);
+
 
                 //chosing practice using practice cover image
                 a.ClickOn("//div[@style='background-image: url(\"https://files.staging.curogram.com/9efe4805-ffe4-492d-bf70-66fff1fd45e3.png\");']");
+                a.Pause(3);
 
-                //Creating telemedicine appointment
-                a.Pause(5);
-                a.ClickOn("//curogram-icon[@apptooltip='New appointment']");
-                a.Pause(5);
-                a.ClickOn("//input[@placeholder='Find by name or phone number...']");
-                a.Type("//input[@placeholder='Find by name or phone number...']", InstantTelemedicineTest.FirstName);
-                a.Pause(5);
-                a.ClickOn("//li[@class='list__item ng-star-inserted']");
 
-                //open conversation
-                a.ClickOn("//span[contains(text(),'Conversations')]");
-                a.Pause(4);
+                //Locate patient in Patients tab and open patient conversation
                 a.Type("//input[@placeholder='Find by name or phone number...']", InstantTelemedicineTest.FirstName);
                 a.Pause(4);
-                a.ClickOn("//div[@class='conversation-title text-truncate']");
+                a.ClickOn("//div[@class='user-info__name user-info__name--cropped']");
                 a.Pause(4);
+                a.ClickOn("//curogram-icon[@name='conversation-filled']");
+                a.Pause(5);
 
 
+                //create instant telemedicine appointment
+                a.ClickOn("//curogram-icon[@apptooltip='Schedule an appointment']");
+                a.Pause(4);
+                a.ClickOn("//button[@class='btn btn-primary']");
+                a.Pause(6);               
+                a.saveWindow(1);
+
+
+                //Switch back to conversation window
+                a.SwitchWin(0);
+                a.ClickOn("//a[@class='text-info']");
+                a.Pause(15);
+                a.saveWindow(2);
+                a.SwitchWin(2);
+
+
+                //Check if video is working
+                a.CheckElement("//video[@style='height: 100%; width: 100%; object-fit: cover; position: absolute;']");
+                a.CheckElement("//video[@style='height: 100%; width: 100%; object-fit: cover; transform: scaleX(-1);']");
+                a.SwitchWin(1);
+                a.CheckElement("//video[@style='height: 100%; position: absolute;']");
+                a.CheckElement("//video[@style='height: 100%; position: absolute; transform: scaleX(-1);']");
+                a.Pause(5);
+
+
+                //Mark visit complete
+                a.ClickOn("//button[@apptooltip='End Call']");
+                a.Pause(2);
+                a.ClickOn("//button[@class=\"btn btn-danger\"]");
+                a.Pause(5);
+
+
+                //Verify in telemedicine tab
+                a.TypeM("//input[@placeholder='Find by name']", InstantTelemedicineTest.FirstName);
+                a.Pause(5);
+                a.CheckElement("//span[contains(text(),\" Visit completed \")]");
+
+
+                //Test success
+                a.DQuit();
                 Console.WriteLine("Telemedicine Test: Pass");
             }
+
+                //Test Failed
             catch (Exception e)
             {
                 Console.WriteLine("Telemedicine Test: Fail");
@@ -110,5 +142,6 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
                 Assert.That(result, Is.EqualTo("Pass"));
             }
         }
+
     }
 }
