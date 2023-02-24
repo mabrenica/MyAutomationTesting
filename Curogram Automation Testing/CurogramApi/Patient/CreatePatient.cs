@@ -5,7 +5,7 @@ using Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telemedic
 
 namespace Curogram_Automation_Testing.CurogramApi.Practice
 {
-    [TestFixture]
+
     internal class CreatePatient
     {
         public async Task<HttpResponseMessage> CreatePatientMethod(string firstName, string lastName, string email, string authToken)

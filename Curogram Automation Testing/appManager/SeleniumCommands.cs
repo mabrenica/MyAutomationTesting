@@ -21,22 +21,39 @@ namespace Curogram_Automation_Testing.AppManager
 {
     internal class SeleniumCommands
     {
-        private IWebDriver driver;
+        public string? Name { get; set; }
+        public string? Handle { get; set; }
+
+        private IWebDriver? driver;
         public IDictionary<string, object>? vars { get; private set; }
-        private IJavaScriptExecutor js;
-        public static List<string> windows = new List<string>();
+        private IJavaScriptExecutor? js;
+        public List<SeleniumCommands> windows = new List<SeleniumCommands>();
 
         //1. Start driver and save window as root [0]
-        public void StartDriver()
+        public void StartDriver(string browserName)
         {
-                     
-            ChromeOptions options = new ChromeOptions();
-            options.AddArguments("use-fake-device-for-media-stream"); 
-            options.AddArguments("use-fake-ui-for-media-stream");
-            options.AddArguments("--disable-notifications");
-            driver = new ChromeDriver(options);
-            driver.Manage().Window.Maximize();
-            SeleniumCommands.windows.Add(driver.WindowHandles[0]);
+            var browserSwitch = browserName;
+            
+            switch (browserSwitch)
+            {
+                case "Chrome":
+                    ChromeOptions? options = new();
+                    options.AddArguments("use-fake-device-for-media-stream");
+                    options.AddArguments("use-fake-ui-for-media-stream");
+                    options.AddArguments("--disable-notifications");
+                    driver = new ChromeDriver(options);
+                    driver.Manage().Window.Maximize();
+                    break;
+
+                case "Firefox":
+                    FirefoxOptions foptions = new();
+                    driver = new FirefoxDriver(foptions);
+                    driver.Manage().Window.Maximize();
+                    break;
+
+
+            }
+
         }
 
 
@@ -69,7 +86,7 @@ namespace Curogram_Automation_Testing.AppManager
 
             switch (type)
             {
-                case "alphaneumeric":
+                case "alphanumeric":
                     allowedChars = "abcdefghijklmnopqrstuvwxyz0123456789";
                     break;
                 case "allletters":
@@ -135,35 +152,14 @@ namespace Curogram_Automation_Testing.AppManager
         }
 
 
-        //10. Open new window
-        public void newWindow(int windowNum)
-        {
-            driver.SwitchTo().NewWindow(WindowType.Window);
-            SeleniumCommands.windows.Add(driver.WindowHandles[windowNum]);
-        }
-
-
-        //11. Save open window
-        public void saveWindow(int windowNum)
-        {
-            SeleniumCommands.windows.Add(driver.WindowHandles[windowNum]);
-        }
-
-
-        //12. Switch to window
-        public void SwitchWin(int windowNum)
-        {
-            driver.SwitchTo().Window(SeleniumCommands.windows[windowNum]);
-        }
-
-        //13. Save element text and returns value
+        //10. Save element text and returns value
         public string SaveText(string elementName)
         {
             var textName = driver.FindElement(By.XPath(elementName)).Text;
             return textName;
         }
 
-        //14.Verify if element is present
+        //11.Verify if element is present
         public string CheckElement(string elementName)
         {
             bool targetElement = driver.FindElement(By.XPath(elementName)).Displayed;
@@ -179,7 +175,7 @@ namespace Curogram_Automation_Testing.AppManager
         }
 
 
-        //15. Simulate Manual typing
+        //12. Simulate Manual typing
         public void TypeM(string targetElement, string text)
         {
             int charCount = text.Length;
@@ -194,5 +190,32 @@ namespace Curogram_Automation_Testing.AppManager
             driver.FindElement(By.XPath(targetElement)).SendKeys(Keys.Backspace);
         }
 
+
+        //13. Save Pop up windows
+        public void SaveWindow(string windowName, int windowNumber)
+        {
+
+            string currentHandle = driver.WindowHandles[windowNumber];
+            string wN = windowName;
+            windows.Add(new SeleniumCommands { Name = wN, Handle = currentHandle });
+        }
+
+        //14. Switch to saved window
+        public void SwitchWindow(string windowName)
+        {
+            string handle = windows.FirstOrDefault(w => w.Name == windowName)?.Handle;
+            driver.SwitchTo().Window(handle);
+        }
+
+        //15. Start new window and save
+        public void StartNewWindow(string windowName)
+        {
+            driver.SwitchTo().NewWindow(WindowType.Window);
+            string currentHandle = driver.CurrentWindowHandle;
+            string wN = windowName;
+            windows.Add(new SeleniumCommands { Name = wN, Handle = currentHandle });
+        }
     }
+ 
+    
 }

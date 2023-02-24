@@ -3,11 +3,9 @@ using Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.AddUsers;
 using Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Users.ResetProviderPassword;
 using Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telemedicine;
 using Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin;
-using NUnit.Framework;
 
 namespace Curogram_Automation_Testing.AppManager
 {
-    [TestFixture]
     internal class TaskManager
     {
 
@@ -17,14 +15,9 @@ namespace Curogram_Automation_Testing.AppManager
             ProviderLogin t1= new();
             AddUserTest t2 = new();
             ResetProviderPassword t3 = new();
-            InstantTelemedicineTest t4 = new();
             CpAdminLoginTest t5 = new();
-
-
-
-
-
-
+            Telemed1 t6 = new();
+            Telemed2 t7 = new();
             //running in parallel
             ParallelOptions parallelOptions = new ParallelOptions
             {
@@ -35,9 +28,9 @@ namespace Curogram_Automation_Testing.AppManager
              () => t1.ProviderLoginTest(),
              () => t2.addUser(),
              () => t3.RestUserPassword(),
-             () => t4.Telemed(),
-             () => t5.CpAdminLogin()
-
+             () => t5.CpAdminLogin(),
+             () => t6.Telemed(),
+             () => t7.Telemed()
 
             );
 

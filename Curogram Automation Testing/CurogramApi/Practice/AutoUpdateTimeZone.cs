@@ -12,24 +12,32 @@ namespace Curogram_Automation_Testing.CurogramApi.Practice
     {
         public static String NewTimeZone;
 
-
         public void AutoUpTime()
         {
             DateTime now = DateTime.UtcNow.AddHours(-8);
-            DateTime fivePm = DateTime.Today.AddHours(17);
-            DateTime elevenPm = DateTime.Today.AddHours(23);
             DateTime nineAm = DateTime.Today.AddHours(9);
+            DateTime threePm = DateTime.Today.AddHours(15);
+            DateTime ninePm = DateTime.Today.AddHours(21);
+            DateTime threeAm = DateTime.Today.AddHours(3).AddDays(1);
 
 
-            if(now >= nineAm && now < fivePm){
+            if (now >= nineAm && now < threePm)
+            {
                 AutoUpdateTimeZone.NewTimeZone = "US/Pacific";
             }
-            else if(now >= fivePm && now < elevenPm){
-                AutoUpdateTimeZone.NewTimeZone = "Asia/Bangkok";
+            else if(now >= threePm && now < ninePm)
+            {
+                AutoUpdateTimeZone.NewTimeZone = "America/New_York";
             }
-            else{
+            else if (now >= ninePm && now < threeAm)
+            {
+                AutoUpdateTimeZone.NewTimeZone = "Asia/Karachi";
+            }
+            else
+            {
                 AutoUpdateTimeZone.NewTimeZone = "Atlantic/Azores";
             };
+            
         }
 
 
