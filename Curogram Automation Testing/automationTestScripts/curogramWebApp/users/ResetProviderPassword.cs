@@ -12,6 +12,7 @@ using NUnit.Framework;
 using System.Net.Http.Headers;
 using System.Net;
 using Curogram_Automation_Testing.AppManager;
+using Curogram_Automation_Testing.appManager;
 
 namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Users.ResetProviderPassword
 {
@@ -107,6 +108,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Users
                     else
                     {
                         Console.WriteLine($"Request failed with status code: {response.StatusCode}");
+
                     }
                 }
 
@@ -226,14 +228,14 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Users
                 driver.Close();
                 driver.SwitchTo().Window(vars["MailSacWindow"].ToString());
                 driver.Close();
-                Console.WriteLine("Reset Provider Login: Pass");
+                TestLogger.Logger("Reset Provider Login: Pass");
             }
             catch (Exception e)
             {
-                Console.WriteLine("Reset Provider Password: Fail - - " + e.Message);
+                TestLogger.Logger("Reset Provider Password: Fail - - " + e.Message);
                 var result = e.Message;
                 driver.Quit();
-                Assert.That(result, Is.EqualTo("Pass"));
+                Assert.That(result, Is.EqualTo(""));
             }
         }
 

@@ -1,7 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using NUnit.Framework;
-
+using Curogram_Automation_Testing.appManager;
 
 namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin
 {
@@ -13,6 +13,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin
 
         public void incorrectPassword()
         {
+            TestLogger b = new();
             try { 
             driver = new FirefoxDriver();
             driver.Navigate().GoToUrl("https://cp.staging.curogram.com/");
@@ -34,17 +35,17 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin
             driver.Close();
             driver.SwitchTo().Window(rootWindow);
             driver.Close();
-            Console.WriteLine("Incorrect Password Test: Pass");
+            TestLogger.Logger("Incorrect Password Test: Pass");
             }
 
             //Test Failed
             catch (Exception e)
             {
-                Console.WriteLine("Incorrect Password Test: Fail");
+                TestLogger.Logger("Incorrect Password Test: Fail");
                 Console.Write("Reason: " + e.Message);
                 var result = e.Message;
                 driver.Quit();
-                Assert.That(result, Is.EqualTo("Pass"));
+                Assert.That(result, Is.EqualTo(""));
             }
         }
 
@@ -69,17 +70,17 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin
             Thread.Sleep(10000);
             Assert.That(driver.FindElement(By.XPath("//a[contains(text(),\'Admin panel\')]")).Text, Is.EqualTo("Admin panel"));
             driver.Close();
-            Console.WriteLine("Login Success Test: Pass");
+            TestLogger.Logger("Login Success Test: Pass");
             }
 
             //Test Failed
             catch (Exception e)
             {
-                Console.WriteLine("Login Success Test: Fail");
+                TestLogger.Logger("Login Success Test: Pass");
                 Console.Write("Reason: " + e.Message);
                 var result = e.Message;
                 driver.Quit();
-                Assert.That(result, Is.EqualTo("Pass"));
+                Assert.That(result, Is.EqualTo(""));
             }
         }
 
@@ -105,17 +106,17 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin
             driver.Close();
             driver.SwitchTo().Window(rootWindow);
             driver.Close();
-            Console.WriteLine("Incorrect Email Format Test: Pass");
+            TestLogger.Logger("Incorrect Email Format Test: Pass");
             }
 
             //Test Failed
             catch (Exception e)
             {
-                Console.WriteLine("Incorrect Email Format Test: Fail");
+                TestLogger.Logger("Incorrect Email Format Test: Fail");
                 Console.Write("Reason: " + e.Message);
                 var result = e.Message;
                 driver.Quit();
-                Assert.That(result, Is.EqualTo("Pass"));
+                Assert.That(result, Is.EqualTo(""));
             }
         }
 

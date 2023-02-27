@@ -10,7 +10,9 @@ namespace Curogram_Automation_Testing.CurogramApi.Practice
     [TestFixture]
     internal class AutoUpdateTimeZone
     {
+        
         public static String NewTimeZone;
+        [Test]
         public void AutoUpTime()
         {
             DateTime now = DateTime.UtcNow.AddHours(-8);
@@ -36,7 +38,7 @@ namespace Curogram_Automation_Testing.CurogramApi.Practice
             {
                 AutoUpdateTimeZone.NewTimeZone = "Australia/West";
             };
-
+            Console.WriteLine(AutoUpdateTimeZone.NewTimeZone);
         }
 
 

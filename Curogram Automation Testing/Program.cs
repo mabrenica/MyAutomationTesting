@@ -1,43 +1,35 @@
 ﻿using Curogram_Automation_Testing.App_manager;
+using Curogram_Automation_Testing.appManager;
 using Curogram_Automation_Testing.AppManager;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel.Client;
 using System;
 
 namespace Curogram_Automation_Testing
 {
     internal class Program
     {
-        private static readonly ILoggerFactory loggerFactory = LoggerFactory.Create(builder =>
-        {
-            builder
-        .AddFilter("Test", LogLevel.Information)
-        .AddFilter("Testing", LogLevel.Information)
-        .AddFilter("Microsoft", LogLevel.Error)
-        .AddFilter("System", LogLevel.Error)
-        .AddConsole();
-        });
+
 
         static void Main(string[] args)
         {
-            var logger = loggerFactory.CreateLogger<Program>();
 
             // import methods and declare objects
-            UserInterface initProg = new UserInterface();
-            TaskManager startManager = new TaskManager();
+            UserInterface a = new UserInterface();
+            TaskManager c = new TaskManager();
 
-            initProg.StartProgram();
+            a.StartProgram();
 
             try
             {
-                startManager.ParallelRun();
+                c.ParallelRun();
             }
             catch (Exception)
             {
-                logger.LogError("Error in test execution");
+                Console.WriteLine("Error in test execution");
             }
-
-            logger.LogInformation("Test execution completed.");
+            TestLogger.FilterAndDisplayLogs();
         }
     }
 }

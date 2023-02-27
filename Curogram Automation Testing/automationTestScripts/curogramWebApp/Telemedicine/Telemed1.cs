@@ -1,6 +1,8 @@
 ﻿using Curogram_Automation_Testing.AppManager;
 using NUnit.Framework;
 using Curogram_Automation_Testing.CurogramApi.Practice;
+using NUnit.Framework.Internal;
+using Curogram_Automation_Testing.appManager;
 
 namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telemedicine
 {
@@ -19,6 +21,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
 
         public static void ModifyVars()
         {
+            TaskManager b = new();
             SeleniumCommands a = new SeleniumCommands();
             var genFirstName = a.StringGenerator("allletters");         
             var genLastName = a.StringGenerator("allletters");   
@@ -105,9 +108,28 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
                 a.Pause(6);               
                 a.SaveWindow(Telemed1.WindowProvider, 1);
 
+                //Manual Send Telemedicine Link
+                a.SwitchWindow(Telemed1.WindowRoot);
+                a.ClickOn("//span[contains(text(),'Telemedicine')]");
+                a.Pause(5);
+                a.TypeM("//input[@placeholder='Find by name']", Telemed1.FirstName);
+                a.Pause(5);
+                a.ClickOn("//curogram-icon[@name='more']");
+                a.Pause(3);
+                a.ClickOn("//curogram-icon[@name='refresh-1']");
+                a.Pause(2);
+                a.TypeM("//input[@placeholder='Email']", Telemed1.Email + "@mailsac.com");
+                a.Pause(2);
+                a.ClickOn("//button[contains(text(),'Resend')]");
+                a.Pause(5);
 
                 //Switch back to conversation window
-                a.SwitchWindow(Telemed1.WindowRoot);
+                a.ClickOn("//span[contains(text(),'Conversations')]");
+                a.Pause(5);
+                a.TypeM("//input[@placeholder='Find by name or phone number...']", Telemed1.FirstName);
+                a.Pause(5);
+                a.ClickOn("//div[@class='conversation-title text-truncate']");
+                a.Pause(5);
                 a.ClickOn("//a[@class='text-info']");
                 a.Pause(15);
                 a.SaveWindow(Telemed1.WindowPatient,2);
@@ -145,17 +167,17 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
 
                 //Test success
                 a.DQuit();
-                Console.WriteLine("Telemedicine Test 1: Pass");
+                TestLogger.Logger("Telemedicine Test 1: Pass");
             }
 
                 //Test Failed
             catch (Exception e)
             {
-                Console.WriteLine("Telemedicine Test 1: Fail");
-                Console.Write("Reason: " + e.Message);
-                var result = e.Message;
+                TestLogger.Logger("Telemedicine Test 1: Fail - -" + e.Message);
+                Console.WriteLine("Telemedicine Test 1: Fail - -" + e.Message);
                 a.DQuit();
-                Assert.That(result, Is.EqualTo("Pass"));
+                Assert.That(e.Message, Is.EqualTo(""));
+
             }
         }
 

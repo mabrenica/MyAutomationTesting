@@ -2,6 +2,7 @@
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 using NUnit.Framework;
+using Curogram_Automation_Testing.appManager;
 
 namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.AddUsers
 {
@@ -215,14 +216,15 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.AddUs
                 Thread.Sleep(1000);
                 driver.FindElement(By.XPath("//button[@class='btn btn-danger'][1]")).Click();
                 driver.Close();
+                TestLogger.Logger("Add Users Test: Pass");
             }
                         
             catch (Exception e) 
             {
-                Console.WriteLine("Add user test: Fail - - " + e.Message);
+                TestLogger.Logger("Add user test: Fail - - " + e.Message);
                 var result = e.Message;
                 driver.Quit();
-                Assert.That(result, Is.EqualTo("Pass"));
+                Assert.That(result, Is.EqualTo(""));
             }
 }
     }

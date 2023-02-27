@@ -8,7 +8,12 @@
             Console.WriteLine("Welcome to Curogram Test Automation");
             Console.WriteLine("Press any key to continue. . .");
             Console.ReadKey();
+            for (int a = 0; a < 6;)
+            {
 
+                Console.WriteLine("*");
+                a++;
+            }
         }
 
 

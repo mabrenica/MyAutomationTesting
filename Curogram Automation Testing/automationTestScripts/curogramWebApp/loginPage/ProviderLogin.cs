@@ -2,7 +2,8 @@
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 using NUnit.Framework;
-
+using Curogram_Automation_Testing.AppManager;
+using Curogram_Automation_Testing.appManager;
 
 namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.ProviderLoginPage
 {
@@ -52,12 +53,13 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
                 }
                 Assert.That(driver.FindElement(By.XPath("//section/div/div")).Text, Is.EqualTo("Quick Actions"));
                 driver.Close();
-                Console.WriteLine("Provider Login Success: Pass");
+
+                TestLogger.Logger("Provider Login Success: Pass");
             }
             catch (Exception e) 
             {
-                Console.WriteLine("Provider Login Success: Fail - - " + e.Message);
-
+                TestLogger.Logger("Provider Login Success: Fail - - " + e.Message);
+                Assert.That(e.Message, Is.EqualTo(""));
             }
         }
 
@@ -102,12 +104,14 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
                 }
                 Assert.That(driver.FindElement(By.XPath("//div[@class=\'alert-red text-center\']")).Text, Is.EqualTo("Your password is not matching our records."));
                 driver.Close();
-                Console.WriteLine("Provider incorrect login test: Pass");
+
+                TestLogger.Logger("Provider incorrect login test: Pass");
             }
             catch (Exception e)
             {
-                Console.WriteLine("Provider incorrect login test: Fail - -" + e.Message);
-  
+
+                TestLogger.Logger("Provider incorrect login test: Fail - -" + e.Message);
+                Assert.That(e.Message, Is.EqualTo(""));
             }
         }
 
@@ -150,10 +154,13 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
                 }
                 Assert.That(driver.FindElement(By.XPath("//curo-validation-messages/div")).Text, Is.EqualTo("You entered wrong email or phone number. Example: example@example.com, 1234567890"));
                 driver.Close();
-                Console.WriteLine("Incorrect Email Format: Pass");
+
+                TestLogger.Logger("Incorrect Email Format: Pass");
             }
             catch (Exception e) { 
-                Console.WriteLine("Incorrect Email Format: Fail- -" + e.Message);
+
+                TestLogger.Logger("Incorrect Email Format: Fail- -" + e.Message);
+                Assert.That(e.Message, Is.EqualTo(""));
             }
         }
 

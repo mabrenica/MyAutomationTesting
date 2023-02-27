@@ -39,7 +39,7 @@ namespace Curogram_Automation_Testing.CurogramApi.Practice
                     if (response.IsSuccessStatusCode)
                     {
                         var responseContent = await response.Content.ReadAsStringAsync();
-                        Console.WriteLine(responseContent);
+                        //Console.WriteLine(responseContent);
                         return response;
                     }
                     else
