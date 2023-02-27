@@ -13,6 +13,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin
 
         public void incorrectPassword()
         {
+            try { 
             driver = new FirefoxDriver();
             driver.Navigate().GoToUrl("https://cp.staging.curogram.com/");
             driver.Manage().Window.Maximize();
@@ -33,10 +34,23 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin
             driver.Close();
             driver.SwitchTo().Window(rootWindow);
             driver.Close();
+            Console.WriteLine("Incorrect Password Test: Pass");
+            }
+
+            //Test Failed
+            catch (Exception e)
+            {
+                Console.WriteLine("Incorrect Password Test: Fail");
+                Console.Write("Reason: " + e.Message);
+                var result = e.Message;
+                driver.Quit();
+                Assert.That(result, Is.EqualTo("Pass"));
+            }
         }
 
         public void loginSuccess()
         {
+            try { 
             driver = new FirefoxDriver();
             driver.Navigate().GoToUrl("https://cp.staging.curogram.com/");
             driver.Manage().Window.Maximize();
@@ -55,11 +69,24 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin
             Thread.Sleep(10000);
             Assert.That(driver.FindElement(By.XPath("//a[contains(text(),\'Admin panel\')]")).Text, Is.EqualTo("Admin panel"));
             driver.Close();
+            Console.WriteLine("Login Success Test: Pass");
+            }
+
+            //Test Failed
+            catch (Exception e)
+            {
+                Console.WriteLine("Login Success Test: Fail");
+                Console.Write("Reason: " + e.Message);
+                var result = e.Message;
+                driver.Quit();
+                Assert.That(result, Is.EqualTo("Pass"));
+            }
         }
 
 
         public void incorrectEmailFormat()
         {
+            try { 
             driver = new FirefoxDriver();
             driver.Navigate().GoToUrl("https://cp.staging.curogram.com/");
             driver.Manage().Window.Maximize();
@@ -72,12 +99,24 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin
             driver.FindElement(By.XPath("//input[@id=\'login-email\']")).Click();
             driver.FindElement(By.XPath("//input[@id=\'login-email\']")).SendKeys("incorrectemailformat");
             driver.FindElement(By.XPath("//input[@id=\'login-password\']")).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
             var elements = driver.FindElements(By.XPath("//div[@class=\'bubble-error alert-red\']"));
             Assert.True(elements.Count > 0);
             driver.Close();
             driver.SwitchTo().Window(rootWindow);
             driver.Close();
+            Console.WriteLine("Incorrect Email Format Test: Pass");
+            }
+
+            //Test Failed
+            catch (Exception e)
+            {
+                Console.WriteLine("Incorrect Email Format Test: Fail");
+                Console.Write("Reason: " + e.Message);
+                var result = e.Message;
+                driver.Quit();
+                Assert.That(result, Is.EqualTo("Pass"));
+            }
         }
 
         [Test]

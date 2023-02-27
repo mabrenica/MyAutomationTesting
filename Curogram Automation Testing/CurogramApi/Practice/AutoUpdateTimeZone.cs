@@ -11,7 +11,6 @@ namespace Curogram_Automation_Testing.CurogramApi.Practice
     internal class AutoUpdateTimeZone
     {
         public static String NewTimeZone;
-
         public void AutoUpTime()
         {
             DateTime now = DateTime.UtcNow.AddHours(-8);
@@ -35,9 +34,9 @@ namespace Curogram_Automation_Testing.CurogramApi.Practice
             }
             else
             {
-                AutoUpdateTimeZone.NewTimeZone = "Atlantic/Azores";
+                AutoUpdateTimeZone.NewTimeZone = "Australia/West";
             };
-            
+
         }
 
 

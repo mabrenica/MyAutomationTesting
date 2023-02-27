@@ -203,7 +203,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Users
                 Thread.Sleep(20000);
                 driver.SwitchTo().Window(vars["MailSacWindow"].ToString());
                 driver.Navigate().Refresh();
-                Thread.Sleep(5000);
+                Thread.Sleep(7000);
                 driver.FindElement(By.XPath("//td[contains(text(),'[Curogram] Password reset')]")).Click();
                 Thread.Sleep(1000);
                 driver.FindElement(By.XPath("//a[@class='btn btn-info btn-xs']")).Click();

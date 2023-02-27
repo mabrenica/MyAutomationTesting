@@ -31,7 +31,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
                 });
                 driver.Navigate().Refresh();
                 driver.Manage().Window.Maximize();
-                //driver.Manage().Window.Size = new System.Drawing.Size(1305, 700);
+
                 try
                 {
                     Thread.Sleep(5000);

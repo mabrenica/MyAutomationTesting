@@ -29,7 +29,7 @@ namespace Curogram_Automation_Testing.AppManager
         private IJavaScriptExecutor? js;
         public List<SeleniumCommands> windows = new List<SeleniumCommands>();
 
-        //1. Start driver and save window as root [0]
+        //1. Start driver 
         public void StartDriver(string browserName)
         {
             var browserSwitch = browserName;
