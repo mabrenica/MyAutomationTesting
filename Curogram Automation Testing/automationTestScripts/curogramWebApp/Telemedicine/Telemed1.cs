@@ -173,8 +173,9 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
                 //Test Failed
             catch (Exception e)
             {
-                TestLogger.Logger("Telemedicine Test 1: Fail - -" + e.Message);
-                Console.WriteLine("Telemedicine Test 1: Fail - -" + e.Message);
+                string message = "Telemedicine Test 1: Fail - -";
+                TestLogger.Logger(message + e.Message);
+                Console.WriteLine(message + e.Message);
                 a.DQuit();
                 Assert.That(e.Message, Is.EqualTo(""));
 

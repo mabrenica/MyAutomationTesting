@@ -4,6 +4,7 @@ using OpenQA.Selenium.Support.UI;
 using NUnit.Framework;
 using Curogram_Automation_Testing.AppManager;
 using Curogram_Automation_Testing.appManager;
+using Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telemedicine;
 
 namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.ProviderLoginPage
 {
@@ -11,158 +12,141 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
     [Parallelizable]
     internal class ProviderLogin
     {
-        private IWebDriver? driver;
-        public IDictionary<string, object>? vars { get; private set; }
-        private IJavaScriptExecutor? js;
+        public static String WindowRoot;
+        public static String Window1;
+        public static String Window2;
+
+        public static void ModifyVars()
+        {
+            SeleniumCommands a = new SeleniumCommands();
+            var windowroot = a.StringGenerator("alphanumeric");
+            var windowProvider = a.StringGenerator("alphanumeric");
+            var windowPatient = a.StringGenerator("alphanumeric");
+
+            ProviderLogin.WindowRoot = windowroot;
+            ProviderLogin.Window1 = windowProvider;
+            ProviderLogin.Window2 = windowPatient;
+        }
+
+
 
 
         public void ProviderLoginSuccess()
         {
-            driver = new FirefoxDriver();
-            js = (IJavaScriptExecutor)driver;
-            vars = new Dictionary<string, object>();
+            ModifyVars();
+            SeleniumCommands a = new SeleniumCommands();
+            Console.WriteLine("Testing: Provider Login Success");
+
             try
             {
-                Console.WriteLine("Testing: Provider Login Success");
-                var siteTimeout = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
-                siteTimeout.Until(webDriver =>
-                {
-                    driver.Navigate().GoToUrl("https://staging.curogram.com/");
-                    return true;
-                });
-                driver.Navigate().Refresh();
-                driver.Manage().Window.Maximize();
+                a.StartDriver("Chrome");
+                a.SaveWindow(Telemed1.WindowRoot, 0);
+                a.NavTo("https://staging.curogram.com/");
+                a.Pause(10);
+                a.ClickOn("//a[contains(@href, \'/login?hsLang=en\')]");
+                a.Pause(5);
+                a.Type("//input[@type=\'text\']", "testrigorcpuser@curogram.com");
+                a.Pause(3);
+                a.Type("//input[@type=\'password\']", "password1");
+                a.Pause(3);
+                a.ClickOn("//button[@type=\'submit\']");
+                a.Pause(7);
+                a.VerifyText("//section/div/div", "Quick Actions");
+                a.DClose();
 
-                try
-                {
-                    Thread.Sleep(5000);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("{0} Exception caught.", e);
-                }
-                driver.FindElement(By.XPath("//a[contains(@href, \'/login?hsLang=en\')]")).Click();
-                driver.FindElement(By.XPath("//input[@type=\'text\']")).Click();
-                driver.FindElement(By.XPath("//input[@type=\'text\']")).SendKeys("testrigorcpuser@curogram.com");
-                driver.FindElement(By.XPath("//input[@type=\'password\']")).Click();
-                driver.FindElement(By.XPath("//input[@type=\'password\']")).SendKeys("password1");
-                driver.FindElement(By.XPath("//button[@type=\'submit\']")).Click();
-                {
-                    WebDriverWait wait = new WebDriverWait(driver, System.TimeSpan.FromSeconds(30));
-                    wait.Until(driver => driver.FindElements(By.XPath("//section/div/div")).Count > 0);
-                }
-                Assert.That(driver.FindElement(By.XPath("//section/div/div")).Text, Is.EqualTo("Quick Actions"));
-                driver.Close();
-
+                //Test Pass
                 TestLogger.Logger("Provider Login Success: Pass");
             }
+            //Test Fail
             catch (Exception e) 
             {
-                TestLogger.Logger("Provider Login Success: Fail - - " + e.Message);
+                string message = "Provider Login Success: Fail - -";
+                TestLogger.Logger(message + e.Message);
+                Console.WriteLine(message + e.Message);
+                a.DQuit();
                 Assert.That(e.Message, Is.EqualTo(""));
             }
         }
+
+
+
 
         public void IncorrectPassword()
         {
-            driver = new FirefoxDriver();
-            js = (IJavaScriptExecutor)driver;
-            vars = new Dictionary<string, object>();
+            ModifyVars();
+            SeleniumCommands a = new SeleniumCommands();
+            Console.WriteLine("Testing: Incorrect Password");
+
             try
             {
-                Console.WriteLine("Testing: Provider incorrect login test");
-                var siteTimeout = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
-                siteTimeout.Until(webDriver =>
-                {
-                    driver.Navigate().GoToUrl("https://staging.curogram.com/");
-                    return true;
-                });
-                driver.Navigate().Refresh();
-                driver.Manage().Window.Maximize();
-                //driver.Manage().Window.Size = new System.Drawing.Size(1305, 700);
-                driver.FindElement(By.XPath("//a[contains(@href, \'/login?hsLang=en\')]")).Click();
-                try
-                {
-                    Thread.Sleep(5000);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("{0} Exception caught.", e);
-                }
-                driver.FindElement(By.XPath("//input[@type=\'text\']")).Click();
-                driver.FindElement(By.XPath("//input[@type=\'text\']")).SendKeys("testrigorcpuser@curogram.com");
-                driver.FindElement(By.XPath("//input[@type=\'password\']")).Click();
-                driver.FindElement(By.XPath("//input[@type=\'password\']")).SendKeys("incorrect");
-                driver.FindElement(By.XPath("//button[@type=\'submit\']")).Click();
-                try
-                {
-                    Thread.Sleep(5000);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("{0} Exception caught.", e);
-                }
-                Assert.That(driver.FindElement(By.XPath("//div[@class=\'alert-red text-center\']")).Text, Is.EqualTo("Your password is not matching our records."));
-                driver.Close();
+                a.StartDriver("Chrome");
+                a.SaveWindow(Telemed1.WindowRoot, 0);
+                a.NavTo("https://staging.curogram.com/");
+                a.Pause(5);
+                a.ClickOn("//a[contains(@href, \'/login?hsLang=en\')]");
+                a.Pause(7);
+                a.TypeM("//input[@type=\'text\']", "testrigorcpuser@curogram.com");
+                a.Pause(2);
+                a.TypeM("//input[@type=\'password\']", "incorrect");
+                a.Pause(2);
+                a.ClickOn("//button[@type=\'submit\']");
+                a.Pause(5);
+                a.VerifyText("//div[@class=\'alert-red text-center\']", "Your password is not matching our records.");
+                a.DClose();
 
-                TestLogger.Logger("Provider incorrect login test: Pass");
+                //Test Pass
+                TestLogger.Logger("Provider incorrect password test: Pass");
             }
+
             catch (Exception e)
             {
-
-                TestLogger.Logger("Provider incorrect login test: Fail - -" + e.Message);
+                string message = "Provider incorrect password test: Fail - -";
+                TestLogger.Logger(message + e.Message);
+                Console.WriteLine(message + e.Message);
+                a.DQuit();
                 Assert.That(e.Message, Is.EqualTo(""));
             }
         }
+
+
 
         public void IncorrectEmailFormat()
         {
-            driver = new FirefoxDriver();
-            js = (IJavaScriptExecutor)driver;
-            vars = new Dictionary<string, object>();
+            ModifyVars();
+            SeleniumCommands a = new SeleniumCommands();
+            Console.WriteLine("Testing: Incorrect Email Format Test");
+
             try
             {
-                Console.WriteLine("Testing: Incorrect Email Format");
-                var siteTimeout = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
-                siteTimeout.Until(webDriver =>
-                {
-                    driver.Navigate().GoToUrl("https://staging.curogram.com/");
-                    return true;
-                });
-                driver.Navigate().Refresh();
-                driver.Manage().Window.Maximize();
-                //driver.Manage().Window.Size = new System.Drawing.Size(1305, 700);
-                driver.FindElement(By.XPath("//a[contains(@href, \'/login?hsLang=en\')]")).Click();
-                try
-                {
-                    Thread.Sleep(5000);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("{0} Exception caught.", e);
-                }
-                driver.FindElement(By.XPath("//input[@type=\'text\']")).Click();
-                driver.FindElement(By.XPath("//input[@type=\'text\']")).SendKeys("incorrectemailformat");
-                driver.FindElement(By.XPath("//input[@type=\'password\']")).Click();
-                try
-                {
-                    Thread.Sleep(5000);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("{0} Exception caught.", e);
-                }
-                Assert.That(driver.FindElement(By.XPath("//curo-validation-messages/div")).Text, Is.EqualTo("You entered wrong email or phone number. Example: example@example.com, 1234567890"));
-                driver.Close();
+                a.StartDriver("Chrome");
+                a.SaveWindow(Telemed1.WindowRoot, 0);
+                a.NavTo("https://staging.curogram.com/");
+                a.Pause(10);
+                a.ClickOn("//a[contains(@href, \'/login?hsLang=en\')]");
+                a.Pause(5);
+                a.TypeM("//input[@type=\'text\']", "incorrectemailformat");
+                a.Pause(2);
+                a.ClickOn("//input[@type=\'password\']");
+                a.Pause(3);
+                a.VerifyText("//curo-validation-messages/div", "You entered wrong email or phone number. Example: example@example.com, 1234567890");
+                a.DClose();
 
+                //Test Pass
                 TestLogger.Logger("Incorrect Email Format: Pass");
             }
-            catch (Exception e) { 
 
-                TestLogger.Logger("Incorrect Email Format: Fail- -" + e.Message);
+            catch (Exception e) 
+            {
+                string message = "Incorrect Email Format: Fail - -";
+                TestLogger.Logger(message + e.Message);
+                Console.WriteLine(message + e.Message);
+                a.DQuit();
                 Assert.That(e.Message, Is.EqualTo(""));
             }
         }
+
+
+
 
         [Test]
         public void ProviderLoginTest()

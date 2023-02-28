@@ -229,6 +229,14 @@ namespace Curogram_Automation_Testing.AppManager
                 return e.ToString();
             }
         }
+
+        //17. Refresh Page
+        public void Refresh()
+        {
+            driver.Navigate().Refresh();
+        }
+
+
     }
  
     

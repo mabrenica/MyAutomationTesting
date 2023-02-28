@@ -1,9 +1,7 @@
-﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Curogram_Automation_Testing.appManager;
 using Curogram_Automation_Testing.AppManager;
-using Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telemedicine;
+
 
 namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin
 {
@@ -11,31 +9,26 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin
     [Parallelizable]
     public class CpAdminLoginTest
     {
-        public static String FirstName;
-        public static String LastName;
-        public static String Email;
+
         public static String WindowRoot;
         public static String Window2;
         public static String Window3;
 
 
+
         public static void ModifyVars()
         {
             SeleniumCommands a = new SeleniumCommands();
-            var genFirstName = a.StringGenerator("allletters");
-            var genLastName = a.StringGenerator("allletters");
-            var genEmail = a.StringGenerator("allletters");
             var windowroot = a.StringGenerator("alphanumeric");
             var windowProvider = a.StringGenerator("alphanumeric");
             var windowPatient = a.StringGenerator("alphanumeric");
 
-            CpAdminLoginTest.LastName = genLastName;
-            CpAdminLoginTest.FirstName = genFirstName;
-            CpAdminLoginTest.Email = genEmail;
+
             CpAdminLoginTest.WindowRoot = windowroot;
             CpAdminLoginTest.Window2 = windowProvider;
             CpAdminLoginTest.Window3 = windowPatient;
         }
+
 
 
         public void IncorrectPassword()
@@ -77,6 +70,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin
                 Assert.That(result, Is.EqualTo(""));
             }
         }
+
 
 
 
@@ -122,6 +116,8 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin
         }
 
 
+
+
         public void IncorrectEmailFormat()
         {
             ModifyVars();
@@ -158,6 +154,9 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin
                 Assert.That(result, Is.EqualTo(""));
             }
         }
+
+
+
 
         [Test]
         public void CpAdminLogin()
