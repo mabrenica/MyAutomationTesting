@@ -184,10 +184,7 @@ namespace Curogram_Automation_Testing.AppManager
                 driver.FindElement(By.XPath(targetElement)).SendKeys(Char.ToString(text[i++]));
                 Thread.Sleep(50);
             };
-            Thread.Sleep(3000);
-            driver.FindElement(By.XPath(targetElement)).SendKeys(Keys.Space);
-            Thread.Sleep(1000);
-            driver.FindElement(By.XPath(targetElement)).SendKeys(Keys.Backspace);
+
         }
 
 
