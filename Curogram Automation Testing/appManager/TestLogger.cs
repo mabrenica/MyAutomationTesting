@@ -49,6 +49,12 @@ namespace Curogram_Automation_Testing.appManager
                 }
             }
 
+            for (int a = 0; a < 4;)
+            {
+                Console.WriteLine("*");
+                a++;
+            }
+
             Console.WriteLine("---------------- TEST SUMMARY --------------------");
             Console.WriteLine($"Total Tests: {passCount + failCount}");
             Console.WriteLine($"Passed Tests: {passCount}");

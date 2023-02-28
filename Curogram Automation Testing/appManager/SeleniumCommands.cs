@@ -215,6 +215,20 @@ namespace Curogram_Automation_Testing.AppManager
             string wN = windowName;
             windows.Add(new SeleniumCommands { Name = wN, Handle = currentHandle });
         }
+
+        //16. Verify text in element
+        public string VerifyText(string element, string textToVerify)
+        {
+            try
+            {
+                Assert.That(driver.FindElement(By.XPath(element)).Text, Is.EqualTo(textToVerify));
+                return "Pass";
+            }
+            catch (Exception e)
+            {
+                return e.ToString();
+            }
+        }
     }
  
     
