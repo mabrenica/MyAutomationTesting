@@ -33,7 +33,7 @@ namespace Curogram_Automation_Testing.AppManager
 
              () => t1.ProviderLoginTest(),
              () => t2.addUser(),
-             () => t3.RestUserPassword(),
+             () => t3.ResetUserPassword(),
              () => t5.CpAdminLogin(),
              () => t6.Telemed()
 

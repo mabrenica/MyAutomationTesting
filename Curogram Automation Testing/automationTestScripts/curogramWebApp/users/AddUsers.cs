@@ -90,10 +90,10 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.AddUs
                 a.SwitchWindow(AddUserTest.WindowRoot);
                 a.DClose();
                 a.SwitchWindow(AddUserTest.CuroWeb);
-                a.Pause(5);
 
 
                 //Go to Settings
+                a.WUntil(40,"//span[contains(.,'Settings')]");
                 a.ClickOn("//span[contains(.,'Settings')]");
                 a.Pause(4);
                 a.ClickOn("//a[4]/div");
