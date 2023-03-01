@@ -1,34 +1,38 @@
-﻿using Curogram_Automation_Testing.App_manager;
-using Curogram_Automation_Testing.appManager;
+﻿using Curogram_Automation_Testing.appManager;
 using Curogram_Automation_Testing.AppManager;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Console;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel.Client;
-using System;
+
+
 
 namespace Curogram_Automation_Testing
 {
+
     internal class Program
     {
 
-
         static void Main(string[] args)
         {
-
-            // import methods and declare objects
-            UserInterface a = new UserInterface();
-            TaskManager c = new TaskManager();
-
-            a.StartProgram();
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.WriteLine("  WELCOME TO CUROGRAM AUTOMATION TESTING  ");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Black;
+            for (int a = 0; a < 3;)
+            {
+                Console.WriteLine("*");
+                a++;
+            }
+            Console.ResetColor();
 
             try
             {
-                c.ParallelRun();
+                TaskManager.TaskRunner();
             }
             catch (Exception)
             {
                 Console.WriteLine("Error in test execution");
             }
+
+
             TestLogger.FilterAndDisplayLogs();
         }
     }

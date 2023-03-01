@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Curogram_Automation_Testing.appManager
 {
     public class TestLogger
@@ -19,14 +14,15 @@ namespace Curogram_Automation_Testing.appManager
 
         public static void FilterAndDisplayLogs()
         {
-            ConsoleColor c = Console.ForegroundColor;
-
+            Console.ForegroundColor = ConsoleColor.Black;
             for (int a = 0; a < 4;)
             {
                 Console.WriteLine("*");
                 a++;
             }
-            Console.WriteLine("-----------------TEST RESULTS-----------------");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("------------------- TEST RESULTS -------------------");
+            Console.ResetColor();
             foreach (string logMessage in logMessages)
             {
                 if (logMessage.Contains("Pass")) 
@@ -59,16 +55,21 @@ namespace Curogram_Automation_Testing.appManager
                 }
             }
 
-            for (int a = 0; a < 4;)
+            Console.ForegroundColor = ConsoleColor.Black;
+            for (int a = 0; a < 3;)
             {
                 Console.WriteLine("*");
                 a++;
             }
+            Console.ResetColor();
 
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("---------------- TEST SUMMARY --------------------");
             Console.WriteLine($"Total Tests: {passCount + failCount}");
             Console.WriteLine($"Passed Tests: {passCount}");
             Console.WriteLine($"Failed Tests: {failCount}");
+            Console.ResetColor();
         }
     }
 }

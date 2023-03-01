@@ -69,7 +69,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
             ModifyVars();
             AddPatientApi();
             SeleniumCommands a = new SeleniumCommands();
-            Console.WriteLine("Testing: Telemedicine Test 1");
+            Console.WriteLine("Testing: Instant Telemedicine Test");
            
 
             try { 
@@ -167,13 +167,13 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
 
                 //Test success
                 a.DQuit();
-                TestLogger.Logger("Telemedicine Test 1: Pass");
+                TestLogger.Logger("Instant Telemedicine Test: Pass");
             }
 
                 //Test Failed
             catch (Exception e)
             {
-                string message = "Telemedicine Test 1: Fail - -";
+                string message = "Instant Telemedicine Test: Fail - -";
                 TestLogger.Logger(message + e.Message);
                 Console.WriteLine(message + e.Message);
                 a.DQuit();
