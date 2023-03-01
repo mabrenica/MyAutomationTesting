@@ -1,6 +1,5 @@
 ﻿//This updates the practice's timezone to make sure that the automated messages are working and being sent to patients.
 
-using NUnit.Framework;
 using System.Net.Http.Headers;
 using System.Net;
 

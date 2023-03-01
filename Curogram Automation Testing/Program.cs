@@ -34,6 +34,8 @@ namespace Curogram_Automation_Testing
 
 
             TestLogger.FilterAndDisplayLogs();
+            Console.WriteLine("Press any key to exit...");
+            Console.ReadLine();
         }
     }
 }

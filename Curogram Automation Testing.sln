@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Curogram Automation Testing", "Curogram Automation Testing\Curogram Automation Testing.csproj", "{17F227D2-FB6B-4188-96F4-E01383F0225D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curogram Automation Testing", "Curogram Automation Testing\Curogram Automation Testing.csproj", "{17F227D2-FB6B-4188-96F4-E01383F0225D}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Curogram-Automation", "Curogram-Automation\Curogram-Automation.vdproj", "{EBD69A02-2189-4BEE-AC12-9695D3F45125}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,8 @@ Global
 		{17F227D2-FB6B-4188-96F4-E01383F0225D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17F227D2-FB6B-4188-96F4-E01383F0225D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17F227D2-FB6B-4188-96F4-E01383F0225D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBD69A02-2189-4BEE-AC12-9695D3F45125}.Debug|Any CPU.ActiveCfg = Debug
+		{EBD69A02-2189-4BEE-AC12-9695D3F45125}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
