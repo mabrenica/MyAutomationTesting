@@ -35,7 +35,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
         {
             ModifyVars();
             SeleniumCommands a = new SeleniumCommands();
-            Console.WriteLine("Testing: Provider Login Success");
+            Console.WriteLine("Testing: Curogram Web Provider Login Success");
 
             try
             {
@@ -55,12 +55,12 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
                 a.DClose();
 
                 //Test Pass
-                TestLogger.Logger("Provider Login Success: Pass");
+                TestLogger.Logger("Curogram Web Provider Login Success: Pass");
             }
             //Test Fail
             catch (Exception e) 
             {
-                string message = "Provider Login Success: Fail - -";
+                string message = "Curogram Web Provider Login Success: Fail - -";
                 TestLogger.Logger(message + e.Message);
                 Console.WriteLine(message + e.Message);
                 a.DQuit();
@@ -75,7 +75,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
         {
             ModifyVars();
             SeleniumCommands a = new SeleniumCommands();
-            Console.WriteLine("Testing: Incorrect Password");
+            Console.WriteLine("Testing: Curogram Web Incorrect Password");
 
             try
             {
@@ -95,12 +95,12 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
                 a.DClose();
 
                 //Test Pass
-                TestLogger.Logger("Provider incorrect password test: Pass");
+                TestLogger.Logger("Curogram Web Provider incorrect password test: Pass");
             }
 
             catch (Exception e)
             {
-                string message = "Provider incorrect password test: Fail - -";
+                string message = "Curogram Web Provider incorrect password test: Fail - -";
                 TestLogger.Logger(message + e.Message);
                 Console.WriteLine(message + e.Message);
                 a.DQuit();
@@ -114,7 +114,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
         {
             ModifyVars();
             SeleniumCommands a = new SeleniumCommands();
-            Console.WriteLine("Testing: Incorrect Email Format Test");
+            Console.WriteLine("Testing: Curogram Web Incorrect Email Format Test");
 
             try
             {
@@ -132,12 +132,12 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
                 a.DClose();
 
                 //Test Pass
-                TestLogger.Logger("Incorrect Email Format: Pass");
+                TestLogger.Logger("Curogram Web Incorrect Email Format: Pass");
             }
 
             catch (Exception e) 
             {
-                string message = "Incorrect Email Format: Fail - -";
+                string message = "Curogram Web Incorrect Email Format: Fail - -";
                 TestLogger.Logger(message + e.Message);
                 Console.WriteLine(message + e.Message);
                 a.DQuit();

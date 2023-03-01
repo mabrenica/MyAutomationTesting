@@ -35,7 +35,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin
         {
             ModifyVars();
             SeleniumCommands a = new SeleniumCommands();
-            Console.WriteLine("Testing: Incorrect Password Test");
+            Console.WriteLine("Testing: Cp Incorrect Password Test");
 
             try {
                 a.StartDriver("Chrome");
@@ -57,17 +57,17 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin
                 a.DClose();
                 a.SwitchWindow(CpAdminLoginTest.WindowRoot);
                 a.DClose();
-                TestLogger.Logger("Incorrect Password Test: Pass");
+                TestLogger.Logger("Cp Incorrect Password Test: Pass");
             }
 
             //Test Failed
             catch (Exception e)
             {
-                TestLogger.Logger("Incorrect Password Test: Fail");
-                Console.Write("Reason: " + e.Message);
-                var result = e.Message;
+                string message = "Cp Incorrect Password Test: Fail - - ";
+                TestLogger.Logger(message + e.Message);
+                Console.WriteLine(message + e.Message);
                 a.DQuit();
-                Assert.That(result, Is.EqualTo(""));
+                Assert.That(e.Message, Is.EqualTo(""));
             }
         }
 
@@ -78,7 +78,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin
         {
             ModifyVars();
             SeleniumCommands a = new SeleniumCommands();
-            Console.WriteLine("Testing: Provider Login Success Test");
+            Console.WriteLine("Testing: Cp Provider Login Success Test");
 
             try {
                 a.StartDriver("Chrome");
@@ -101,17 +101,17 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin
                 a.DClose();
 
                 //Test Pass
-                TestLogger.Logger("Provider Login Success Test: Pass");
+                TestLogger.Logger("Cp Provider Login Success Test: Pass");
             }
 
             //Test Failed
             catch (Exception e)
             {
-                TestLogger.Logger("Login Success Test: Pass");
-                Console.Write("Reason: " + e.Message);
-                var result = e.Message;
+                string message = "Cp Provider Login Success Test: Fail - - ";
+                TestLogger.Logger(message + e.Message);
+                Console.WriteLine(message + e.Message);
                 a.DQuit();
-                Assert.That(result, Is.EqualTo(""));
+                Assert.That(e.Message, Is.EqualTo(""));
             }
         }
 
@@ -122,7 +122,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin
         {
             ModifyVars();
             SeleniumCommands a = new SeleniumCommands();
-            Console.WriteLine("Testing: Incorrect Email Format Test");
+            Console.WriteLine("Cp Testing: Incorrect Email Format Test");
 
             try {
                 a.StartDriver("Chrome");
@@ -141,17 +141,18 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin
                 a.DClose();
                 a.SwitchWindow(CpAdminLoginTest.WindowRoot);
                 a.DClose();
-                TestLogger.Logger("Incorrect Email Format Test: Pass");
+                TestLogger.Logger("Cp Incorrect Email Format Test: Pass");
             }
 
             //Test Failed
             catch (Exception e)
             {
-                TestLogger.Logger("Incorrect Email Format Test: Fail");
-                Console.Write("Reason: " + e.Message);
-                var result = e.Message;
+                string message = "Cp Incorrect Email Format Test: Fail - - ";
+                TestLogger.Logger(message + e.Message);
+                Console.WriteLine(message + e.Message);
                 a.DQuit();
-                Assert.That(result, Is.EqualTo(""));
+                Assert.That(e.Message, Is.EqualTo(""));
+
             }
         }
 

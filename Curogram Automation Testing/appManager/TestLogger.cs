@@ -12,14 +12,15 @@ namespace Curogram_Automation_Testing.appManager
 
         public static void Logger(string message)
         {
-            string logMessage = $"{message}"; // add a timestamp to the log message
-            //Console.WriteLine(logMessage); // print the log message to the console
-            logMessages.Add(logMessage); // add the log message to the list
+            string logMessage = $"{message}"; 
+            logMessages.Add(logMessage); 
         }
 
 
         public static void FilterAndDisplayLogs()
         {
+            ConsoleColor c = Console.ForegroundColor;
+
             for (int a = 0; a < 4;)
             {
                 Console.WriteLine("*");
@@ -28,9 +29,18 @@ namespace Curogram_Automation_Testing.appManager
             Console.WriteLine("-----------------TEST RESULTS-----------------");
             foreach (string logMessage in logMessages)
             {
-                if (logMessage.Contains("Pass") || logMessage.Contains("Fail")) // check if the log message contains "PASS" or "FAIL"
+                if (logMessage.Contains("Pass")) 
                 {
-                    Console.WriteLine(logMessage); // print the log message to the console
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine(logMessage);                    
+                    Console.ResetColor();
+                }
+
+                else if (logMessage.Contains("Fail"))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(logMessage);                  
+                    Console.ResetColor();
                 }
             }
 
