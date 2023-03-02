@@ -70,82 +70,52 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
         public static void ModifyVars()
         {
             SeleniumCommands a = new();
-            var a1 = a.StringGenerator("allletters",   9);
-            var a2 = a.StringGenerator("allletters",   9);
-            var a3 = a.StringGenerator("allletters",   9);
-            var a4 = a.StringGenerator("alphanumeric", 9);
-            var a5 = a.StringGenerator("allletters",   9);
-            var a6 = a.StringGenerator("allnumbers",   4);
-            var a7 = a.StringGenerator("allletters",   5);
-            var a8 = a.StringGenerator("allletters",   9);
-            var a9 = a.StringGenerator("allnumbers",   5);
-            PFName   = a1;
-            PMName = a2;
-            PLName = a3;
-            PEmail = a4 + "@mailsac.com";
-            PAddress = a5;
-            PUnitNo = a6;
-            PCity = a7;
-            PCounty = a8;
-            PZip = a9;
+            //Patients
+            PFName      = a.StringGenerator("allletters",   9);
+            PMName      = a.StringGenerator("allletters",   9);
+            PLName      = a.StringGenerator("allletters",   9);
+            PEmail      = a.StringGenerator("alphanumeric", 9) + "@mailsac.com";
+            PAddress    = a.StringGenerator("allletters",   9);
+            PUnitNo     = a.StringGenerator("allnumbers",   4);
+            PCity       = a.StringGenerator("allletters",   5);
+            PCounty     = a.StringGenerator("allletters",   9);
+            PZip        = a.StringGenerator("allnumbers",   5);
 
+            //Guardians
+            GFName      = a.StringGenerator("allletters",   9);
+            GMName      = a.StringGenerator("allletters",   9);
+            GLName      = a.StringGenerator("allletters",   9);
+            GEmail      = a.StringGenerator("alphanumeric", 9) + "@mailsac.com";
+            GAddress    = a.StringGenerator("allletters",   9);
+            GCity       = a.StringGenerator("allletters",   9);
+            GZip        = a.StringGenerator("allnumbers",   5);
 
-            var b1 = a.StringGenerator("allletters",   9);
-            var b2 = a.StringGenerator("allletters",   9);
-            var b3 = a.StringGenerator("allletters",   9);
-            var b4 = a.StringGenerator("alphanumeric", 9);
-            var b5 = a.StringGenerator("allletters",   9);
-            var b6 = a.StringGenerator("allletters",   9);
-            var b7 = a.StringGenerator("allnumbers",   5);
-            GFName = b1;
-            GMName = b2;
-            GLName = b3;
-            GEmail = b4 + "@mailsac.com";
-            GAddress = b5;
-            GCity = b6;
-            GZip = b7;
+            //Emergency contacts
+            EcFName     = a.StringGenerator("allletters",   9);
+            EcMName     = a.StringGenerator("allletters",   9);
+            EcLName     = a.StringGenerator("allletters",   9);
 
+            //Insurance
+            GId         = a.StringGenerator("alphanumeric", 9);
+            MId         = a.StringGenerator("alphanumeric", 9);
+            ICN         = a.StringGenerator("allletters",   9);
+            ICA         = a.StringGenerator("allletters",   9);
+            ICity       = a.StringGenerator("allletters",   9);
+            IZip        = a.StringGenerator("allnumbers",   5);
 
-            var c1 = a.StringGenerator("allletters", 9);
-            var c2 = a.StringGenerator("allletters", 9);
-            var c3 = a.StringGenerator("allletters", 9);
-            EcFName = c1;
-            EcMName = c2;
-            EcLName = c3;
+            //MRR Authorization
+            MrrFName    = a.StringGenerator("allletters",   9);
+            MrrMName    = a.StringGenerator("allletters",   9);
+            MrrLName    = a.StringGenerator("allletters",   9);
 
+            //Driver's license
+            DLNum       = a.StringGenerator("alphanumeric", 9);
 
-            var d1 = a.StringGenerator("alphanumeric", 9);
-            var d2 = a.StringGenerator("alphanumeric", 9);
-            var d3 = a.StringGenerator("allletters",   9);
-            var d4 = a.StringGenerator("allletters",   9);
-            var d5 = a.StringGenerator("allletters",   9);
-            var d6 = a.StringGenerator("allnumbers",   5);
-            GId = d1;
-            MId = d2;
-            ICN = d3;
-            ICA = d4;
-            ICity = d5;
-            IZip = d6;
+            //Windows
+            YopWeb      = a.StringGenerator("allletters",   9);
+            RegPage     = a.StringGenerator("allletters",   9);
+            WPatient    = a.StringGenerator("allletters",   9);
 
-
-            var e1 = a.StringGenerator("allletters", 9);
-            var e2 = a.StringGenerator("allletters", 9);
-            var e3 = a.StringGenerator("allletters", 9);
-            MrrFName = e1;
-            MrrMName = e2;
-            MrrLName = e3;
-
-
-            var f1 = a.StringGenerator("alphanumeric", 9);
-            DLNum = f1;
-
-
-            var g1 = a.StringGenerator("allletters", 9);
-            var g2 = a.StringGenerator("allletters", 9);
-            var g3 = a.StringGenerator("allletters", 9);
-            YopWeb = g1;
-            RegPage = g2;
-            WPatient = g3;
         }
 
 
@@ -183,6 +153,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
 
                 //Test Pass
                 TestLogger.Logger("Instant Telemedicine Public Registration Test: Pass");
+                a.DQuit();
             }
 
             //Test Failed

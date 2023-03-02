@@ -19,13 +19,10 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
         public static void ModifyVars()
         {
             SeleniumCommands a = new SeleniumCommands();
-            var windowroot = a.StringGenerator("alphanumeric", 9);
-            var windowProvider = a.StringGenerator("alphanumeric", 9);
-            var windowPatient = a.StringGenerator("alphanumeric", 9);
+            WindowRoot = a.StringGenerator("alphanumeric", 9);
+            Window1 = a.StringGenerator("alphanumeric", 9);
+            Window2 = a.StringGenerator("alphanumeric", 9);
 
-            WindowRoot = windowroot;
-            Window1 = windowProvider;
-            Window2 = windowPatient;
         }
 
 

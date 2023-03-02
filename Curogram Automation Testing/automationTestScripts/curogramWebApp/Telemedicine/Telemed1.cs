@@ -22,19 +22,13 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
         public static void ModifyVars()
         {
             SeleniumCommands a = new();
-            var genFirstName = a.StringGenerator("allletters", 9);         
-            var genLastName = a.StringGenerator("allletters", 9);   
-            var genEmail = a.StringGenerator("allletters", 9);
-            var windowroot = a.StringGenerator("alphanumeric", 9);
-            var windowProvider = a.StringGenerator("alphanumeric", 9);
-            var windowPatient = a.StringGenerator("alphanumeric", 9);
+            LastName = a.StringGenerator("allletters", 9);
+            FirstName = a.StringGenerator("allletters", 9);
+            Email = a.StringGenerator("allletters", 9);
+            WindowRoot = a.StringGenerator("alphanumeric", 9);
+            WindowProvider = a.StringGenerator("alphanumeric", 9);
+            WindowPatient = a.StringGenerator("alphanumeric", 9);
 
-            LastName = genLastName;
-            FirstName = genFirstName;
-            Email = genEmail;
-            WindowRoot = windowroot;
-            WindowProvider = windowProvider;
-            WindowPatient = windowPatient;
         }
 
 

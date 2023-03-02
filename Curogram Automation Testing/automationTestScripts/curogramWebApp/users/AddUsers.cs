@@ -25,17 +25,12 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.AddUs
             SeleniumCommands a = new SeleniumCommands();
             var genFirstName = a.StringGenerator("allletters", 9);
             var genLastName = a.StringGenerator("allletters", 9);
-            var genEmail = a.StringGenerator("allletters", 9);
-            var windowroot = a.StringGenerator("alphanumeric", 9);
-            var windowProvider = a.StringGenerator("alphanumeric", 9);
-            var windowPatient = a.StringGenerator("alphanumeric", 9);
-
-            WindowRoot = windowroot;
-            Cp = windowProvider;
-            CuroWeb = windowPatient;
+            Email = a.StringGenerator("allletters", 9) + "@mailsac.com";
+            WindowRoot = a.StringGenerator("alphanumeric", 9);
+            Cp = a.StringGenerator("alphanumeric", 9);
+            CuroWeb = a.StringGenerator("alphanumeric", 9);
             LastName = genLastName;
             FirstName = genFirstName;
-            Email = genEmail+"@mailsac.com";
             FullName = genFirstName+" "+genLastName;
         }
 
