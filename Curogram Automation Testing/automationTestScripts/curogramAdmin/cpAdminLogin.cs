@@ -19,9 +19,9 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin
         public static void ModifyVars()
         {
             SeleniumCommands a = new SeleniumCommands();
-            var windowroot = a.StringGenerator("alphanumeric");
-            var windowProvider = a.StringGenerator("alphanumeric");
-            var windowPatient = a.StringGenerator("alphanumeric");
+            var windowroot = a.StringGenerator("alphanumeric", 9);
+            var windowProvider = a.StringGenerator("alphanumeric", 9);
+            var windowPatient = a.StringGenerator("alphanumeric", 9);
 
 
             CpAdminLoginTest.WindowRoot = windowroot;

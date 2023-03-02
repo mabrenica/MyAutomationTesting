@@ -23,12 +23,12 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.AddUs
         public static void ModifyVars()
         {
             SeleniumCommands a = new SeleniumCommands();
-            var genFirstName = a.StringGenerator("allletters");
-            var genLastName = a.StringGenerator("allletters");
-            var genEmail = a.StringGenerator("allletters");
-            var windowroot = a.StringGenerator("alphanumeric");
-            var windowProvider = a.StringGenerator("alphanumeric");
-            var windowPatient = a.StringGenerator("alphanumeric");
+            var genFirstName = a.StringGenerator("allletters", 9);
+            var genLastName = a.StringGenerator("allletters", 9);
+            var genEmail = a.StringGenerator("allletters", 9);
+            var windowroot = a.StringGenerator("alphanumeric", 9);
+            var windowProvider = a.StringGenerator("alphanumeric", 9);
+            var windowPatient = a.StringGenerator("alphanumeric", 9);
 
             AddUserTest.WindowRoot = windowroot;
             AddUserTest.Cp = windowProvider;

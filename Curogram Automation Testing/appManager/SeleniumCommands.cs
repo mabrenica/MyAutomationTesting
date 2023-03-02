@@ -77,7 +77,7 @@ namespace Curogram_Automation_Testing.AppManager
 
 
         //4. generate random strings
-        public string StringGenerator(string type)
+        public string StringGenerator(string type, int digit)
         {
             Random ranInt = new Random();
             var seedInt = ranInt.Next();
@@ -101,8 +101,8 @@ namespace Curogram_Automation_Testing.AppManager
             }
 
 
-            var newString = char.ToUpper(new string(Enumerable.Repeat(allowedChars, 9)
-                .Select(s => s[rand.Next(s.Length)]).ToArray())[0]) + new string(Enumerable.Repeat(allowedChars, 9)
+            var newString = char.ToUpper(new string(Enumerable.Repeat(allowedChars, digit)
+                .Select(s => s[rand.Next(s.Length)]).ToArray())[0]) + new string(Enumerable.Repeat(allowedChars, digit)
                 .Select(s => s[rand.Next(s.Length)]).ToArray()).Substring(1);
             return newString;
         }
@@ -182,9 +182,9 @@ namespace Curogram_Automation_Testing.AppManager
 
             for (int i = 0; i < charCount;) {           
                 driver.FindElement(By.XPath(targetElement)).SendKeys(Char.ToString(text[i++]));
-                Thread.Sleep(50);
+                Thread.Sleep(10);
             };
-
+            Thread.Sleep(200);
         }
 
 

@@ -31,13 +31,13 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Users
         {
             SeleniumCommands a= new SeleniumCommands();
 
-            var genFirstName = a.StringGenerator("allletters");
-            var genLastName = a.StringGenerator("allletters");
-            var genEmail = a.StringGenerator("alphaneumeric");
-            var genPassword = a.StringGenerator("alphaneumeric");
-            var yopWeb = a.StringGenerator("alphanumeric");
-            var curoWeb = a.StringGenerator("alphanumeric");
-            var yopEmail = a.StringGenerator("alphanumeric");
+            var genFirstName = a.StringGenerator("allletters", 9);
+            var genLastName = a.StringGenerator("allletters", 9);
+            var genEmail = a.StringGenerator("alphaneumeric", 9);
+            var genPassword = a.StringGenerator("alphaneumeric", 9);
+            var yopWeb = a.StringGenerator("alphanumeric", 9);
+            var curoWeb = a.StringGenerator("alphanumeric", 9);
+            var yopEmail = a.StringGenerator("alphanumeric", 9);
 
             ResetProviderPassword.FirstName = genFirstName;
             ResetProviderPassword.LastName = genLastName;

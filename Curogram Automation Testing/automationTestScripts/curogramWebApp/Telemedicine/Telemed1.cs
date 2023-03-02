@@ -23,12 +23,12 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
         {
             TaskManager b = new();
             SeleniumCommands a = new SeleniumCommands();
-            var genFirstName = a.StringGenerator("allletters");         
-            var genLastName = a.StringGenerator("allletters");   
-            var genEmail = a.StringGenerator("allletters");
-            var windowroot = a.StringGenerator("alphanumeric");
-            var windowProvider = a.StringGenerator("alphanumeric");
-            var windowPatient = a.StringGenerator("alphanumeric");
+            var genFirstName = a.StringGenerator("allletters", 9);         
+            var genLastName = a.StringGenerator("allletters", 9);   
+            var genEmail = a.StringGenerator("allletters", 9);
+            var windowroot = a.StringGenerator("alphanumeric", 9);
+            var windowProvider = a.StringGenerator("alphanumeric", 9);
+            var windowPatient = a.StringGenerator("alphanumeric", 9);
 
             Telemed1.LastName = genLastName;
             Telemed1.FirstName = genFirstName;
@@ -79,8 +79,8 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
                 a.SaveWindow(Telemed1.WindowRoot, 0);
                 a.NavTo("https://staging.curogram.com/login?returnUrl=/");
                 a.WUntil(60, "//input[@placeholder='Enter your email address']");
-                a.Type("//input[@placeholder='Enter your email address']", "testrigorcpuser@curogram.com");
-                a.Type("//input[@placeholder='Enter password']", "password1");
+                a.TypeM("//input[@placeholder='Enter your email address']", "testrigorcpuser@curogram.com");
+                a.TypeM("//input[@placeholder='Enter password']", "password1");
                 a.ClickOn("//button[@type='submit']");
                 a.WUntil(60, "//span[contains(text(),'Patients')]");
                 a.ClickOn("//span[contains(text(),'Patients')]");
@@ -93,7 +93,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
 
 
                 //Locate patient in Patients tab and open patient conversation
-                a.Type("//input[@placeholder='Find by name or phone number...']", Telemed1.FirstName);
+                a.TypeM("//input[@placeholder='Find by name or phone number...']", Telemed1.FirstName);
                 a.Pause(4);
                 a.ClickOn("//div[@class='user-info__name user-info__name--cropped']");
                 a.Pause(4);
