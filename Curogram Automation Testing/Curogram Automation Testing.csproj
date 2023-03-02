@@ -6,7 +6,21 @@
     <RootNamespace>Curogram_Automation_Testing</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <ApplicationIcon>curo_icon.ico</ApplicationIcon>
+    <PackageIcon>curo_icon.png</PackageIcon>
+    <RepositoryUrl>https://github.com/marnel-abrenica/Curogram-Automation-Testing.git</RepositoryUrl>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="curo_icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\..\OneDrive - Curogram Inc\Downloads\curo_icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
