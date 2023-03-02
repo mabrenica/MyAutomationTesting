@@ -10,13 +10,13 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.AddUs
     [Parallelizable]
     public class AddUserTest
     {
-        public static String FirstName;
-        public static String LastName;
-        public static String Email;
-        public static String FullName;
-        public static String WindowRoot;
-        public static String Cp;
-        public static String CuroWeb;
+        public static String? FirstName;
+        public static String? LastName;
+        public static String? Email;
+        public static String? FullName;
+        public static String? WindowRoot;
+        public static String? Cp;
+        public static String? CuroWeb;
 
 
 
@@ -30,13 +30,13 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.AddUs
             var windowProvider = a.StringGenerator("alphanumeric", 9);
             var windowPatient = a.StringGenerator("alphanumeric", 9);
 
-            AddUserTest.WindowRoot = windowroot;
-            AddUserTest.Cp = windowProvider;
-            AddUserTest.CuroWeb = windowPatient;
-            AddUserTest.LastName = genLastName;
-            AddUserTest.FirstName = genFirstName;
-            AddUserTest.Email = genEmail+"@mailsac.com";
-            AddUserTest.FullName = genFirstName+" "+genLastName;
+            WindowRoot = windowroot;
+            Cp = windowProvider;
+            CuroWeb = windowPatient;
+            LastName = genLastName;
+            FirstName = genFirstName;
+            Email = genEmail+"@mailsac.com";
+            FullName = genFirstName+" "+genLastName;
         }
 
 
@@ -46,31 +46,32 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.AddUs
         public void addUser()
         {
             ModifyVars();
-            SeleniumCommands a = new SeleniumCommands();
+            SeleniumCommands a = new();
             Console.WriteLine("Testing: Add User Test");
 
             try
             {
                 //Login as provider in CP
                 a.StartDriver("Chrome");
-                a.SaveWindow(AddUserTest.WindowRoot, 0);
+                a.SaveWindow(WindowRoot, 0);
                 a.NavTo("https://cp.staging.curogram.com/");
                 a.Pause(10);
                 a.ClickOn("//div[contains(.,\'Sign In\')]");
                 a.Pause(5);
-                a.SaveWindow(AddUserTest.Cp, 1);
-                a.SwitchWindow(AddUserTest.Cp);
+                a.SaveWindow(Cp, 1);
+                a.SwitchWindow(Cp);
                 a.TypeM("//input[@id=\'login-email\']", "testrigorcpuser@curogram.com");
                 a.Pause(1);
                 a.TypeM("//input[@id=\'login-password\']", "password1");
                 a.Pause(1);
                 a.ClickOn("//span[contains(.,\'Log in\')]");
                 a.Pause(5);
-                a.SwitchWindow(AddUserTest.WindowRoot);
+                a.SwitchWindow(WindowRoot);
                 a.VerifyText("//a[contains(text(),\'Admin panel\')]", "Admin panel");
 
 
                 //Locate the practice in Practices Dashboard
+                a.WUntil(60, "//span[contains(.,\'Practices\')]");
                 a.ClickOn("//span[contains(.,\'Practices\')]");
                 a.Pause(3);
                 a.TypeM("//input[@type=\'text\']", "testrigor automation general");
@@ -86,10 +87,10 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.AddUs
                 a.Pause(3);
                 a.ClickOn("//curogram-intel-provider-actions/div/i");
                 a.Pause(5);
-                a.SaveWindow(AddUserTest.CuroWeb, 1);
-                a.SwitchWindow(AddUserTest.WindowRoot);
+                a.SaveWindow(CuroWeb, 1);
+                a.SwitchWindow(WindowRoot);
                 a.DClose();
-                a.SwitchWindow(AddUserTest.CuroWeb);
+                a.SwitchWindow(CuroWeb);
 
 
                 //Go to Settings
@@ -103,11 +104,11 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.AddUs
 
 
                 //Enter user details
-                a.TypeM("//input[@type=\'email\']", AddUserTest.Email);
+                a.TypeM("//input[@type=\'email\']", Email);
                 a.Pause(1);
-                a.TypeM("(//input[@type=\'text\'])[3]", AddUserTest.FirstName);
+                a.TypeM("(//input[@type=\'text\'])[3]", FirstName);
                 a.Pause(1);
-                a.TypeM("(//input[@type=\'text\'])[4]", AddUserTest.LastName);
+                a.TypeM("(//input[@type=\'text\'])[4]", LastName);
                 a.Pause(1);
                 a.ClickOn("//ui-switch[@formcontrolname=\'isAdmin\']/button[@type=\'button\']");
                 a.Pause(2);
@@ -116,9 +117,9 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.AddUs
 
 
                 //Verify if user is added
-                a.TypeM("//input[@placeholder=\'Find by name or phone number...\']", AddUserTest.FirstName);
+                a.TypeM("//input[@placeholder=\'Find by name or phone number...\']", FirstName);
                 a.Pause(3);
-                a.VerifyText("//div[@class='user-info__name user-info__name--cropped user-info__name--offset']", AddUserTest.FullName);
+                a.VerifyText("//div[@class='user-info__name user-info__name--cropped user-info__name--offset']", FullName);
                 a.Pause(3);
 
 

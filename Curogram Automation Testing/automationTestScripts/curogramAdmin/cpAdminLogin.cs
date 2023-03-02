@@ -10,23 +10,23 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin
     public class CpAdminLoginTest
     {
 
-        public static String WindowRoot;
-        public static String Window2;
-        public static String Window3;
+        public static String? WindowRoot;
+        public static String? Window2;
+        public static String? Window3;
 
 
 
         public static void ModifyVars()
         {
-            SeleniumCommands a = new SeleniumCommands();
+            SeleniumCommands a = new();
             var windowroot = a.StringGenerator("alphanumeric", 9);
             var windowProvider = a.StringGenerator("alphanumeric", 9);
             var windowPatient = a.StringGenerator("alphanumeric", 9);
 
 
-            CpAdminLoginTest.WindowRoot = windowroot;
-            CpAdminLoginTest.Window2 = windowProvider;
-            CpAdminLoginTest.Window3 = windowPatient;
+            WindowRoot = windowroot;
+            Window2 = windowProvider;
+            Window3 = windowPatient;
         }
 
 
@@ -34,17 +34,17 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin
         public void IncorrectPassword()
         {
             ModifyVars();
-            SeleniumCommands a = new SeleniumCommands();
+            SeleniumCommands a = new();
             Console.WriteLine("Testing: Cp Incorrect Password Test");
 
             try {
                 a.StartDriver("Chrome");
-                a.SaveWindow(CpAdminLoginTest.WindowRoot, 0);
+                a.SaveWindow(WindowRoot, 0);
                 a.NavTo("https://cp.staging.curogram.com/");
                 a.Pause(10);
                 a.ClickOn("//div[contains(.,'Sign In')]");
-                a.SaveWindow(CpAdminLoginTest.Window2, 1);
-                a.SwitchWindow(CpAdminLoginTest.Window2);
+                a.SaveWindow(Window2, 1);
+                a.SwitchWindow(Window2);
                 a.Pause(10);
                 a.ClickOn("//input[@id=\'login-email\']");
                 a.Type("//input[@id=\'login-email\']", "testrigorcpuser@curogram.com");
@@ -55,7 +55,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin
                 a.Pause(5);
                 a.VerifyText("//div[@class=\'alert-red\']", "Your password is not matching our records.");
                 a.DClose();
-                a.SwitchWindow(CpAdminLoginTest.WindowRoot);
+                a.SwitchWindow(WindowRoot);
                 a.DClose();
                 TestLogger.Logger("Cp Incorrect Password Test: Pass");
             }
@@ -77,17 +77,17 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin
         public void LoginSuccess()
         {
             ModifyVars();
-            SeleniumCommands a = new SeleniumCommands();
+            SeleniumCommands a = new();
             Console.WriteLine("Testing: Cp Provider Login Success Test");
 
             try {
                 a.StartDriver("Chrome");
-                a.SaveWindow(CpAdminLoginTest.WindowRoot, 0);
+                a.SaveWindow(WindowRoot, 0);
                 a.NavTo("https://cp.staging.curogram.com/");
                 a.Pause(10);
                 a.ClickOn("//div[contains(.,\'Sign In\')]");
-                a.SaveWindow(CpAdminLoginTest.Window2, 1);
-                a.SwitchWindow(CpAdminLoginTest.Window2);
+                a.SaveWindow(Window2, 1);
+                a.SwitchWindow(Window2);
                 a.Pause(10);
                 a.ClickOn("//input[@id=\'login-email\']");
                 a.Type("//input[@id=\'login-email\']", "testrigorcpuser@curogram.com");
@@ -95,7 +95,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin
                 a.Type("//input[@id=\'login-password\']", "password1");
                 a.Pause(2);
                 a.ClickOn("//span[contains(.,\'Log in\')]");
-                a.SwitchWindow(CpAdminLoginTest.WindowRoot);
+                a.SwitchWindow(WindowRoot);
                 a.Pause(5);
                 a.VerifyText("//a[contains(text(),\'Admin panel\')]", "Admin panel");
                 a.DClose();
@@ -121,25 +121,25 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin
         public void IncorrectEmailFormat()
         {
             ModifyVars();
-            SeleniumCommands a = new SeleniumCommands();
+            SeleniumCommands a = new();
             Console.WriteLine("Cp Testing: Incorrect Email Format Test");
 
             try {
                 a.StartDriver("Chrome");
-                a.SaveWindow(CpAdminLoginTest.WindowRoot, 0);
+                a.SaveWindow(WindowRoot, 0);
                 a.NavTo("https://cp.staging.curogram.com/");
                 a.Pause(10);
                 a.ClickOn("//div[contains(.,\'Sign In\')]");
                 a.Pause(10);
-                a.SaveWindow(CpAdminLoginTest.Window2, 1);
-                a.SwitchWindow(CpAdminLoginTest.Window2);
+                a.SaveWindow(Window2, 1);
+                a.SwitchWindow(Window2);
                 a.Type("//input[@id=\'login-email\']", "incorrectemailformat");
                 a.Pause(2);
                 a.ClickOn("//input[@id=\'login-password\']");
                 a.Pause(5);
                 a.CheckElement("//div[@class=\'bubble-error alert-red\']");
                 a.DClose();
-                a.SwitchWindow(CpAdminLoginTest.WindowRoot);
+                a.SwitchWindow(WindowRoot);
                 a.DClose();
                 TestLogger.Logger("Cp Incorrect Email Format Test: Pass");
             }

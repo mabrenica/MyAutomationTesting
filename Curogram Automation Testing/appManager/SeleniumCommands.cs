@@ -79,9 +79,9 @@ namespace Curogram_Automation_Testing.AppManager
         //4. generate random strings
         public string StringGenerator(string type, int digit)
         {
-            Random ranInt = new Random();
+            Random ranInt = new();
             var seedInt = ranInt.Next();
-            Random rand = new Random(seedInt);
+            Random rand = new(seedInt);
             string allowedChars = "";
 
             switch (type)
@@ -111,7 +111,7 @@ namespace Curogram_Automation_Testing.AppManager
         //5. Close current window
         public void DClose()
         {
-            driver.Close();
+            driver?.Close();
         }
 
 

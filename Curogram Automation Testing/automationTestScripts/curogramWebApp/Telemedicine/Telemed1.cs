@@ -11,18 +11,17 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
     class Telemed1
     {
 
-        public static String FirstName;
-        public static String LastName;
-        public static String Email;
-        public static String WindowRoot;
-        public static String WindowProvider;
-        public static String WindowPatient;
+        public static String? FirstName;
+        public static String? LastName;
+        public static String? Email;
+        public static String? WindowRoot;
+        public static String? WindowProvider;
+        public static String? WindowPatient;
 
 
         public static void ModifyVars()
         {
-            TaskManager b = new();
-            SeleniumCommands a = new SeleniumCommands();
+            SeleniumCommands a = new();
             var genFirstName = a.StringGenerator("allletters", 9);         
             var genLastName = a.StringGenerator("allletters", 9);   
             var genEmail = a.StringGenerator("allletters", 9);
@@ -30,12 +29,12 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
             var windowProvider = a.StringGenerator("alphanumeric", 9);
             var windowPatient = a.StringGenerator("alphanumeric", 9);
 
-            Telemed1.LastName = genLastName;
-            Telemed1.FirstName = genFirstName;
-            Telemed1.Email = genEmail;
-            Telemed1.WindowRoot = windowroot;
-            Telemed1.WindowProvider = windowProvider;
-            Telemed1.WindowPatient= windowPatient;
+            LastName = genLastName;
+            FirstName = genFirstName;
+            Email = genEmail;
+            WindowRoot = windowroot;
+            WindowProvider = windowProvider;
+            WindowPatient = windowPatient;
         }
 
 
@@ -45,19 +44,19 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
             var practiceName = "TestRigor Automation General (Do not change settings)";
             var authToken = "Basic eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXZpY2VUeXBlIjoid2ViIiwiaXNzdWVyIjoiYXBpIiwiYWNjb3VudElkIjoiNjNlMzZmYTFhY2EyMTA1NGM2YzNjOGQ3IiwiY3JlYXRlZEF0IjoxNjc3MDgxNDc1MDc0LCJidXNpbmVzc0lkIjoiNjNkMjk1ZmUyMDQ2YTE4NmI5OWIyNTM3IiwiaWF0IjoxNjc3MDgxNDc1LCJleHAiOjE2Nzk2NzM0NzUsImlzcyI6ImFwaSJ9.akR27vti8P0wn2dnl8OPtPs2u4JPmzoxE_CQDJqJ7x4NIiejSsR8onbYaBYn2Zv2bqeeuMheMI6cqfvN4ScXB1oPYbzcsVWLI_QOKuUEuHWso9z1w6lss9k-zOD64aECe7lWwgLCdKDF5WLv59Pe0lkUsv5TXNZmM6OABOp_fUX9ccF8ge59gNMzLYOMCg762-eMz2Yl9zqKRZGw6I5K4AXSCwPOp20nDJ6CVP0bwXzQwba9wJ_76yHWTPWReLJU64eh5JQ_0Cdb-_L4IIvtPjavdzstwBrMd59XJh59e-aRoaS6Jd0QJpXu7xT4mgE__YZz2teoFzhHpEKNlQnKgw";
             var response = await new AutoUpdateTimeZone().AutoTimeZone(authToken, practiceName);
-            //Console.WriteLine(response);
+            Console.WriteLine(response);
         }
 
 
         //Add Patient record through API
         public async Task AddPatientApi()
         {
-            var firstName = Telemed1.FirstName;
-            var lastName = Telemed1.LastName;
-            var email = Telemed1.Email+"@mailsac.com";
+            var firstName = FirstName;
+            var lastName = LastName;
+            var email = Email + "@mailsac.com";
             var authToken = "Basic eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXZpY2VUeXBlIjoid2ViIiwiaXNzdWVyIjoiYXBpIiwiYWNjb3VudElkIjoiNjNlMzZmYTFhY2EyMTA1NGM2YzNjOGQ3IiwiY3JlYXRlZEF0IjoxNjc3MDgxNDc1MDc0LCJidXNpbmVzc0lkIjoiNjNkMjk1ZmUyMDQ2YTE4NmI5OWIyNTM3IiwiaWF0IjoxNjc3MDgxNDc1LCJleHAiOjE2Nzk2NzM0NzUsImlzcyI6ImFwaSJ9.akR27vti8P0wn2dnl8OPtPs2u4JPmzoxE_CQDJqJ7x4NIiejSsR8onbYaBYn2Zv2bqeeuMheMI6cqfvN4ScXB1oPYbzcsVWLI_QOKuUEuHWso9z1w6lss9k-zOD64aECe7lWwgLCdKDF5WLv59Pe0lkUsv5TXNZmM6OABOp_fUX9ccF8ge59gNMzLYOMCg762-eMz2Yl9zqKRZGw6I5K4AXSCwPOp20nDJ6CVP0bwXzQwba9wJ_76yHWTPWReLJU64eh5JQ_0Cdb-_L4IIvtPjavdzstwBrMd59XJh59e-aRoaS6Jd0QJpXu7xT4mgE__YZz2teoFzhHpEKNlQnKgw";
             var response = await new CreatePatient().CreatePatientMethod(firstName, lastName, email, authToken);
-            //Console.WriteLine(response);
+            Console.WriteLine(response);
         }
 
 
@@ -65,9 +64,9 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
         [Test]
         public void Telemed()
         {
-            TimeZone();
+            _ = TimeZone();
             ModifyVars();
-            AddPatientApi();
+            _ = AddPatientApi();
             SeleniumCommands a = new SeleniumCommands();
             Console.WriteLine("Testing: Instant Telemedicine Test");
            
@@ -76,7 +75,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
 
                 //logging in to practice
                 a.StartDriver("Chrome");
-                a.SaveWindow(Telemed1.WindowRoot, 0);
+                a.SaveWindow(WindowRoot, 0);
                 a.NavTo("https://staging.curogram.com/login?returnUrl=/");
                 a.WUntil(60, "//input[@placeholder='Enter your email address']");
                 a.TypeM("//input[@placeholder='Enter your email address']", "testrigorcpuser@curogram.com");
@@ -93,7 +92,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
 
 
                 //Locate patient in Patients tab and open patient conversation
-                a.TypeM("//input[@placeholder='Find by name or phone number...']", Telemed1.FirstName);
+                a.TypeM("//input[@placeholder='Find by name or phone number...']", FirstName);
                 a.Pause(4);
                 a.ClickOn("//div[@class='user-info__name user-info__name--cropped']");
                 a.Pause(4);
@@ -106,19 +105,19 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
                 a.Pause(4);
                 a.ClickOn("//button[@class='btn btn-primary']");
                 a.Pause(6);               
-                a.SaveWindow(Telemed1.WindowProvider, 1);
+                a.SaveWindow(WindowProvider, 1);
 
                 //Manual Send Telemedicine Link
-                a.SwitchWindow(Telemed1.WindowRoot);
+                a.SwitchWindow(WindowRoot);
                 a.ClickOn("//span[contains(text(),'Telemedicine')]");
                 a.Pause(5);
-                a.TypeM("//input[@placeholder='Find by name']", Telemed1.FirstName);
+                a.TypeM("//input[@placeholder='Find by name']", FirstName);
                 a.Pause(5);
                 a.ClickOn("//curogram-icon[@name='more']");
                 a.Pause(3);
                 a.ClickOn("//curogram-icon[@name='refresh-1']");
                 a.Pause(2);
-                a.TypeM("//input[@placeholder='Email']", Telemed1.Email + "@mailsac.com");
+                a.TypeM("//input[@placeholder='Email']", Email + "@mailsac.com");
                 a.Pause(2);
                 a.ClickOn("//button[contains(text(),'Resend')]");
                 a.Pause(5);
@@ -126,14 +125,14 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
                 //Switch back to conversation window
                 a.ClickOn("//span[contains(text(),'Conversations')]");
                 a.Pause(5);
-                a.TypeM("//input[@placeholder='Find by name or phone number...']", Telemed1.FirstName);
+                a.TypeM("//input[@placeholder='Find by name or phone number...']", FirstName);
                 a.Pause(5);
                 a.ClickOn("//div[@class='conversation-title text-truncate']");
                 a.Pause(5);
                 a.ClickOn("//a[@class='text-info']");
                 a.Pause(15);
-                a.SaveWindow(Telemed1.WindowPatient,2);
-                a.SwitchWindow(Telemed1.WindowPatient);
+                a.SaveWindow(WindowPatient, 2);
+                a.SwitchWindow(WindowPatient);
 
 
                 //Check if video is working (patient)
@@ -144,7 +143,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
 
 
                 //Check if video is working (provider)
-                a.SwitchWindow(Telemed1.WindowProvider);
+                a.SwitchWindow(WindowProvider);
                 a.WUntil(60, "//video[@style='height: 100%; position: absolute;']");
                 a.CheckElement("//video[@style='height: 100%; position: absolute;']");
                 a.WUntil(60, "//video[@style='height: 100%; position: absolute; transform: scaleX(-1);']");
@@ -160,7 +159,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
 
 
                 //Verify in telemedicine tab
-                a.TypeM("//input[@placeholder='Find by name']", Telemed1.FirstName);
+                a.TypeM("//input[@placeholder='Find by name']", FirstName);
                 a.Pause(5);
                 a.CheckElement("//span[contains(text(),\" Visit completed \")]");
 

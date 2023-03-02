@@ -12,9 +12,9 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
     [Parallelizable]
     internal class ProviderLogin
     {
-        public static String WindowRoot;
-        public static String Window1;
-        public static String Window2;
+        public static String? WindowRoot;
+        public static String? Window1;
+        public static String? Window2;
 
         public static void ModifyVars()
         {
@@ -23,9 +23,9 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
             var windowProvider = a.StringGenerator("alphanumeric", 9);
             var windowPatient = a.StringGenerator("alphanumeric", 9);
 
-            ProviderLogin.WindowRoot = windowroot;
-            ProviderLogin.Window1 = windowProvider;
-            ProviderLogin.Window2 = windowPatient;
+            WindowRoot = windowroot;
+            Window1 = windowProvider;
+            Window2 = windowPatient;
         }
 
 
@@ -40,7 +40,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
             try
             {
                 a.StartDriver("Chrome");
-                a.SaveWindow(Telemed1.WindowRoot, 0);
+                a.SaveWindow(WindowRoot, 0);
                 a.NavTo("https://staging.curogram.com/");
                 a.Pause(10);
                 a.ClickOn("//a[contains(@href, \'/login?hsLang=en\')]");
@@ -74,13 +74,13 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
         public void IncorrectPassword()
         {
             ModifyVars();
-            SeleniumCommands a = new SeleniumCommands();
+            SeleniumCommands a = new();
             Console.WriteLine("Testing: Curogram Web Incorrect Password");
 
             try
             {
                 a.StartDriver("Chrome");
-                a.SaveWindow(Telemed1.WindowRoot, 0);
+                a.SaveWindow(WindowRoot, 0);
                 a.NavTo("https://staging.curogram.com/");
                 a.Pause(5);
                 a.ClickOn("//a[contains(@href, \'/login?hsLang=en\')]");
@@ -113,13 +113,13 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
         public void IncorrectEmailFormat()
         {
             ModifyVars();
-            SeleniumCommands a = new SeleniumCommands();
+            SeleniumCommands a = new();
             Console.WriteLine("Testing: Curogram Web Incorrect Email Format Test");
 
             try
             {
                 a.StartDriver("Chrome");
-                a.SaveWindow(Telemed1.WindowRoot, 0);
+                a.SaveWindow(WindowRoot, 0);
                 a.NavTo("https://staging.curogram.com/");
                 a.Pause(10);
                 a.ClickOn("//a[contains(@href, \'/login?hsLang=en\')]");
@@ -151,7 +151,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
         [Test]
         public void ProviderLoginTest()
         {
-            ProviderLogin a= new ProviderLogin();
+            ProviderLogin a= new();
             a.IncorrectPassword();
             a.ProviderLoginSuccess();
             a.IncorrectEmailFormat();

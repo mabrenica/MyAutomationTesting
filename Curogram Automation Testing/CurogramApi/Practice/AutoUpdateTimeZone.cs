@@ -10,7 +10,7 @@ namespace Curogram_Automation_Testing.CurogramApi.Practice
     internal class AutoUpdateTimeZone
     {
         
-        public static String NewTimeZone;
+        public static String? NewTimeZone;
 
         public void AutoUpTime()
         {
@@ -23,19 +23,19 @@ namespace Curogram_Automation_Testing.CurogramApi.Practice
 
             if (now >= nineAm && now < threePm)
             {
-                AutoUpdateTimeZone.NewTimeZone = "US/Pacific";
+                NewTimeZone = "US/Pacific";
             }
             else if(now >= threePm && now < ninePm)
             {
-                AutoUpdateTimeZone.NewTimeZone = "America/New_York";
+                NewTimeZone = "America/New_York";
             }
             else if (now >= ninePm && now < threeAm)
             {
-                AutoUpdateTimeZone.NewTimeZone = "Asia/Karachi";
+                NewTimeZone = "Asia/Karachi";
             }
             else
             {
-                AutoUpdateTimeZone.NewTimeZone = "Australia/West";
+                NewTimeZone = "Australia/West";
             };
         }
 
@@ -64,7 +64,7 @@ namespace Curogram_Automation_Testing.CurogramApi.Practice
                     request.Headers.TryAddWithoutValidation("sec-ch-ua-mobile", "?0");
                     request.Headers.TryAddWithoutValidation("sec-ch-ua-platform", "\"Windows\"");
 
-                    request.Content = new StringContent("{\"name\":\"" + practiceName + "\",\"timezone\":\"" + AutoUpdateTimeZone.NewTimeZone + "\"}");
+                    request.Content = new StringContent("{\"name\":\"" + practiceName + "\",\"timezone\":\"" + NewTimeZone + "\"}");
                     request.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
 
                     var response = await httpClient.SendAsync(request);

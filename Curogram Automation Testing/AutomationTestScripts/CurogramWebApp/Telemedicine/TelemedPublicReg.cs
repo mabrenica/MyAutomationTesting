@@ -69,7 +69,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
         //Set Values to Variables
         public static void ModifyVars()
         {
-            SeleniumCommands a = new SeleniumCommands();
+            SeleniumCommands a = new();
             var a1 = a.StringGenerator("allletters",   9);
             var a2 = a.StringGenerator("allletters",   9);
             var a3 = a.StringGenerator("allletters",   9);
@@ -79,15 +79,15 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
             var a7 = a.StringGenerator("allletters",   5);
             var a8 = a.StringGenerator("allletters",   9);
             var a9 = a.StringGenerator("allnumbers",   5);
-            TelemedPublicReg.PFName   = a1;
-            TelemedPublicReg.PMName   = a2;
-            TelemedPublicReg.PLName   = a3;
-            TelemedPublicReg.PEmail   = a4 + "@mailsac.com";
-            TelemedPublicReg.PAddress = a5;
-            TelemedPublicReg.PUnitNo  = a6;
-            TelemedPublicReg.PCity    = a7;
-            TelemedPublicReg.PCounty  = a8;
-            TelemedPublicReg.PZip     = a9;
+            PFName   = a1;
+            PMName = a2;
+            PLName = a3;
+            PEmail = a4 + "@mailsac.com";
+            PAddress = a5;
+            PUnitNo = a6;
+            PCity = a7;
+            PCounty = a8;
+            PZip = a9;
 
 
             var b1 = a.StringGenerator("allletters",   9);
@@ -97,21 +97,21 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
             var b5 = a.StringGenerator("allletters",   9);
             var b6 = a.StringGenerator("allletters",   9);
             var b7 = a.StringGenerator("allnumbers",   5);
-            TelemedPublicReg.GFName   = b1;
-            TelemedPublicReg.GMName   = b2;
-            TelemedPublicReg.GLName   = b3;
-            TelemedPublicReg.GEmail   = b4 + "@mailsac.com";
-            TelemedPublicReg.GAddress = b5;
-            TelemedPublicReg.GCity    = b6;
-            TelemedPublicReg.GZip     = b7;
+            GFName = b1;
+            GMName = b2;
+            GLName = b3;
+            GEmail = b4 + "@mailsac.com";
+            GAddress = b5;
+            GCity = b6;
+            GZip = b7;
 
 
             var c1 = a.StringGenerator("allletters", 9);
             var c2 = a.StringGenerator("allletters", 9);
             var c3 = a.StringGenerator("allletters", 9);
-            TelemedPublicReg.EcFName = c1;
-            TelemedPublicReg.EcMName = c2;
-            TelemedPublicReg.EcLName = c3;
+            EcFName = c1;
+            EcMName = c2;
+            EcLName = c3;
 
 
             var d1 = a.StringGenerator("alphanumeric", 9);
@@ -120,32 +120,32 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
             var d4 = a.StringGenerator("allletters",   9);
             var d5 = a.StringGenerator("allletters",   9);
             var d6 = a.StringGenerator("allnumbers",   5);
-            TelemedPublicReg.GId   = d1;
-            TelemedPublicReg.MId   = d2;
-            TelemedPublicReg.ICN   = d3;
-            TelemedPublicReg.ICA   = d4;
-            TelemedPublicReg.ICity = d5;
-            TelemedPublicReg.IZip  = d6;
+            GId = d1;
+            MId = d2;
+            ICN = d3;
+            ICA = d4;
+            ICity = d5;
+            IZip = d6;
 
 
             var e1 = a.StringGenerator("allletters", 9);
             var e2 = a.StringGenerator("allletters", 9);
             var e3 = a.StringGenerator("allletters", 9);
-            TelemedPublicReg.MrrFName = e1;
-            TelemedPublicReg.MrrMName = e2;
-            TelemedPublicReg.MrrLName = e3;
+            MrrFName = e1;
+            MrrMName = e2;
+            MrrLName = e3;
 
 
             var f1 = a.StringGenerator("alphanumeric", 9);
-            TelemedPublicReg.DLNum = f1;
+            DLNum = f1;
 
 
             var g1 = a.StringGenerator("allletters", 9);
             var g2 = a.StringGenerator("allletters", 9);
             var g3 = a.StringGenerator("allletters", 9);
-            TelemedPublicReg.YopWeb    = g1;
-            TelemedPublicReg.RegPage   = g2;
-            TelemedPublicReg.WPatient  = g3;
+            YopWeb = g1;
+            RegPage = g2;
+            WPatient = g3;
         }
 
 
@@ -154,14 +154,14 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
         public void TelePubReg()
         {
             ModifyVars();
-            SeleniumCommands a = new SeleniumCommands();
+            SeleniumCommands a = new();
             Console.WriteLine("Testing: Instant Telemedicine Public Registration Test");
 
             try
             {
                 //open yopmail website
                 a.StartDriver("Chrome");
-                a.SaveWindow(TelemedPublicReg.YopWeb, 0);
+                a.SaveWindow(YopWeb, 0);
                 a.NavTo("https://mailsac.com/login");
                 a.Pause(4);
                 a.TypeM("//input[@name='username']", "marnel.abrenica@curogram.com");
@@ -171,13 +171,13 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
 
 
                 //register generated email in mailsac
-                a.TypeM("//input[@type='text'][1]", TelemedPublicReg.PEmail);
+                a.TypeM("//input[@type='text'][1]", PEmail);
                 a.Pause(1);
                 a.ClickOn("//button[contains(text(),'Check the mail!')]");
 
 
                 //Open registration page
-                a.StartNewWindow(TelemedPublicReg.RegPage);
+                a.StartNewWindow(RegPage);
                 a.NavTo("https://staging.curogram.com/registrations/6400a92a073cd10ee0c9a868");
 
 
