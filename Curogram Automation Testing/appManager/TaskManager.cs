@@ -22,7 +22,7 @@ namespace Curogram_Automation_Testing.AppManager
             ResetProviderPassword t3 = new();
             CpAdminLoginTest t4 = new();
             Telemed1 t5 = new();
-
+            TelemedPublicReg t6 = new();
 
 
             //add list to tasks
@@ -31,7 +31,7 @@ namespace Curogram_Automation_Testing.AppManager
             testMethods.Add(3, Tuple.Create(new Action(t3.ResetUserPassword), "Reset User Password Test"));
             testMethods.Add(4, Tuple.Create(new Action(t4.CpAdminLogin), "CP Admin Login Test"));
             testMethods.Add(5, Tuple.Create(new Action(t5.Telemed), "Instant Telemedicine Test"));
-
+            testMethods.Add(6, Tuple.Create(new Action(t6.TelePubReg), "Telemedicine Public Registration"));
 
             //Display test case list
             Console.ForegroundColor = ConsoleColor.Green;

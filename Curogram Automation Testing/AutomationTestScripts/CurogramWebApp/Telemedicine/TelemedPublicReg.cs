@@ -66,7 +66,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
         public static String? RegPage;
         public static String? WPatient;
 
-        //Set Values to Variables
+        //Set Values to Variables with random strings
         public static void ModifyVars()
         {
             SeleniumCommands a = new();
@@ -151,9 +151,185 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
                 a.NavTo("https://staging.curogram.com/registrations/6400a92a073cd10ee0c9a868");
 
 
+                //Introduction
+                a.WUntil("//div[contains(text(),' introduction ')]");
+                a.ClickOn("//button[contains(text(),' Get started')]");
+
+                //Verification using email
+                a.WUntil("//div[contains(text(),' identification')]");
+                a.ClickOn("//span[contains(text(),'I do not have a cell phone number')]");
+                a.TypeM("//input[@placeholder='Email']", PEmail);
+                a.ClickOn("//button[contains(text(),'Next')]");
+                a.WUntil("//h4[@class='check-result__title']");
+                a.SwitchWindow(YopWeb);
+                a.RefreshUntil("//strong[contains(text(),'no-reply@curogram.com')]");
+                a.ClickOn("//strong[contains(text(),'no-reply@curogram.com')]");
+                a.Pause(1);
+
+                //Extract OPT code and enter
+                var otpCode = a.GetOtp("//p[@class='o_mb-md o_sick-message']");
+                a.SwitchWindow(RegPage);
+                a.TypeCode(otpCode, "//input[@placeholder='—']");
+
+                //Demographics
+                a.WUntil(" //div[contains(text(),'demographics')]");
+                a.TypeM("//input[@placeholder='First Name']", PFName);
+                a.TypeM("//input[@placeholder='Middle Name']", PMName);
+                a.TypeM("//input[@placeholder='Last Name']", PLName);
+                a.TypeM("//input[@placeholder='Cell Phone Number']", CellNo);
+                a.ClickOn("//button[contains(text(),'Next')]");
+
+
+                //Patient Address
+                a.WUntil("//div[contains(text(),'patient address')]");
+                a.ClickOn("//input[@id='home']");
+                a.TypeM("//input[@name='address']", PAddress);
+                a.TypeM("//input[@placeholder='Unit Number']", PUnitNo);
+                a.TypeM("//input[@placeholder='City']", PCity);
+                a.TypeM("//input[@placeholder='County']", PCounty);
+                a.ClickOn("//div[@role='combobox']");
+                a.ClickOn("//span[contains(text(),'CA')]");
+                a.TypeM("//input[@placeholder='Zip Code']", PZip);
+                a.ClickOn("//button[contains(text(),'Next')]");
+
+                //Referral Source
+                a.WUntil("//div[contains(text(),'referral source')]");
+                a.ClickOn("//label[@for='other']");
+                a.ClickOn("//button[contains(text(),'Next')]");
+
+                //Screening 
+                a.WUntil("//div[contains(text(),'screening')]");
+                a.ClickOn("//label[@for='answer_0_1']");
+                a.ClickOn("//label[@for='answer_1_1']");
+                a.ClickOn("//button[contains(text(),'Next')]");
+
+                //Telemedicine History
+                a.WUntil("//div[contains(text(),'Telemedicine History')]");
+                a.ClickOn("//label[@for='no']");
+                a.ClickOn("//button[contains(text(),'Next')]");
+
+                //Symptoms
+                a.WUntil("//div[contains(text(),'Symptoms')]");
+                a.ClickOn("//label[@for='false']");
+                a.ClickOn("//button[contains(text(),'Next')]");
+
+                //Medical History
+                a.WUntil("//div[contains(text(),'Medical History')]");
+                a.ClickOn("//label[@for='none']");
+                a.ClickOn("//button[contains(text(),'Next')]");
+
+                //Guardian
+                a.WUntil("//div[contains(text(),'guardian')]");
+                a.TypeM("//input[@placeholder='First Name']", GFName);
+                a.TypeM("//input[@placeholder='Middle Name']", GMName);
+                a.TypeM("//input[@placeholder='Last Name']", GLName);
+                a.ClickOn("//curo-dob[1]//div[@class=\"ng-select-container\"]//div[@role='combobox'][1]");
+                a.ClickOn("//span[contains(text(),'January')]");
+                a.ClickOn("//curo-dob[1]//div[@class=\"ng-select-container\"]//div[@role='combobox'][1]");
+                a.ClickOn("//span[./text()='1']");
+                a.ClickOn("//curo-dob[1]//div[@class=\"ng-select-container\"]//div[@role='combobox'][1]");
+                a.ClickOn("//span[./text()='2020']");
+                a.TypeM("//input[@placeholder='Cell Phone Number']", CellNo);
+                a.TypeM("//input[@placeholder='Email']", GEmail);
+                a.ClickOn("//ng-select[@formcontrolname='gender']");
+                a.ClickOn("//span[contains(text(),'Male')]");
+                a.ClickOn("//ng-select[@formcontrolname='relation']");
+                a.ClickOn("//span[contains(text(),'Other')]");
+                a.TypeM("//input[@name='address']", GAddress);
+                a.TypeM("//input[@name='city']", GCity);
+                a.ClickOn("//ng-select[@formcontrolname='state']");
+                a.ClickOn("//span[contains(text(),'CA')]");
+                a.TypeM("//input[@name='zip']", GZip);
+                a.ClickOn("//button[contains(text(),'Next')]");
+
+                //Disability
+                a.WUntil("//div[contains(text(),'disability')]");
+                a.ClickOn("//input[@id='checkbox3']");
+                a.ClickOn("//button[contains(text(),'Next')]");
+
+                //Emergency contact
+                a.WUntil("//div[contains(text(),'emergency contact')]");
+                a.TypeM("//input[@name='firstname']", EcFName);
+                a.TypeM("//input[@formcontrolname='middleName']", EcMName);
+                a.TypeM("//input[@formcontrolname='lastName']", EcLName);
+                a.TypeM("//input[@formcontrolname='phone']", CellNo);
+                a.ClickOn("//button[contains(text(),'Next')]");
+
+                //Insurance info
+                a.WUntil("//div[contains(text(),'insurance info')]");
+                a.TypeM("//input[@formcontrolname='groupId']", GId);
+                a.TypeM("//input[@formcontrolname='memberId']", MId);
+                a.TypeM("//input[@formcontrolname='companyName']", ICN);
+                a.TypeM("//input[@formcontrolname='address']", ICA);
+                a.TypeM("//input[@formcontrolname='city']", ICity);
+                a.ClickOn("//ng-select[@formcontrolname='state']");
+                a.ClickOn("//span[contains(text(),'CA')]");
+                a.TypeM("//input[@formcontrolname='zipcode']", IZip);
+                a.ClickOn("//button[contains(text(),'Next')]");
+
+                //Insurance Card
+                a.WUntil("//div[contains(text(),'insurance card')]");
+                a.UploadImage("//curo-card-upload-preview[@class='insurance-card__upload mr-3']//input[@class='d-none']");
+                a.UploadImage("//curo-card-upload-preview[@class='insurance-card__upload']//input[@class='d-none']");
+                a.Pause(2);
+                a.ClickOn("//button[contains(text(),'Next')]");
+
+                //Identification
+                a.WUntil("//div[contains(text(),'identification')]");
+                a.TypeM("//input[@formcontrolname='driversLicenseId']", DLNum);
+                a.ClickOn("//ng-select[@formcontrolname='driversLicenseState']");
+                a.ClickOn("//span[contains(text(),'CA')]");
+                a.UploadImage("//curo-card-upload-preview[@class='insurance-card__upload mr-3 full-text']//input[@class='d-none']");
+                a.UploadImage("//curo-card-upload-preview[@class='insurance-card__upload full-text']//input[@class='d-none']");
+                a.Pause(2);
+                a.ClickOn("//button[contains(text(),'Next')]");
+
+                //Document submission
+                a.WUntil("//div[contains(text(),'document submission')]");
+                a.UploadImage("//div[@class='d-flex justify-content-between align-items-center upload-item'][1]//input[@type='file']");
+                a.Pause(1);
+                a.UploadImage("//div[@class='d-flex justify-content-between align-items-center upload-item'][2]//input[@type='file']");
+                a.Pause(1);
+                a.UploadImage("//div[@class='d-flex justify-content-between align-items-center upload-item'][3]//input[@type='file']");
+                a.ClickOn("//button[contains(text(),'Next')]");
+
+                //Payment
+                a.WUntil("//div[contains(text(),'payment')]");
+                a.Pause(3);
+                a.iFrameInput("//iframe[@title='Secure card number input frame']", "//div[@class='CardNumberField-input-wrapper']//input[@class='InputElement is-empty Input Input--empty']", CCNum);
+
+                a.ClickOn("//button[contains(text(),'Next')]");
+
+                //Consent
+                a.WUntil("//div[contains(text(),'consent')]");
+                a.ClickOn("//button[contains(text(),'I Agree')]");
+
+                //MRR Authorization
+                a.WUntil("//div[contains(text(),'MRR authorization')]");
+                a.TypeM("//input[@formcontrolname='firstName']", MrrFName);
+                a.TypeM("//input[@formcontrolname='middleName']", MrrMName);
+                a.TypeM("//input[@formcontrolname='lastName']", MrrLName);
+                a.ClickOn("//div[@class='ng-select-container']//input[@type='text']");
+                a.ClickOn("//span[contains(text(),'Other')]");
+                a.ClickOn("//button[contains(text(),'I Agree')]");
+
+                //Signature
+                a.WUntil("//div[contains(text(),'signature')]");
+                a.DrawSign("//curo-signature[@formcontrolname='signature']//canvas");
+                a.ClickOn("//button[contains(text(),'Agree and Sign')]");
+
+                //Telemedicine Waiting Room
+                a.WUntil("//div[contains(text(),'Thank you for waiting. A provider will be with you shortly.')]", 90);
+
+
+
+
+
+
+
                 //Test Pass
                 TestLogger.Logger("Instant Telemedicine Public Registration Test: Pass");
-                a.DQuit();
+                //a.DQuit();
             }
 
             //Test Failed
@@ -162,7 +338,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
                 string message = "Instant Telemedicine Public Registration Test: Fail - -";
                 TestLogger.Logger(message + e.Message);
                 Console.WriteLine(message + e.Message);
-                a.DQuit();
+                //a.DQuit();
                 Assert.That(e.Message, Is.EqualTo(""));
 
             }

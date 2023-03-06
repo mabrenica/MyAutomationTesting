@@ -31,4 +31,10 @@
     <PackageReference Include="Selenium.WebDriver" Version="4.8.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="test_image.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

@@ -106,7 +106,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Users
 
                 //click Sign in
                 a.ClickOn("//a[@href='/login?hsLang=en']");
-                a.WUntil(30, "//div[@class='login-header']");
+                a.WUntil("//div[@class='login-header']");
 
 
                 //Click Forgot Password

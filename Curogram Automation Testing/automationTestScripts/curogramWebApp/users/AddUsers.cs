@@ -66,7 +66,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.AddUs
 
 
                 //Locate the practice in Practices Dashboard
-                a.WUntil(60, "//span[contains(.,\'Practices\')]");
+                a.WUntil("//span[contains(.,\'Practices\')]");
                 a.ClickOn("//span[contains(.,\'Practices\')]");
                 a.Pause(3);
                 a.TypeM("//input[@type=\'text\']", "testrigor automation general");
@@ -89,7 +89,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.AddUs
 
 
                 //Go to Settings
-                a.WUntil(40,"//span[contains(.,'Settings')]");
+                a.WUntil("//span[contains(.,'Settings')]");
                 a.ClickOn("//span[contains(.,'Settings')]");
                 a.Pause(4);
                 a.ClickOn("//a[4]/div");

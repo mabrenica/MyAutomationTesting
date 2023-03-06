@@ -16,6 +16,11 @@ using Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Users.Res
 using System.Data;
 using System.Security.Principal;
 using NUnit.Framework.Constraints;
+using System.Text.RegularExpressions;
+using System.Drawing;
+using System.Xml.Linq;
+using NUnit.Framework.Internal;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Curogram_Automation_Testing.AppManager
 {
@@ -33,7 +38,7 @@ namespace Curogram_Automation_Testing.AppManager
         public void StartDriver(string browserName)
         {
             var browserSwitch = browserName;
-            
+
             switch (browserSwitch)
             {
                 case "Chrome":
@@ -61,6 +66,7 @@ namespace Curogram_Automation_Testing.AppManager
         public void ClickOn(string elementName)
         {
             driver.FindElement(By.XPath(elementName)).Click();
+            Thread.Sleep(500);
         }
 
 
@@ -68,7 +74,7 @@ namespace Curogram_Automation_Testing.AppManager
         public void NavTo(string siteUrl)
         {
             Task.Run(() =>
-            {               
+            {
                 driver.Navigate().GoToUrl(siteUrl);
             }).Wait(TimeSpan.FromSeconds(30));
 
@@ -143,7 +149,7 @@ namespace Curogram_Automation_Testing.AppManager
 
 
         //9. Wait until element is present
-        public void WUntil(int timeOutInSeconds, string targetElement)
+        public void WUntil(string targetElement, int timeOutInSeconds = 60)
         {
             {
                 WebDriverWait wait = new WebDriverWait(driver, System.TimeSpan.FromSeconds(timeOutInSeconds));
@@ -171,7 +177,7 @@ namespace Curogram_Automation_Testing.AppManager
             {
                 throw new Exception($"Element not found: " + elementName);
             };
-            
+
         }
 
 
@@ -180,7 +186,8 @@ namespace Curogram_Automation_Testing.AppManager
         {
             int charCount = text.Length;
 
-            for (int i = 0; i < charCount;) {           
+            for (int i = 0; i < charCount;)
+            {
                 driver.FindElement(By.XPath(targetElement)).SendKeys(Char.ToString(text[i++]));
                 Thread.Sleep(10);
             };
@@ -233,8 +240,104 @@ namespace Curogram_Automation_Testing.AppManager
             driver.Navigate().Refresh();
         }
 
+        //18. Refresh page until element is displayed
+        public void RefreshUntil(string element)
+        {
+            /*
+            int counter = 0;
+            for (bool isElementDisplayed = false; isElementDisplayed == false && counter < 90;)
+            {
+                driver.Navigate().Refresh();
+                isElementDisplayed = driver.FindElement(By.XPath(element)).Displayed;
+                counter++;
+            }
+            */
+
+
+
+            bool isElementDisplayed = false;
+
+            for (int a = 0; a < 10 && !isElementDisplayed; a++)
+            {
+                Thread.Sleep(5000);
+                driver.Navigate().Refresh();
+                try
+                {
+                    isElementDisplayed = driver.FindElement(By.XPath(element)).Displayed;
+                }
+                catch (NoSuchElementException)
+                {
+                    isElementDisplayed = false;
+                }
+            }
+
+        }
+
+        //19. Extract OTP from element
+        public string GetOtp(string element)
+        {
+            string textFromElement = driver.FindElement(By.XPath(element)).Text;
+            Regex regex = new Regex(@"\d{6}");
+            Match match = regex.Match(textFromElement);
+            string otpCode = match.Value;
+            return otpCode;
+        }
+
+        //20. Type OTP code
+        public void TypeCode(string otpCode, string element, int otpDigitCount = 6)
+        {
+            var otpDigit = 0;
+            int elementDigit = 1;
+
+            for (int counter = 0; counter < otpDigitCount;)
+            {
+                string otpSingle = otpCode[otpDigit].ToString();
+                driver.FindElement(By.XPath(element + $"[{elementDigit}]")).SendKeys(otpSingle);
+                counter++;
+                elementDigit++;
+                otpDigit++;
+            }
+        }
+
+        //21. Upload image file
+        [Test]
+        public void UploadImage(string element)
+        {
+            string fileName = "test_image.png";
+            string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
+            driver.FindElement(By.XPath(element)).SendKeys(imagePath);
+
+        }
+
+
+        //22. Draw signature
+        public void DrawSign(string element)
+        {
+            var signElement = driver.FindElement(By.XPath(element));
+            Actions builder = new(driver);
+            builder.MoveToElement(signElement, 0, 0).Perform();
+            builder.ClickAndHold().Perform();
+            builder.MoveByOffset(50, 0).Perform();
+            builder.MoveByOffset(0, 50).Perform();
+            builder.MoveByOffset(-50, 0).Perform();
+            builder.MoveByOffset(0, -50).Perform();
+            builder.Release().Perform();
+        }
+
+        //23. Input text within iFrame
+        public void iFrameInput(string iFrameName, string elementName, string textInput)
+        {
+            js = (IJavaScriptExecutor)driver;
+
+            IWebElement iframe = driver.FindElement(By.XPath(iFrameName));
+            driver.SwitchTo().Frame(iframe);
+            IWebElement inputField = driver.FindElement(By.XPath(elementName));
+            js.ExecuteScript("arguments[0].value = '" + textInput + "';", inputField);
+            driver.SwitchTo().DefaultContent();
+
+        }
+
+
 
     }
- 
-    
 }

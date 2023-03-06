@@ -71,11 +71,11 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
                 a.StartDriver("Chrome");
                 a.SaveWindow(WindowRoot, 0);
                 a.NavTo("https://staging.curogram.com/login?returnUrl=/");
-                a.WUntil(60, "//input[@placeholder='Enter your email address']");
+                a.WUntil("//input[@placeholder='Enter your email address']");
                 a.TypeM("//input[@placeholder='Enter your email address']", "testrigorcpuser@curogram.com");
                 a.TypeM("//input[@placeholder='Enter password']", "password1");
                 a.ClickOn("//button[@type='submit']");
-                a.WUntil(60, "//span[contains(text(),'Patients')]");
+                a.WUntil("//span[contains(text(),'Patients')]");
                 a.ClickOn("//span[contains(text(),'Patients')]");
                 a.Pause(4);
 
@@ -130,17 +130,17 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
 
 
                 //Check if video is working (patient)
-                a.WUntil(60,"//video[@style='height: 100%; width: 100%; object-fit: cover; position: absolute;']");
+                a.WUntil("//video[@style='height: 100%; width: 100%; object-fit: cover; position: absolute;']");
                 a.CheckElement("//video[@style='height: 100%; width: 100%; object-fit: cover; position: absolute;']");
-                a.WUntil(60, "//video[@style='height: 100%; width: 100%; object-fit: cover; transform: scaleX(-1);']");
+                a.WUntil("//video[@style='height: 100%; width: 100%; object-fit: cover; transform: scaleX(-1);']");
                 a.CheckElement("//video[@style='height: 100%; width: 100%; object-fit: cover; transform: scaleX(-1);']");
 
 
                 //Check if video is working (provider)
                 a.SwitchWindow(WindowProvider);
-                a.WUntil(60, "//video[@style='height: 100%; position: absolute;']");
+                a.WUntil("//video[@style='height: 100%; position: absolute;']");
                 a.CheckElement("//video[@style='height: 100%; position: absolute;']");
-                a.WUntil(60, "//video[@style='height: 100%; position: absolute; transform: scaleX(-1);']");
+                a.WUntil("//video[@style='height: 100%; position: absolute; transform: scaleX(-1);']");
                 a.CheckElement("//video[@style='height: 100%; position: absolute; transform: scaleX(-1);']");
                 a.Pause(5);
 
