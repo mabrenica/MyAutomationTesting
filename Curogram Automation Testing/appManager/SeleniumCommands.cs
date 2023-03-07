@@ -35,7 +35,7 @@ namespace Curogram_Automation_Testing.AppManager
         public List<SeleniumCommands> windows = new List<SeleniumCommands>();
 
         //1. Start driver 
-        public void StartDriver(string browserName)
+        public void StartDriver(string browserName, string windowName)
         {
             var browserSwitch = browserName;
 
@@ -58,13 +58,20 @@ namespace Curogram_Automation_Testing.AppManager
 
 
             }
-
+            Thread.Sleep(3000);
+            string currentHandle = driver.CurrentWindowHandle;
+            string wN = windowName;
+            windows.Add(new SeleniumCommands { Name = wN, Handle = currentHandle });
         }
 
 
         //2. click on element
         public void ClickOn(string elementName)
         {
+            {
+                WebDriverWait wait = new WebDriverWait(driver, System.TimeSpan.FromSeconds(60));
+                wait.Until(driver => driver.FindElements(By.XPath(elementName)).Count > 0);
+            }
             driver.FindElement(By.XPath(elementName)).Click();
             Thread.Sleep(500);
         }
@@ -182,16 +189,21 @@ namespace Curogram_Automation_Testing.AppManager
 
 
         //12. Simulate Manual typing
-        public void TypeM(string targetElement, string text)
+        public void TypeM(string targetElement, string text, int pauseAfterChar = 5)
         {
+            {
+                WebDriverWait wait = new WebDriverWait(driver, System.TimeSpan.FromSeconds(60));
+                wait.Until(driver => driver.FindElements(By.XPath(targetElement)).Count > 0);
+            }
+
             int charCount = text.Length;
 
             for (int i = 0; i < charCount;)
             {
                 driver.FindElement(By.XPath(targetElement)).SendKeys(Char.ToString(text[i++]));
-                Thread.Sleep(10);
+                Thread.Sleep(pauseAfterChar);
             };
-            Thread.Sleep(200);
+            Thread.Sleep(100);
         }
 
 
@@ -243,18 +255,6 @@ namespace Curogram_Automation_Testing.AppManager
         //18. Refresh page until element is displayed
         public void RefreshUntil(string element)
         {
-            /*
-            int counter = 0;
-            for (bool isElementDisplayed = false; isElementDisplayed == false && counter < 90;)
-            {
-                driver.Navigate().Refresh();
-                isElementDisplayed = driver.FindElement(By.XPath(element)).Displayed;
-                counter++;
-            }
-            */
-
-
-
             bool isElementDisplayed = false;
 
             for (int a = 0; a < 10 && !isElementDisplayed; a++)
@@ -270,7 +270,6 @@ namespace Curogram_Automation_Testing.AppManager
                     isElementDisplayed = false;
                 }
             }
-
         }
 
         //19. Extract OTP from element
@@ -300,7 +299,6 @@ namespace Curogram_Automation_Testing.AppManager
         }
 
         //21. Upload image file
-        [Test]
         public void UploadImage(string element)
         {
             string fileName = "test_image.png";
@@ -325,16 +323,20 @@ namespace Curogram_Automation_Testing.AppManager
         }
 
         //23. Input text within iFrame
-        public void iFrameInput(string iFrameName, string elementName, string textInput)
+        public void iFrameInput(string iFrameName, string elementName, string textInput, int pauseAfterChar = 10)
         {
             js = (IJavaScriptExecutor)driver;
 
             IWebElement iframe = driver.FindElement(By.XPath(iFrameName));
             driver.SwitchTo().Frame(iframe);
-            IWebElement inputField = driver.FindElement(By.XPath(elementName));
-            js.ExecuteScript("arguments[0].value = '" + textInput + "';", inputField);
-            driver.SwitchTo().DefaultContent();
 
+            int charCount = textInput.Length;
+            for (int i = 0; i < charCount;)
+            {
+                driver.FindElement(By.XPath(elementName)).SendKeys(Char.ToString(textInput[i++]));
+                Thread.Sleep(pauseAfterChar);
+            };
+            driver.SwitchTo().DefaultContent();
         }
 
 

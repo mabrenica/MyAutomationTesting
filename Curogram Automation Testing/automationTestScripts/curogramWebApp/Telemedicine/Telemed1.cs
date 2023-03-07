@@ -68,8 +68,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
             try { 
 
                 //logging in to practice
-                a.StartDriver("Chrome");
-                a.SaveWindow(WindowRoot, 0);
+                a.StartDriver("Chrome", WindowRoot);
                 a.NavTo("https://staging.curogram.com/login?returnUrl=/");
                 a.WUntil("//input[@placeholder='Enter your email address']");
                 a.TypeM("//input[@placeholder='Enter your email address']", "testrigorcpuser@curogram.com");

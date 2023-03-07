@@ -47,8 +47,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.AddUs
             try
             {
                 //Login as provider in CP
-                a.StartDriver("Chrome");
-                a.SaveWindow(WindowRoot, 0);
+                a.StartDriver("Chrome", WindowRoot);
                 a.NavTo("https://cp.staging.curogram.com/");
                 a.Pause(10);
                 a.ClickOn("//div[contains(.,\'Sign In\')]");

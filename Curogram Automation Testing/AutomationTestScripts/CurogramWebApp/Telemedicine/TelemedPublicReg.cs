@@ -1,12 +1,6 @@
 ﻿using Curogram_Automation_Testing.appManager;
 using Curogram_Automation_Testing.AppManager;
-using Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Users.ResetProviderPassword;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telemedicine
 {
@@ -64,7 +58,8 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
         //Window Variables
         public static String? YopWeb;
         public static String? RegPage;
-        public static String? WPatient;
+        public static String? WProvider;
+        public static String? TeleRoom;
 
         //Set Values to Variables with random strings
         public static void ModifyVars()
@@ -114,7 +109,8 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
             //Windows
             YopWeb      = a.StringGenerator("allletters",   9);
             RegPage     = a.StringGenerator("allletters",   9);
-            WPatient    = a.StringGenerator("allletters",   9);
+            WProvider   = a.StringGenerator("allletters",   9);
+            TeleRoom    = a.StringGenerator("allletters",   9);
 
         }
 
@@ -130,8 +126,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
             try
             {
                 //open yopmail website
-                a.StartDriver("Chrome");
-                a.SaveWindow(YopWeb, 0);
+                a.StartDriver("Chrome", YopWeb);
                 a.NavTo("https://mailsac.com/login");
                 a.Pause(4);
                 a.TypeM("//input[@name='username']", "marnel.abrenica@curogram.com");
@@ -295,8 +290,10 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
 
                 //Payment
                 a.WUntil("//div[contains(text(),'payment')]");
-                a.Pause(3);
-                a.iFrameInput("//iframe[@title='Secure card number input frame']", "//div[@class='CardNumberField-input-wrapper']//input[@class='InputElement is-empty Input Input--empty']", CCNum);
+                a.Pause(1);
+                a.iFrameInput("//iframe[@title='Secure card number input frame']", "//input[@name='cardnumber']", CCNum);
+                a.iFrameInput("//iframe[@title='Secure expiration date input frame']", "//input[@name='exp-date']", CCExp);
+                a.iFrameInput("//iframe[@title='Secure CVC input frame']", "//input[@name='cvc']", CVV);
 
                 a.ClickOn("//button[contains(text(),'Next')]");
 
@@ -309,7 +306,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
                 a.TypeM("//input[@formcontrolname='firstName']", MrrFName);
                 a.TypeM("//input[@formcontrolname='middleName']", MrrMName);
                 a.TypeM("//input[@formcontrolname='lastName']", MrrLName);
-                a.ClickOn("//div[@class='ng-select-container']//input[@type='text']");
+                a.ClickOn("//div[@role='combobox']");
                 a.ClickOn("//span[contains(text(),'Other')]");
                 a.ClickOn("//button[contains(text(),'I Agree')]");
 
@@ -321,15 +318,62 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
                 //Telemedicine Waiting Room
                 a.WUntil("//div[contains(text(),'Thank you for waiting. A provider will be with you shortly.')]", 90);
 
+                //Login as provider
+                a.StartNewWindow(WProvider);
+                a.SwitchWindow(WProvider);
+                a.NavTo("https://app.staging.curogram.com");
+                a.WUntil("//input[@type='text']");
+                a.TypeM("//input[@type=\'text\']", "testrigorcpuser@curogram.com");
+                a.TypeM("//input[@type=\'password\']", "password1");
+                a.ClickOn("//button[@type=\'submit\']");
+                a.WUntil("//div[contains(text(),'Quick Actions')]");
+                a.ClickOn("//div[@style='background-image: url(\"https://files.staging.curogram.com/9efe4805-ffe4-492d-bf70-66fff1fd45e3.png\");']");
 
+                //Open telemedicine dashboard
+                a.ClickOn("//span[contains(text(),'Telemedicine')]");
+                a.WUntil("//span[contains(text(),'All Availabilities')]");
+                a.ClickOn("//span[contains(text(),'All Availabilities')]");
+                a.ClickOn("//label[contains(text(),'Available')]");
+                a.Pause(3);
+                a.VerifyText("//span[@container='body']", PFName + " " + PMName + " " + PLName);
+                a.ClickOn("//curogram-icon[@apptooltip='Enter the room']");
+                a.Pause(3);
 
+                //Provider telemedicine room
+                a.SaveWindow(TeleRoom, 3);
+                a.SwitchWindow(TeleRoom);
+                a.WUntil("//video[@style='height: 100%; position: absolute;']");
+                a.CheckElement("//video[@style='height: 100%; position: absolute;']");
+                a.WUntil("//video[@style='height: 100%; position: absolute; transform: scaleX(-1);']");
+                a.CheckElement("//video[@style='height: 100%; position: absolute; transform: scaleX(-1);']");
+                a.Pause(5);
 
+                //Patient telemedicine room
+                a.SwitchWindow(RegPage);
+                a.WUntil("//video[@style='height: 100%; width: 100%; object-fit: cover; position: absolute;']");
+                a.CheckElement("//video[@style='height: 100%; width: 100%; object-fit: cover; position: absolute;']");
+                a.WUntil("//video[@style='height: 100%; width: 100%; object-fit: cover; transform: scaleX(-1);']");
+                a.CheckElement("//video[@style='height: 100%; width: 100%; object-fit: cover; transform: scaleX(-1);']");
 
+                //Mark visit complete
+                a.SwitchWindow(TeleRoom);
+                a.ClickOn("//button[@apptooltip='End Call']");
+                a.Pause(2);
+                a.ClickOn("//button[contains(text(),'End session')]");
+                a.Pause(5);
+
+                //Verify is telemedicine dashboard
+                a.ClickOn("//span[contains(text(),'1 Availabilities')]");
+                a.ClickOn("//label[contains(text(),' Available ')]");
+                a.Pause(4);
+                a.TypeM("//input[@placeholder='Find by name']", PFName);
+                a.Pause(5);
+                a.CheckElement("//span[contains(text(),\" Visit completed \")]");
 
 
                 //Test Pass
                 TestLogger.Logger("Instant Telemedicine Public Registration Test: Pass");
-                //a.DQuit();
+                a.DQuit();
             }
 
             //Test Failed
@@ -338,7 +382,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
                 string message = "Instant Telemedicine Public Registration Test: Fail - -";
                 TestLogger.Logger(message + e.Message);
                 Console.WriteLine(message + e.Message);
-                //a.DQuit();
+                a.DQuit();
                 Assert.That(e.Message, Is.EqualTo(""));
 
             }

@@ -36,8 +36,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
 
             try
             {
-                a.StartDriver("Chrome");
-                a.SaveWindow(WindowRoot, 0);
+                a.StartDriver("Chrome", WindowRoot);
                 a.NavTo("https://staging.curogram.com/");
                 a.Pause(10);
                 a.ClickOn("//a[contains(@href, \'/login?hsLang=en\')]");
@@ -76,8 +75,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
 
             try
             {
-                a.StartDriver("Chrome");
-                a.SaveWindow(WindowRoot, 0);
+                a.StartDriver("Chrome", WindowRoot);
                 a.NavTo("https://staging.curogram.com/");
                 a.Pause(5);
                 a.ClickOn("//a[contains(@href, \'/login?hsLang=en\')]");
@@ -115,8 +113,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
 
             try
             {
-                a.StartDriver("Chrome");
-                a.SaveWindow(WindowRoot, 0);
+                a.StartDriver("Chrome", WindowRoot);
                 a.NavTo("https://staging.curogram.com/");
                 a.Pause(10);
                 a.ClickOn("//a[contains(@href, \'/login?hsLang=en\')]");

@@ -79,8 +79,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Users
             try
             {
                 //open yopmail website
-                a.StartDriver("Chrome");
-                a.SaveWindow(YopWeb, 0);
+                a.StartDriver("Chrome", YopWeb);
                 a.NavTo("https://mailsac.com/login");
                 a.Pause(4);
                 a.TypeM("//input[@name='username']", "marnel.abrenica@curogram.com");
@@ -125,10 +124,8 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Users
 
 
                 //Swith to Yopmail window and reset the password
-                a.Pause(20);
                 a.SwitchWindow(YopWeb);
-                a.Refresh();
-                a.Pause(7);
+                a.RefreshUntil("//td[contains(text(),'[Curogram] Password reset')]");
                 a.ClickOn("//td[contains(text(),'[Curogram] Password reset')]");
                 a.Pause(1);
                 a.ClickOn("//a[@class='btn btn-info btn-xs']");

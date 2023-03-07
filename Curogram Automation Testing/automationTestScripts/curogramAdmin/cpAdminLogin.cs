@@ -38,8 +38,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin
             Console.WriteLine("Testing: Cp Incorrect Password Test");
 
             try {
-                a.StartDriver("Chrome");
-                a.SaveWindow(WindowRoot, 0);
+                a.StartDriver("Chrome", WindowRoot);
                 a.NavTo("https://cp.staging.curogram.com/");
                 a.Pause(10);
                 a.ClickOn("//div[contains(.,'Sign In')]");
@@ -81,8 +80,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin
             Console.WriteLine("Testing: Cp Provider Login Success Test");
 
             try {
-                a.StartDriver("Chrome");
-                a.SaveWindow(WindowRoot, 0);
+                a.StartDriver("Chrome", WindowRoot);
                 a.NavTo("https://cp.staging.curogram.com/");
                 a.Pause(10);
                 a.ClickOn("//div[contains(.,\'Sign In\')]");
@@ -125,8 +123,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin
             Console.WriteLine("Cp Testing: Incorrect Email Format Test");
 
             try {
-                a.StartDriver("Chrome");
-                a.SaveWindow(WindowRoot, 0);
+                a.StartDriver("Chrome", WindowRoot);
                 a.NavTo("https://cp.staging.curogram.com/");
                 a.Pause(10);
                 a.ClickOn("//div[contains(.,\'Sign In\')]");
