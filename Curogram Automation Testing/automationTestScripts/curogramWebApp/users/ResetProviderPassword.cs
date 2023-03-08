@@ -14,7 +14,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Users
 {
     [TestFixture]
     [Parallelizable]
-    internal class ResetProviderPassword
+    public class ResetProviderPassword
     {
         public static String? FirstName;
         public static String? LastName;

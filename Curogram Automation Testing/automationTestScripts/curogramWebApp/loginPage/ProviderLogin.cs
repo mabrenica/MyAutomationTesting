@@ -10,7 +10,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
 {
     [TestFixture]
     [Parallelizable]
-    internal class ProviderLogin
+    public class ProviderLogin
     {
         public static String? WindowRoot;
         public static String? Window1;

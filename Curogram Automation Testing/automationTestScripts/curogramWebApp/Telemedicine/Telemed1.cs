@@ -8,7 +8,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
 {
     [TestFixture]
     [Parallelizable]
-    class Telemed1
+    public class Telemed1
     {
 
         public static String? FirstName;

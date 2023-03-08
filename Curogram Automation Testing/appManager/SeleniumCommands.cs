@@ -1,42 +1,30 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Interactions;
 using NUnit.Framework;
-using System.Runtime.ExceptionServices;
-using System.Timers;
-using Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Users.ResetProviderPassword;
 using System.Data;
-using System.Security.Principal;
-using NUnit.Framework.Constraints;
 using System.Text.RegularExpressions;
-using System.Drawing;
-using System.Xml.Linq;
-using NUnit.Framework.Internal;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Curogram_Automation_Testing.AppManager
 {
-    internal class SeleniumCommands
+    public class SeleniumCommands
     {
         public string? Name { get; set; }
         public string? Handle { get; set; }
 
-        private IWebDriver? driver;
+        public IWebDriver? driver;
         public IDictionary<string, object>? vars { get; private set; }
         private IJavaScriptExecutor? js;
         public List<SeleniumCommands> windows = new List<SeleniumCommands>();
+        public List<IWebDriver> activeDrivers = new List<IWebDriver>();
 
         //1. Start driver 
         public void StartDriver(string browserName, string windowName)
         {
+            ChromeDriverService chromeDriverService = ChromeDriverService.CreateDefaultService();
+            chromeDriverService.HideCommandPromptWindow = true;
             var browserSwitch = browserName;
 
             switch (browserSwitch)
@@ -46,7 +34,7 @@ namespace Curogram_Automation_Testing.AppManager
                     options.AddArguments("use-fake-device-for-media-stream");
                     options.AddArguments("use-fake-ui-for-media-stream");
                     options.AddArguments("--disable-notifications");
-                    driver = new ChromeDriver(options);
+                    driver = new ChromeDriver(chromeDriverService, options);
                     driver.Manage().Window.Maximize();
                     break;
 
@@ -59,6 +47,7 @@ namespace Curogram_Automation_Testing.AppManager
 
             }
             Thread.Sleep(3000);
+            activeDrivers.Add(driver);
             string currentHandle = driver.CurrentWindowHandle;
             string wN = windowName;
             windows.Add(new SeleniumCommands { Name = wN, Handle = currentHandle });

@@ -1,13 +1,17 @@
 ﻿using Curogram_Automation_Testing.appManager;
 using Curogram_Automation_Testing.AppManager;
 using NUnit.Framework;
+using System.Runtime.InteropServices;
+
 
 namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telemedicine
 {
     [TestFixture]
     [Parallelizable]
-    internal class TelemedPublicReg
+    public class TelemedPublicReg
     {
+
+
         //Patient Variables
         public static String? PFName;
         public static String? PMName;

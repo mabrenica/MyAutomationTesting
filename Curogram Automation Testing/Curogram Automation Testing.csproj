@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
     <RootNamespace>Curogram_Automation_Testing</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -9,6 +9,7 @@
     <ApplicationIcon>curo_icon.ico</ApplicationIcon>
     <PackageIcon>curo_icon.png</PackageIcon>
     <RepositoryUrl>https://github.com/marnel-abrenica/Curogram-Automation-Testing.git</RepositoryUrl>
+    <StartupObject></StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
