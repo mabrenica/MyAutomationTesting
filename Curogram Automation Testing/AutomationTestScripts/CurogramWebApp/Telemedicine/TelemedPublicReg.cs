@@ -335,6 +335,8 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
                 a.ClickOn("//span[contains(text(),'All Availabilities')]");
                 a.ClickOn("//label[contains(text(),'Available')]");
                 a.Pause(3);
+                a.TypeM("//input[@placeholder='Find by name']", PFName);
+                a.Pause(5);
                 a.VerifyText("//span[@container='body']", PFName + " " + PMName + " " + PLName);
                 a.ClickOn("//curogram-icon[@apptooltip='Enter the room']");
                 a.Pause(3);
@@ -362,7 +364,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
                 a.ClickOn("//button[contains(text(),'End session')]");
                 a.Pause(5);
 
-                //Verify is telemedicine dashboard
+                //Verify in telemedicine dashboard
                 a.ClickOn("//span[contains(text(),'1 Availabilities')]");
                 a.ClickOn("//label[contains(text(),' Available ')]");
                 a.Pause(4);
