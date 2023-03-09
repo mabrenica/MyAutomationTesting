@@ -71,10 +71,11 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Users
         [Test]
         public void ResetUserPassword()
         {
+            string testCaseTitle = "Reset User Password";
             ModifyVars();
             _=ApiRequest();
             SeleniumCommands a = new SeleniumCommands();
-            TestLogger.EventLogger("Testing: Reset User Password");
+            a.AddLog("event", $"Started:  {testCaseTitle}");
 
             try
             {
@@ -143,13 +144,13 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Users
 
 
                 //Test Pass
-                TestLogger.Logger("Reset Provider Login: Pass");
+                a.AddLog("allType", $"Pass:  {testCaseTitle}");
             }
             catch (Exception e)
             {
-                string message = "Reset Provider Login: Fail - -";
-                TestLogger.Logger(message + e.Message);
-                Console.WriteLine(message + e.Message);
+                string message = $"Fail: {testCaseTitle} - - " + e.Message;
+                a.AddLog("allType", message);
+                Console.WriteLine(message);
                 a.DQuit();
                 Assert.That(e.Message, Is.EqualTo(""));
             }

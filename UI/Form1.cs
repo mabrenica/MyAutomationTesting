@@ -4,9 +4,7 @@ using Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Users.Res
 using Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telemedicine;
 using Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin;
 using Curogram_Automation_Testing.appManager;
-using System.Windows.Forms;
-using NUnit.Framework.Internal;
-using OpenQA.Selenium.DevTools.V107.Debugger;
+using System.Diagnostics;
 
 namespace UI
 {
@@ -101,7 +99,13 @@ namespace UI
                 logsDisplay.Text = "TEST EXECUTION IN PROGRESS . . .";
                 StartDisplayingLogs();
                 await Task.Run(() => Parallel.ForEach(selectedTests, new ParallelOptions { MaxDegreeOfParallelism = maxParallelTasks }, testMethod => testMethod()));
-                
+
+
+                Process[] chromeDriverProcesses = Process.GetProcessesByName("chromedriver");
+                foreach (Process process in chromeDriverProcesses)
+                {
+                    process.Kill();
+                }
             }
             catch (Exception ex)
             {
@@ -111,7 +115,7 @@ namespace UI
 
 
 
-            TestLogger.eventLogs.Clear();
+            
             logsDisplay.Clear();
             logsDisplay.Text = "TEST EXECUTION COMPLETED";
             runButton.Enabled = true;
@@ -155,7 +159,7 @@ namespace UI
             logsDisplay.AppendText(Environment.NewLine + $"Total Tests: {passCount + failCount}");
             logsDisplay.AppendText(Environment.NewLine + $"Passed Tests: {passCount}");
             logsDisplay.AppendText(Environment.NewLine + $"Failed Tests: {failCount}");
-
+            TestLogger.eventLogs.Clear();
         }
 
         public void StartDisplayingLogs()

@@ -58,12 +58,13 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
         [Test]
         public void Telemed()
         {
+            string testCaseTitle = "Instant Telemedicine Test";
             _ = TimeZone();
             ModifyVars();
             _ = AddPatientApi();
             SeleniumCommands a = new SeleniumCommands();
-            TestLogger.EventLogger("Testing: Instant Telemedicine Test");
-           
+            a.AddLog("event", $"Started:  {testCaseTitle}");
+
 
             try { 
 
@@ -159,15 +160,15 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
 
                 //Test success
                 a.DQuit();
-                TestLogger.Logger("Instant Telemedicine Test: Pass");
+                a.AddLog("allType", $"Pass:  {testCaseTitle}");
             }
 
                 //Test Failed
             catch (Exception e)
             {
-                string message = "Instant Telemedicine Test: Fail - -";
-                TestLogger.Logger(message + e.Message);
-                Console.WriteLine(message + e.Message);
+                string message = $"Fail: {testCaseTitle} - - " + e.Message;
+                a.AddLog("allType", message);
+                Console.WriteLine(message);
                 a.DQuit();
                 Assert.That(e.Message, Is.EqualTo(""));
 

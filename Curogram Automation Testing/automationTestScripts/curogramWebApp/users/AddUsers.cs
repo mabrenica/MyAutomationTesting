@@ -40,9 +40,10 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.AddUs
         [Test]
         public void addUser()
         {
+            string testCaseTitle = "Add User Test";
             ModifyVars();
             SeleniumCommands a = new();
-            TestLogger.EventLogger("Testing: Add User Test");
+            a.AddLog("event", $"Started:  {testCaseTitle}");
 
             try
             {
@@ -124,15 +125,15 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.AddUs
                 a.DClose();
 
                 //Test pass
-                TestLogger.Logger("Add Users Test: Pass");
+                a.AddLog("allType", $"Pass:  {testCaseTitle}");
             }
 
             //Test Fail           
             catch (Exception e) 
             {
-                string message = "Add Users Test: Fail - -";
-                TestLogger.Logger(message + e.Message);
-                Console.WriteLine(message + e.Message);
+                string message = $"Fail: {testCaseTitle} - - " + e.Message;
+                a.AddLog("allType", message);
+                Console.WriteLine(message);
                 a.DQuit();
                 Assert.That(e.Message, Is.EqualTo(""));
             }
