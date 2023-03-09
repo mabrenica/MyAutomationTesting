@@ -42,7 +42,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.AddUs
         {
             ModifyVars();
             SeleniumCommands a = new();
-            Console.WriteLine("Testing: Add User Test");
+            TestLogger.EventLogger("Testing: Add User Test");
 
             try
             {

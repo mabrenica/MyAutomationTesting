@@ -74,7 +74,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Users
             ModifyVars();
             _=ApiRequest();
             SeleniumCommands a = new SeleniumCommands();
-            Console.WriteLine("Testing: Reset User Password");
+            TestLogger.EventLogger("Testing: Reset User Password");
 
             try
             {

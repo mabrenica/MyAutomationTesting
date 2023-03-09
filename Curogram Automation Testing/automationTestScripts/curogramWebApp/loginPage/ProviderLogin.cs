@@ -1,10 +1,6 @@
-﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.Support.UI;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Curogram_Automation_Testing.AppManager;
 using Curogram_Automation_Testing.appManager;
-using Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telemedicine;
 
 namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.ProviderLoginPage
 {
@@ -30,9 +26,10 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
 
         public void ProviderLoginSuccess()
         {
+            string testCaseTitle = "Curogram Web Provider Login Success";
             ModifyVars();
             SeleniumCommands a = new SeleniumCommands();
-            Console.WriteLine("Testing: Curogram Web Provider Login Success");
+            a.AddLog("event", $"Started:  {testCaseTitle}");
 
             try
             {
@@ -51,14 +48,14 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
                 a.DClose();
 
                 //Test Pass
-                TestLogger.Logger("Curogram Web Provider Login Success: Pass");
+                a.AddLog("allType", $"Pass:  {testCaseTitle}");
             }
             //Test Fail
             catch (Exception e) 
             {
-                string message = "Curogram Web Provider Login Success: Fail - -";
-                TestLogger.Logger(message + e.Message);
-                Console.WriteLine(message + e.Message);
+                string message = $"Fail: {testCaseTitle} - - " + e.Message;
+                a.AddLog("allType", message);
+                Console.WriteLine(message);
                 a.DQuit();
                 Assert.That(e.Message, Is.EqualTo(""));
             }
@@ -69,9 +66,10 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
 
         public void IncorrectPassword()
         {
+            string testCaseTitle = "Curogram Web Incorrect Password";
             ModifyVars();
             SeleniumCommands a = new();
-            Console.WriteLine("Testing: Curogram Web Incorrect Password");
+            a.AddLog("event", $"Started:  {testCaseTitle}");
 
             try
             {
@@ -90,14 +88,14 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
                 a.DClose();
 
                 //Test Pass
-                TestLogger.Logger("Curogram Web Provider incorrect password test: Pass");
+                a.AddLog("allType", $"Pass:  {testCaseTitle}");
             }
 
             catch (Exception e)
             {
-                string message = "Curogram Web Provider incorrect password test: Fail - -";
-                TestLogger.Logger(message + e.Message);
-                Console.WriteLine(message + e.Message);
+                string message = $"Fail: {testCaseTitle} - - " + e.Message;
+                a.AddLog("allType", message);
+                Console.WriteLine(message);
                 a.DQuit();
                 Assert.That(e.Message, Is.EqualTo(""));
             }
@@ -107,9 +105,10 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
 
         public void IncorrectEmailFormat()
         {
+            string testCaseTitle = "Curogram Web Incorrect Email Format Test";
             ModifyVars();
             SeleniumCommands a = new();
-            Console.WriteLine("Testing: Curogram Web Incorrect Email Format Test");
+            a.AddLog("event", $"Started:  {testCaseTitle}");
 
             try
             {
@@ -126,14 +125,14 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
                 a.DClose();
 
                 //Test Pass
-                TestLogger.Logger("Curogram Web Incorrect Email Format: Pass");
+                a.AddLog("allType", $"Pass:  {testCaseTitle}");
             }
 
             catch (Exception e) 
             {
-                string message = "Curogram Web Incorrect Email Format: Fail - -";
-                TestLogger.Logger(message + e.Message);
-                Console.WriteLine(message + e.Message);
+                string message = $"Fail: {testCaseTitle} - - " + e.Message;
+                a.AddLog("allType", message);
+                Console.WriteLine(message);
                 a.DQuit();
                 Assert.That(e.Message, Is.EqualTo(""));
             }

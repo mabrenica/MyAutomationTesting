@@ -62,7 +62,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
             ModifyVars();
             _ = AddPatientApi();
             SeleniumCommands a = new SeleniumCommands();
-            Console.WriteLine("Testing: Instant Telemedicine Test");
+            TestLogger.EventLogger("Testing: Instant Telemedicine Test");
            
 
             try { 

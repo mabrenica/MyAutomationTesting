@@ -1,9 +1,13 @@
 ﻿
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
+using System.Collections.Concurrent;
+
 namespace Curogram_Automation_Testing.appManager
 {
     public class TestLogger
     {
         public static List<string> logMessages = new List<string>();
+        public static ConcurrentQueue<string> eventLogs = new ConcurrentQueue<string>();
 
         public static void Logger(string message)
         {
@@ -11,6 +15,11 @@ namespace Curogram_Automation_Testing.appManager
             logMessages.Add(logMessage); 
         }
 
+        public static void EventLogger(string message)
+        {
+            string logMessage = $"[{DateTime.Now.ToString("hh:mm:ss tt")}] " + $"{message}";
+            eventLogs.Enqueue(logMessage);
+        }
 
         public static void FilterAndDisplayLogs()
         {

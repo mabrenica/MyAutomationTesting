@@ -125,7 +125,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
         {
             ModifyVars();
             SeleniumCommands a = new();
-            Console.WriteLine("Testing: Instant Telemedicine Public Registration Test");
+            TestLogger.EventLogger("Testing: Instant Telemedicine Public Registration Test");
 
             try
             {

@@ -6,6 +6,7 @@ using OpenQA.Selenium.Interactions;
 using NUnit.Framework;
 using System.Data;
 using System.Text.RegularExpressions;
+using Curogram_Automation_Testing.appManager;
 
 namespace Curogram_Automation_Testing.AppManager
 {
@@ -328,7 +329,25 @@ namespace Curogram_Automation_Testing.AppManager
             driver.SwitchTo().DefaultContent();
         }
 
+        public void AddLog(string logType, string message)
+        {
+           switch (logType) 
+            { 
+                case "event":
+                TestLogger.EventLogger(message); 
+                    break;
 
+
+                case "summary":
+                    TestLogger.Logger(message); 
+                    break;
+
+                case "allType":
+                    TestLogger.Logger(message);
+                    TestLogger.EventLogger(message);                  
+                    break;
+            }
+        }
 
     }
 }

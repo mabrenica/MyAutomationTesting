@@ -5,6 +5,8 @@ using Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telemedic
 using Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin;
 using Curogram_Automation_Testing.appManager;
 using System.Windows.Forms;
+using NUnit.Framework.Internal;
+using OpenQA.Selenium.DevTools.V107.Debugger;
 
 namespace UI
 {
@@ -16,20 +18,16 @@ namespace UI
         {
             InitializeComponent();
         }
-        public void PlaceHolder()
-        {
-        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
-
-
-
             ProviderLogin t1 = new();
             AddUserTest t2 = new();
             ResetProviderPassword t3 = new();
             CpAdminLoginTest t4 = new();
             Telemed1 t5 = new();
             TelemedPublicReg t6 = new();
+            Demo t7 = new();
 
 
 
@@ -39,7 +37,7 @@ namespace UI
             testMethods.Add(4, Tuple.Create(new Action(t4.CpAdminLogin), "CP Admin Login Test"));
             testMethods.Add(5, Tuple.Create(new Action(t5.Telemed), "Instant Telemedicine Test"));
             testMethods.Add(6, Tuple.Create(new Action(t6.TelePubReg), "Telemedicine Public Registration"));
-
+            testMethods.Add(7, Tuple.Create(new Action(t7.DemoTest), "Demo Test"));
 
 
 
@@ -52,12 +50,32 @@ namespace UI
             }
         }
 
+        void DisplayLogs()
+        {
+            foreach (var eventLogs in TestLogger.eventLogs) 
+            {
+                logsDisplay.AppendText(Environment.NewLine + eventLogs.ToString());
+            }
+        }
+
+
         private async void button1_Click(object sender, EventArgs e)
         {
-            List<string> logList = new();
 
 
+            
 
+            if (testCasesList.CheckedItems.Count < 1)
+            {
+                TestLogger.logMessages.Clear();
+                TestLogger.eventLogs.Clear();
+                logsDisplay.Clear();
+                logsDisplay.Text = "No test case selected";
+                return;
+            }
+
+            TestLogger.logMessages.Clear();
+            TestLogger.eventLogs.Clear();
             logsDisplay.Clear();
             runButton.Enabled = false;
             testCasesList.Enabled = false;
@@ -76,15 +94,26 @@ namespace UI
                     selectedTests.Add(testMethod);
                 }
             }
+
+
             try
             {
+                logsDisplay.Text = "TEST EXECUTION IN PROGRESS . . .";
+                StartDisplayingLogs();
                 await Task.Run(() => Parallel.ForEach(selectedTests, new ParallelOptions { MaxDegreeOfParallelism = maxParallelTasks }, testMethod => testMethod()));
+                
             }
             catch (Exception ex)
             {
                 var message = "Error encountered in test execution";
                 TestLogger.Logger(message);
             }
+
+
+
+            TestLogger.eventLogs.Clear();
+            logsDisplay.Clear();
+            logsDisplay.Text = "TEST EXECUTION COMPLETED";
             runButton.Enabled = true;
             testCasesList.Enabled = true;
             selectAll.Enabled = true;
@@ -122,18 +151,36 @@ namespace UI
                 }
             }
 
-            logsDisplay.AppendText(Environment.NewLine + "---------------- TEST SUMMARY --------------------");
+            logsDisplay.AppendText(Environment.NewLine + "-----------------------------------------------");
             logsDisplay.AppendText(Environment.NewLine + $"Total Tests: {passCount + failCount}");
             logsDisplay.AppendText(Environment.NewLine + $"Passed Tests: {passCount}");
             logsDisplay.AppendText(Environment.NewLine + $"Failed Tests: {failCount}");
 
         }
 
+        public void StartDisplayingLogs()
+        {
+            Task.Run(() =>
+            {
+                while (true)
+                {
+                    if (TestLogger.eventLogs.TryDequeue(out var logMessage))
+                    {
+                        logsDisplay.AppendText(Environment.NewLine + logMessage.ToString());
+                    }
+                    else
+                    {
+                        // no log messages available, wait a bit before trying again
+                        Thread.Sleep(100);
+                    }
+                }
+            });
+        }
+
         private void selectAll_CheckedChanged(object sender, EventArgs e)
         {
             if (selectAll.Checked)
             {
-                // Check all the items in the CheckedListBox
                 for (int i = 0; i < testCasesList.Items.Count; i++)
                 {
                     testCasesList.SetItemChecked(i, true);
@@ -141,7 +188,6 @@ namespace UI
             }
             else
             {
-                // Uncheck all the items in the CheckedListBox
                 for (int i = 0; i < testCasesList.Items.Count; i++)
                 {
                     testCasesList.SetItemChecked(i, false);
