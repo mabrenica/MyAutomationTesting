@@ -19,7 +19,6 @@ namespace Curogram_Automation_Testing.AppManager
         public IDictionary<string, object>? vars { get; private set; }
         private IJavaScriptExecutor? js;
         public List<SeleniumCommands> windows = new List<SeleniumCommands>();
-        public List<IWebDriver> activeDrivers = new List<IWebDriver>();
 
         //1. Start driver 
         public void StartDriver(string browserName, string windowName)
@@ -47,8 +46,7 @@ namespace Curogram_Automation_Testing.AppManager
 
 
             }
-            Thread.Sleep(3000);
-            activeDrivers.Add(driver);
+            Thread.Sleep(3000);           
             string currentHandle = driver.CurrentWindowHandle;
             string wN = windowName;
             windows.Add(new SeleniumCommands { Name = wN, Handle = currentHandle });
@@ -59,7 +57,7 @@ namespace Curogram_Automation_Testing.AppManager
         public void ClickOn(string elementName)
         {
             {
-                WebDriverWait wait = new WebDriverWait(driver, System.TimeSpan.FromSeconds(60));
+                WebDriverWait wait = new WebDriverWait(driver, System.TimeSpan.FromSeconds(20));
                 wait.Until(driver => driver.FindElements(By.XPath(elementName)).Count > 0);
             }
             driver.FindElement(By.XPath(elementName)).Click();
@@ -146,7 +144,7 @@ namespace Curogram_Automation_Testing.AppManager
 
 
         //9. Wait until element is present
-        public void WUntil(string targetElement, int timeOutInSeconds = 60)
+        public void WUntil(string targetElement, int timeOutInSeconds = 30)
         {
             {
                 WebDriverWait wait = new WebDriverWait(driver, System.TimeSpan.FromSeconds(timeOutInSeconds));
@@ -182,7 +180,7 @@ namespace Curogram_Automation_Testing.AppManager
         public void TypeM(string targetElement, string text, int pauseAfterChar = 5)
         {
             {
-                WebDriverWait wait = new WebDriverWait(driver, System.TimeSpan.FromSeconds(60));
+                WebDriverWait wait = new WebDriverWait(driver, System.TimeSpan.FromSeconds(20));
                 wait.Until(driver => driver.FindElements(By.XPath(targetElement)).Count > 0);
             }
 

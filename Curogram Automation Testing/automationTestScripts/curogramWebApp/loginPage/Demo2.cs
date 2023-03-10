@@ -6,7 +6,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
 {
     [TestFixture]
     [Parallelizable]
-    public class Demo
+    public class Demo2
     {
         public static String? WindowRoot;
 
@@ -18,10 +18,10 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
 
 
 
-        [Test]  
+        [Test]
         public void DemoTest()
         {
-            string testCaseTitle = "Demo Test";
+            string testCaseTitle = "Demo Test 2";
             ModifyVars();
             SeleniumCommands a = new SeleniumCommands();
             a.AddLog("event", $"Started:  {testCaseTitle}");
@@ -31,7 +31,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
                 a.StartDriver("Chrome", WindowRoot);
                 a.NavTo("https://www.saucedemo.com/");
                 a.TypeM("//input[@placeholder=\"Username\"]", "standard_user");
-                a.TypeM("//input[@placeholder=\"Password\"]", "secret_sauce");
+                a.TypeM("//input[@placeholder=\"Password\"]", "secret_saucewhatsoever");
                 a.ClickOn("//input[@type=\"submit\"]");
                 a.ClickOn("//div[contains(text(),'Sauce Labs Backpack')]");
                 a.ClickOn("//button[contains(text(),'Add to cart')]");
@@ -49,7 +49,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
                 a.AddLog("allType", $"Pass:  {testCaseTitle}");
             }
             //Test Fail
-            catch (Exception e) 
+            catch (Exception e)
             {
                 string message = $"Fail: {testCaseTitle} - - " + e.Message;
                 a.AddLog("allType", message);

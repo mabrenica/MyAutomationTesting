@@ -11,7 +11,6 @@ namespace Curogram_Automation_Testing.CurogramApi.Practice
     {
         
         public static String? NewTimeZone;
-        [Test]
         public void AutoUpTime()
         {
             DateTime now = DateTime.UtcNow.AddHours(-8);
