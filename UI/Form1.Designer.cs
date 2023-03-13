@@ -47,6 +47,7 @@
             testCasesList.Name = "testCasesList";
             testCasesList.Size = new Size(623, 312);
             testCasesList.TabIndex = 0;
+            testCasesList.ThreeDCheckBoxes = true;
             testCasesList.SelectedIndexChanged += testCasesList_SelectedIndexChanged;
             // 
             // runButtonEnabled
