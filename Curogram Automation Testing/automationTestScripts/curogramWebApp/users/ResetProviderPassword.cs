@@ -59,7 +59,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Users
             string firstName = FirstName;
             string lastName = LastName;  
             string email = Email;
-            string authToken = "Basic eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXZpY2VUeXBlIjoid2ViIiwiaXNzdWVyIjoibG9naW5BcyIsImFjY291bnRJZCI6IjYzZTM2ZmExYWNhMjEwNTRjNmMzYzhkNyIsImNyZWF0ZWRBdCI6MTY3NTg2MDM4ODI4MywiYnVzaW5lc3NJZCI6IjYzZDI5NWZlMjA0NmExODZiOTliMjUzNyIsImlhdCI6MTY3NTg2MDM4OCwiZXhwIjoxNjc4NDUyMzg4LCJpc3MiOiJsb2dpbkFzIn0.p2DpDRQR7ALT23M2t9bHVFR142YnuFYSlfHhTOaWj7uQybOoPodd_QEyNKa4Zn1rYG5FnyUj1IeiQSFJCLDXOKAuvRRuSzbu9qTZZbrMptIFFH3353Ty7m2oLQopbnciotpUoYhobqQp-6NfEBuH_UWem-O8xotUra9txH_WGs4-kTwKSz7vrbQA6IjwAlbITNdwX4Oi4sE3vZbLysOOqvgwGwx9pE9Rilc_dRqWpDyF_2gyhDEX_Nq-5wTCQUK5J12IdrsKYGAoeosdnvbmQQqFOW3BGW6Dozlreu2oyeW_I9fN_2MauG1b3pB1PomaSOvrAdiBd7L0BBrcokuKYQ";
+            string authToken = "Basic eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXZpY2VUeXBlIjoid2ViIiwiaXNzdWVyIjoiYXBpIiwiYWNjb3VudElkIjoiNjNlMzZmYTFhY2EyMTA1NGM2YzNjOGQ3IiwiY3JlYXRlZEF0IjoxNjc4Njk3MDc1NzcwLCJidXNpbmVzc0lkIjoiNjNkMjk1ZmUyMDQ2YTE4NmI5OWIyNTM3IiwiaWF0IjoxNjc4Njk3MDc1LCJleHAiOjE2ODEyODkwNzUsImlzcyI6ImFwaSJ9.Tul3DE0hyCRJftip7svQVyWrof55C7d7ntvNYeNMPU7-bxP_UVQRpx7vwAXMNog9tlDu9UpjawsIW9FSBFvQeRs6WYp9wdk1el0HqtfhzR6hlKQeClRjWTzC1mDIlQVXgNdssRs_MNi-ItKmwDUXOAHE4AWsZPoB0mB2QoX8rdQyS_m0f2H7eub7HnZDFPb6tn8zEGOMfuAAblYPv0kx0CQZjuYQyKtobauzSfLkScWVfnPfVnHpca5DwCK2nt2vMCJ6dlHFVxa4X7La7cGsVHEUI1FkkVEBtPj2C2CHnH-daleJYCRk8R20eCd7sUy6JjDedgrVk-RFxJgJqyQQuA";
             var response = await new AddProviderApi().AddProvidertMethod(firstName, lastName, email, practiceId, authToken);
             Console.WriteLine(response);
         }
