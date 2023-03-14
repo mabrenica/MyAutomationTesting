@@ -5,14 +5,14 @@ using Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telemedic
 using Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin;
 using Curogram_Automation_Testing.appManager;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace UI
 {
     public partial class Form1 : Form
     {
-        Dictionary<int, Tuple<Action, string>> testMethods = new();
+        Dictionary<int, Tuple<Action, string, string>> testMethods = new();
         public CancellationTokenSource cancellationTokenSource;
-
 
 
         public Form1()
@@ -36,30 +36,47 @@ namespace UI
 
 
             //Add Test cases to the list
-            testMethods.Add(1, Tuple.Create(new Action(t1.ProviderLoginTest), "Provider Login Test"));
-            testMethods.Add(2, Tuple.Create(new Action(t2.addUser), "Add User Test"));
-            testMethods.Add(3, Tuple.Create(new Action(t3.ResetUserPassword), "Reset User Password Test"));
-            testMethods.Add(4, Tuple.Create(new Action(t4.CpAdminLogin), "CP Admin Login Test"));
-            testMethods.Add(5, Tuple.Create(new Action(t5.Telemed), "Instant Telemedicine Test"));
-            testMethods.Add(6, Tuple.Create(new Action(t6.TelePubReg), "Telemedicine Public Registration"));
-            testMethods.Add(7, Tuple.Create(new Action(t7.DemoTest), "Demo Test - Pass Test"));
-            testMethods.Add(8, Tuple.Create(new Action(t8.DemoTest), "Demo Test 2 - Fail Test"));
+            testMethods.Add(1, Tuple.Create(new Action(t1.ProviderLoginTest), "Provider Login Test", "CuroWeb"));
+            testMethods.Add(2, Tuple.Create(new Action(t2.addUser), "Add User Test", "CuroWeb"));
+            testMethods.Add(3, Tuple.Create(new Action(t3.ResetUserPassword), "Reset User Password Test", "CuroWeb"));
+            testMethods.Add(4, Tuple.Create(new Action(t4.CpAdminLogin), "CP Admin Login Test", "Cp"));
+            testMethods.Add(5, Tuple.Create(new Action(t5.Telemed), "Instant Telemedicine Test", "CuroWeb"));
+            testMethods.Add(6, Tuple.Create(new Action(t6.TelePubReg), "Telemedicine Public Registration", "CuroWeb"));
+            testMethods.Add(7, Tuple.Create(new Action(t7.DemoTest), "Demo Test - Pass Test", "Demo"));
+            testMethods.Add(8, Tuple.Create(new Action(t8.DemoTest), "Demo Test 2 - Fail Test", "Demo"));
 
 
             //Display test cases list
-            if (testCasesList.CheckedItems.Count < 1)
-            {
-                runButtonEnabled.Visible = false;
-            }
+
+            runButtonEnabled.Visible = false;
             stopButtonEnabled.Visible = false;
             welcomeTextBox.Visible = true;
             logsDisplayBox.Visible = false;
-            testCasesList.Items.Clear();
+
+
+
+            TestCasesTreeView.Nodes.Add("Curogram Web");
+            TestCasesTreeView.Nodes.Add("Cp");
+            TestCasesTreeView.Nodes.Add("Demo");
             foreach (var item in testMethods)
             {
-                string displayText = $"{item.Key}: {item.Value.Item2}";
-                testCasesList.Items.Add(displayText);
+                if (item.Value.Item3 == "CuroWeb")
+                {
+                    string displayText = $"{item.Value.Item2}";
+                    TestCasesTreeView.Nodes[0].Nodes.Add(displayText);
+                }
+                if (item.Value.Item3 == "Cp")
+                {
+                    string displayText = $"{item.Value.Item2}";
+                    TestCasesTreeView.Nodes[1].Nodes.Add(displayText);
+                }
+                if (item.Value.Item3 == "Demo")
+                {
+                    string displayText = $"{item.Value.Item2}";
+                    TestCasesTreeView.Nodes[2].Nodes.Add(displayText);
+                }
             }
+
         }
 
 
@@ -75,16 +92,25 @@ namespace UI
 
             //Add checked items to execution list
             List<Action> selectedTests = new List<Action>();
+            selectedTests.Clear();
             int maxParallelTasks = 4;
-            foreach (var item in testCasesList.Items)
+
+            foreach (TreeNode node in TestCasesTreeView.Nodes)
             {
-                if (testCasesList.GetItemChecked(testCasesList.Items.IndexOf(item)))
+                foreach (TreeNode childNode in node.Nodes)
                 {
-                    int key = int.Parse(item.ToString().Split(':')[0]);
-                    Action testMethod = testMethods[key].Item1;
-                    selectedTests.Add(testMethod);
+
+                    if (childNode.Checked)
+                    {
+                        string searchValue = childNode.Text;
+                        int key = testMethods.FirstOrDefault(x => x.Value.Item2 == searchValue).Key;
+                        Action testMethod = testMethods[key].Item1;
+                        selectedTests.Add(testMethod);
+                    }
                 }
             }
+
+
 
             //Execute checked items in execution list            
             try
@@ -108,6 +134,15 @@ namespace UI
                 stopButtonEnabled.Visible = false;
                 TestLogger.eventLogs.Clear();
                 selectAll.Checked = false;
+                foreach (TreeNode node in TestCasesTreeView.Nodes)
+                {
+                    node.Checked = false;
+
+                    foreach (TreeNode childNode in node.Nodes)
+                    {
+                        childNode.Checked = false;
+                    }
+                }
             }
 
 
@@ -118,9 +153,15 @@ namespace UI
 
 
             //Uncheck all test case items after text execution
-            for (int i = 0; i < testCasesList.Items.Count; i++)
+
+            foreach (TreeNode node in TestCasesTreeView.Nodes)
             {
-                testCasesList.SetItemChecked(i, false);
+                node.Checked = false;
+
+                foreach (TreeNode childNode in node.Nodes)
+                {
+                    childNode.Checked = false;
+                }
             }
 
             //Display logs as summary after text execution
@@ -179,7 +220,7 @@ namespace UI
 
 
         /*
-         * **************************************METHODS HERE***********************************************
+         * *********************************************METHODS HERE*****************************************************
          */
 
 
@@ -187,7 +228,39 @@ namespace UI
 
         public void StartProcess()
         {
-            if (testCasesList.CheckedItems.Count < 1)
+            bool hasCheckedNode = false;
+
+            foreach (TreeNode node in TestCasesTreeView.Nodes)
+            {
+                foreach (TreeNode childNode in node.Nodes)
+                {
+                    if (childNode.Checked)
+                    {
+                        hasCheckedNode = true;
+                        break;
+                    }
+                }
+
+                if (hasCheckedNode)
+                {
+                    break;
+                }
+            }
+
+            if (hasCheckedNode)
+            {
+                welcomeTextBox.Visible = false;
+                logsDisplayBox.Visible = true;
+                stopButtonEnabled.Visible = true;
+                TestLogger.logMessages.Clear();
+                TestLogger.eventLogs.Clear();
+                logsDisplayBox.Clear();
+                runButtonEnabled.Visible = false;
+                selectAll.Enabled = false;
+                TestCasesTreeView.Enabled = false;
+
+            }
+            else
             {
                 welcomeTextBox.Visible = true;
                 logsDisplayBox.Visible = false;
@@ -199,17 +272,7 @@ namespace UI
                 welcomeTextBox.Text = "No test case selected";
                 welcomeTextBox.AppendText(Environment.NewLine + " ");
                 welcomeTextBox.AppendText(Environment.NewLine + "Select a test case. . .");
-                return;
             }
-            welcomeTextBox.Visible = false;
-            logsDisplayBox.Visible = true;
-            stopButtonEnabled.Visible = true;
-            TestLogger.logMessages.Clear();
-            TestLogger.eventLogs.Clear();
-            logsDisplayBox.Clear();
-            runButtonEnabled.Visible = false;
-            testCasesList.Enabled = false;
-            selectAll.Enabled = false;
         }
 
 
@@ -231,14 +294,22 @@ namespace UI
 
             Thread.Sleep(5000);
             runButtonEnabled.Cursor = Cursors.Default;
-            testCasesList.Enabled = true;
+            TestCasesTreeView.Enabled = true;
             selectAll.Enabled = true;
             welcomeTextBox.Visible = true;
             logsDisplayBox.Visible = false;
             welcomeTextBox.Clear();
             welcomeTextBox.Text = "Select a test case. . .";
-            testCasesList.Cursor = Cursors.Default;
             runButtonEnabled.Enabled = true;
+            foreach (TreeNode node in TestCasesTreeView.Nodes)
+            {
+                node.Checked = false;
+
+                foreach (TreeNode childNode in node.Nodes)
+                {
+                    childNode.Checked = false;
+                }
+            }
         }
 
 
@@ -255,12 +326,11 @@ namespace UI
             {
                 process.Kill();
             }
-            testCasesList.Cursor = Cursors.Default;
             runButtonEnabled.Enabled = true;
-            testCasesList.Enabled = true;
             selectAll.Enabled = true;
             selectAll.Checked = false;
             stopButtonEnabled.Visible = false;
+            TestCasesTreeView.Enabled = true;
         }
 
 
@@ -325,31 +395,6 @@ namespace UI
 
 
 
-        //Select all check box to change to checked when all items in the list are checked
-        private void testCasesList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (testCasesList.CheckedItems.Count < 1)
-            {
-                runButtonEnabled.Visible = false;
-            }
-            else
-            {
-                runButtonEnabled.Visible = true;
-            }
-
-            if (testMethods.Count == testCasesList.CheckedItems.Count)
-            {
-                selectAll.Checked = true;
-            }
-            else
-            {
-                selectAll.Checked = false;
-            }
-        }
-
-
-
-
         //select all check box to check all items in the list
         private void selectAll_CheckedChanged(object sender, EventArgs e)
         {
@@ -362,19 +407,28 @@ namespace UI
                 runButtonEnabled.Visible = false;
             }
 
-
             if (selectAll.Checked)
             {
-                for (int i = 0; i < testCasesList.Items.Count; i++)
+                foreach (TreeNode node in TestCasesTreeView.Nodes)
                 {
-                    testCasesList.SetItemChecked(i, true);
+                    node.Checked = true;
+
+                    foreach (TreeNode childNode in node.Nodes)
+                    {
+                        childNode.Checked = true;
+                    }
                 }
             }
             else
             {
-                for (int i = 0; i < testCasesList.Items.Count; i++)
+                foreach (TreeNode node in TestCasesTreeView.Nodes)
                 {
-                    testCasesList.SetItemChecked(i, false);
+                    node.Checked = false;
+
+                    foreach (TreeNode childNode in node.Nodes)
+                    {
+                        childNode.Checked = false;
+                    }
                 }
             }
 
@@ -408,6 +462,74 @@ namespace UI
             }
         }
 
-    }
 
+
+        public void TestCasesTreeView_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            //Run Button to appear when there is at least 1 child node selected
+            bool hasCheckedNode = false;
+
+            foreach (TreeNode node in TestCasesTreeView.Nodes)
+            {
+                foreach (TreeNode childNode in node.Nodes)
+                {
+                    if (childNode.Checked)
+                    {
+                        hasCheckedNode = true;
+                        break;
+                    }
+                }
+
+                if (hasCheckedNode)
+                {
+                    break;
+                }
+            }
+
+            if (hasCheckedNode)
+            {
+                runButtonEnabled.Visible = true;
+            }
+            else
+            {
+                runButtonEnabled.Visible = false;
+            }
+
+            //checks all parent node is all child node are checked and check all childnode is parent node is checked
+            if (e.Action != TreeViewAction.Unknown)
+            {
+                Stack<TreeNode> stack = new Stack<TreeNode>();
+                stack.Push(e.Node);
+
+                while (stack.Count > 0)
+                {
+                    TreeNode node = stack.Pop();
+
+                    if (node.Nodes.Count > 0)
+                    {
+                        foreach (TreeNode childNode in node.Nodes)
+                        {
+                            childNode.Checked = node.Checked;
+                            stack.Push(childNode);
+                        }
+                    }
+
+                    if (node.Parent != null)
+                    {
+                        bool allChecked = true;
+                        foreach (TreeNode siblingNode in node.Parent.Nodes)
+                        {
+                            if (!siblingNode.Checked)
+                            {
+                                allChecked = false;
+                                break;
+                            }
+                        }
+
+                        node.Parent.Checked = allChecked;
+                    }
+                }
+            }
+        }
+    }
 }

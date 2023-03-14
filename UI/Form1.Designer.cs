@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            testCasesList = new CheckedListBox();
             runButtonEnabled = new Button();
             logsDisplayBox = new TextBox();
             stopButtonEnabled = new Button();
@@ -37,18 +36,8 @@
             welcomeTextBox = new TextBox();
             runButtonDisabled = new Button();
             stopButtonDisabled = new Button();
+            TestCasesTreeView = new TreeView();
             SuspendLayout();
-            // 
-            // testCasesList
-            // 
-            testCasesList.CheckOnClick = true;
-            testCasesList.FormattingEnabled = true;
-            testCasesList.Location = new Point(41, 142);
-            testCasesList.Name = "testCasesList";
-            testCasesList.Size = new Size(623, 312);
-            testCasesList.TabIndex = 0;
-            testCasesList.ThreeDCheckBoxes = true;
-            testCasesList.SelectedIndexChanged += testCasesList_SelectedIndexChanged;
             // 
             // runButtonEnabled
             // 
@@ -129,17 +118,26 @@
             stopButtonDisabled.Text = "Stop";
             stopButtonDisabled.UseVisualStyleBackColor = false;
             // 
+            // TestCasesTreeView
+            // 
+            TestCasesTreeView.CheckBoxes = true;
+            TestCasesTreeView.Location = new Point(43, 148);
+            TestCasesTreeView.Name = "TestCasesTreeView";
+            TestCasesTreeView.Size = new Size(606, 312);
+            TestCasesTreeView.TabIndex = 8;
+            TestCasesTreeView.AfterCheck += TestCasesTreeView_AfterSelect;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(1213, 493);
+            ClientSize = new Size(1213, 500);
+            Controls.Add(TestCasesTreeView);
             Controls.Add(welcomeTextBox);
             Controls.Add(selectAll);
             Controls.Add(stopButtonEnabled);
             Controls.Add(logsDisplayBox);
-            Controls.Add(testCasesList);
             Controls.Add(runButtonEnabled);
             Controls.Add(runButtonDisabled);
             Controls.Add(stopButtonDisabled);
@@ -153,8 +151,6 @@
         }
 
         #endregion
-
-        public CheckedListBox testCasesList;
         public Button runButtonEnabled;
         public TextBox logsDisplayBox;
         public Button stopButtonEnabled;
@@ -162,5 +158,6 @@
         public TextBox welcomeTextBox;
         private Button runButtonDisabled;
         private Button stopButtonDisabled;
+        private TreeView TestCasesTreeView;
     }
 }
