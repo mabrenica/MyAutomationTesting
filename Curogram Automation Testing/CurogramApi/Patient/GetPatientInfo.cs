@@ -48,7 +48,6 @@ namespace Curogram_Automation_Testing.CurogramApi.Practice
             PatientID = patientID;
         }
 
-        [Test]
         public async Task VerifyPatient(string authToken, string firstName, string middleName, string lastName, string email, string phone)
         {
             AuthToken = authToken;

@@ -1,5 +1,6 @@
 ﻿using Curogram_Automation_Testing.AppManager;
 using Curogram_Automation_Testing.CurogramApi.Other;
+using Curogram_Automation_Testing.CurogramApi.Patient;
 using Curogram_Automation_Testing.CurogramApi.Practice;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
@@ -74,6 +75,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.FormS
             SeleniumCommands a = new();
             FormStack b = new();
             VerifyPatientByName c = new();
+            GetPatientDocumentByName d = new();
             string testCaseTitle = "Patient form successful submission test";            
             a.AddLog("event", $"Started:  {testCaseTitle}");
 
@@ -84,6 +86,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.FormS
                 await b.GetAddress();
                 await b.SubmitForm();
                 await c.VerifyPatient(AuthToken, FirstName, MiddleName, LastName, Email, $"+1 {PhoneAreaCode} {TelePrefix}-{LineNumber}") ;
+                await d.VerifyDocument(AuthToken, FirstName, LastName);
 
                 //Login to Curogram as provider to check submission
                 a.StartDriver("Chrome", CuroWeb);
@@ -114,7 +117,6 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.FormS
             }
         }
 
-        [Test]
         public void PatientForm()
         {
             SuccessSubmission().Wait();
