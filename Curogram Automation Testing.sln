@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curogram Automation Testing", "Curogram Automation Testing\Curogram Automation Testing.csproj", "{17F227D2-FB6B-4188-96F4-E01383F0225D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{2587F044-858B-4576-A123-32A62D82179A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UI", "UI\UI.csproj", "{2587F044-858B-4576-A123-32A62D82179A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -7,6 +7,8 @@ using NUnit.Framework;
 using System.Data;
 using System.Text.RegularExpressions;
 using Curogram_Automation_Testing.appManager;
+using System.Text;
+
 
 namespace Curogram_Automation_Testing.AppManager
 {
@@ -78,7 +80,7 @@ namespace Curogram_Automation_Testing.AppManager
 
 
         //4. generate random strings
-        public string StringGenerator(string type, int digit)
+        public string StringGenerator(string type= "allletters", int digit = 9)
         {
             Random ranInt = new();
             var seedInt = ranInt.Next();
@@ -108,6 +110,35 @@ namespace Curogram_Automation_Testing.AppManager
             return newString;
         }
 
+        //Email Generator
+        public string EmailGenerator(string type = "alphanumeric", int digit = 9, string emailDomain = "@curogram.com")
+        {
+            Random ranInt = new();
+            var seedInt = ranInt.Next();
+            Random rand = new(seedInt);
+            string allowedChars = "";
+
+            switch (type)
+            {
+                case "alphanumeric":
+                    allowedChars = "abcdefghijklmnopqrstuvwxyz0123456789";
+                    break;
+                case "allletters":
+                    allowedChars = "abcdefghijklmnopqrstuvwxyz";
+                    break;
+                case "allnumbers":
+                    allowedChars = "0123456789";
+                    break;
+                default:
+                    allowedChars = "abcdefghijklmnopqrstuvwxyz0123456789";
+                    break;
+            }
+
+
+            var newString = new string(Enumerable.Repeat(allowedChars, digit)
+                .Select(s => s[rand.Next(s.Length)]).ToArray()).Substring(1);
+            return newString + emailDomain;
+        }
 
         //5. Close current window
         public void DClose()
@@ -177,7 +208,7 @@ namespace Curogram_Automation_Testing.AppManager
 
 
         //12. Simulate Manual typing
-        public void TypeM(string targetElement, string text, int pauseAfterChar = 5)
+        public void TypeM(string targetElement, string text, int typeSpeed = 5, int pauseAfterType = 100)
         {
             {
                 WebDriverWait wait = new WebDriverWait(driver, System.TimeSpan.FromSeconds(20));
@@ -189,9 +220,9 @@ namespace Curogram_Automation_Testing.AppManager
             for (int i = 0; i < charCount;)
             {
                 driver.FindElement(By.XPath(targetElement)).SendKeys(Char.ToString(text[i++]));
-                Thread.Sleep(pauseAfterChar);
+                Thread.Sleep(typeSpeed);
             };
-            Thread.Sleep(100);
+            //Thread.Sleep(pauseAfterType);
         }
 
 
@@ -221,17 +252,9 @@ namespace Curogram_Automation_Testing.AppManager
         }
 
         //16. Verify text in element
-        public string VerifyText(string element, string textToVerify)
+        public void VerifyText(string element, string textToVerify)
         {
-            try
-            {
-                Assert.That(driver.FindElement(By.XPath(element)).Text, Is.EqualTo(textToVerify));
-                return "Pass";
-            }
-            catch (Exception e)
-            {
-                return e.ToString();
-            }
+            Assert.That(driver.FindElement(By.XPath(element)).Text, Is.EqualTo(textToVerify));    
         }
 
         //17. Refresh Page
@@ -347,5 +370,7 @@ namespace Curogram_Automation_Testing.AppManager
             }
         }
 
+
+     
     }
 }

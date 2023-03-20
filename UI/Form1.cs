@@ -6,10 +6,14 @@ using Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin;
 using Curogram_Automation_Testing.appManager;
 using System.Diagnostics;
 using System.Collections.Generic;
+using System.Windows.Forms;
+using MaterialSkin.Controls;
+using MaterialSkin;
+using Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.FormStack;
 
 namespace UI
 {
-    public partial class Form1 : Form
+    public partial class Form1 : MaterialForm
     {
         Dictionary<int, Tuple<Action, string, string>> testMethods = new();
         public CancellationTokenSource cancellationTokenSource;
@@ -18,6 +22,9 @@ namespace UI
         public Form1()
         {
             InitializeComponent();
+            MaterialSkinManager materialSkin = MaterialSkinManager.Instance;
+            materialSkin.AddFormToManage(this);
+
         }
 
 
@@ -25,6 +32,9 @@ namespace UI
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
+
+
             ProviderLogin t1 = new();
             AddUserTest t2 = new();
             ResetProviderPassword t3 = new();
@@ -33,6 +43,7 @@ namespace UI
             TelemedPublicReg t6 = new();
             Demo t7 = new();
             Demo2 t8 = new();
+            FormStack t9 = new();
 
 
             //Add Test cases to the list
@@ -44,6 +55,7 @@ namespace UI
             testMethods.Add(6, Tuple.Create(new Action(t6.TelePubReg), "Telemedicine Public Registration", "CuroWeb"));
             testMethods.Add(7, Tuple.Create(new Action(t7.DemoTest), "Demo Test - Pass Test", "Demo"));
             testMethods.Add(8, Tuple.Create(new Action(t8.DemoTest), "Demo Test 2 - Fail Test", "Demo"));
+            testMethods.Add(9, Tuple.Create(new Action(t9.PatientForm), "Patient Form Test", "CuroWeb"));
 
 
             //Display test cases list
@@ -463,7 +475,6 @@ namespace UI
         }
 
 
-
         public void TestCasesTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
             //Run Button to appear when there is at least 1 child node selected
@@ -495,7 +506,7 @@ namespace UI
                 runButtonEnabled.Visible = false;
             }
 
-            //checks all parent node is all child node are checked and check all childnode is parent node is checked
+            //checks all parent node if all child node are checked and check all childnode if parent node is checked
             if (e.Action != TreeViewAction.Unknown)
             {
                 Stack<TreeNode> stack = new Stack<TreeNode>();
@@ -527,9 +538,19 @@ namespace UI
                         }
 
                         node.Parent.Checked = allChecked;
+
+
                     }
+
+                    
                 }
+
+                
             }
+
+           
+
         }
+
     }
 }
