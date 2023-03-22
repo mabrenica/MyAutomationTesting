@@ -6,29 +6,22 @@ using Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin;
 using Curogram_Automation_Testing.appManager;
 using System.Diagnostics;
 using Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.FormStack;
+using OpenQA.Selenium.DevTools.V107.DOM;
 
-namespace UI
+namespace UI_V2
 {
-    public partial class Form1 : Form
+    public partial class MainPage : Form
     {
         Dictionary<int, Tuple<Action, string, string>> testMethods = new();
         public CancellationTokenSource cancellationTokenSource;
-
-
-        public Form1()
+        public MainPage()
         {
             InitializeComponent();
-
-
+            Custom();
         }
 
-
-
-
-        private void Form1_Load(object sender, EventArgs e)
+        private void UI_V2_Load(object sender, EventArgs e)
         {
-
-
 
             ProviderLogin t1 = new();
             AddUserTest t2 = new();
@@ -54,44 +47,39 @@ namespace UI
 
 
             //Display test cases list
+            buttonSelectAllDisabled.Visible = false;
+            buttonDeselectAllEnabled.Visible = false;
+            buttonStartEnabled.Visible = false;
+            buttonStop.Visible = false;
+            textBoxSummary.Visible = true;
+            textBoxLogs.Visible = false;
 
-            runButtonEnabled.Visible = false;
-            stopButtonEnabled.Visible = false;
-            welcomeTextBox.Visible = true;
-            logsDisplayBox.Visible = false;
 
+            treeViewTestCases.Nodes.Add("Curogram Web");
+            treeViewTestCases.Nodes.Add("Cp");
+            treeViewTestCases.Nodes.Add("Demo");
 
-
-            TestCasesTreeView.Nodes.Add("Curogram Web");
-            TestCasesTreeView.Nodes.Add("Cp");
-            TestCasesTreeView.Nodes.Add("Demo");
             foreach (var item in testMethods)
             {
                 if (item.Value.Item3 == "CuroWeb")
                 {
                     string displayText = $"{item.Value.Item2}";
-                    TestCasesTreeView.Nodes[0].Nodes.Add(displayText);
+                    treeViewTestCases.Nodes[0].Nodes.Add(displayText);
                 }
                 if (item.Value.Item3 == "Cp")
                 {
                     string displayText = $"{item.Value.Item2}";
-                    TestCasesTreeView.Nodes[1].Nodes.Add(displayText);
+                    treeViewTestCases.Nodes[1].Nodes.Add(displayText);
                 }
                 if (item.Value.Item3 == "Demo")
                 {
                     string displayText = $"{item.Value.Item2}";
-                    TestCasesTreeView.Nodes[2].Nodes.Add(displayText);
+                    treeViewTestCases.Nodes[2].Nodes.Add(displayText);
                 }
             }
-
         }
 
-
-
-
-
-
-        private async void button1_Click(object sender, EventArgs e)
+        private async void buttonStartEnabled_Click(object sender, EventArgs e)
         {
             cancellationTokenSource = new CancellationTokenSource();
 
@@ -102,7 +90,7 @@ namespace UI
             selectedTests.Clear();
             int maxParallelTasks = 4;
 
-            foreach (TreeNode node in TestCasesTreeView.Nodes)
+            foreach (TreeNode node in treeViewTestCases.Nodes)
             {
                 foreach (TreeNode childNode in node.Nodes)
                 {
@@ -122,7 +110,7 @@ namespace UI
             //Execute checked items in execution list            
             try
             {
-                logsDisplayBox.Text = "TEST EXECUTION IN PROGRESS . . .";
+                textBoxLogs.Text = "TEST EXECUTION IN PROGRESS . . .";
                 StartDisplayingLogs();
                 await Task.Run(() => Parallel.ForEach(selectedTests, new ParallelOptions { MaxDegreeOfParallelism = maxParallelTasks, CancellationToken = cancellationTokenSource.Token }, testMethod =>
 
@@ -138,10 +126,10 @@ namespace UI
             {
                 var message = "Error encountered in test execution";
                 TestLogger.Logger(message);
-                stopButtonEnabled.Visible = false;
+                buttonStop.Visible = false;
                 TestLogger.eventLogs.Clear();
-                selectAll.Checked = false;
-                foreach (TreeNode node in TestCasesTreeView.Nodes)
+                buttonSelectAllEnabled.Visible = false;
+                foreach (TreeNode node in treeViewTestCases.Nodes)
                 {
                     node.Checked = false;
 
@@ -153,15 +141,14 @@ namespace UI
             }
 
 
-
             //wrap up after test execution
-            logsDisplayBox.Clear();
-            logsDisplayBox.Text = "TEST EXECUTION COMPLETED";
+            textBoxLogs.Clear();
+            textBoxLogs.Text = "TEST EXECUTION COMPLETED";
 
 
             //Uncheck all test case items after text execution
 
-            foreach (TreeNode node in TestCasesTreeView.Nodes)
+            foreach (TreeNode node in treeViewTestCases.Nodes)
             {
                 node.Checked = false;
 
@@ -171,14 +158,19 @@ namespace UI
                 }
             }
 
+
+
             //Display logs as summary after text execution
             foreach (var log in TestLogger.logMessages)
             {
-                if (TestLogger.logMessages.Count < 1)
-                {
-                    logsDisplayBox.Text = log.ToString();
-                }
-                logsDisplayBox.AppendText(Environment.NewLine + log.ToString());
+
+                    if (TestLogger.logMessages.Count < 1)
+                    {
+                        textBoxLogs.Text = log.ToString();
+                    }
+
+                    textBoxLogs.AppendText(Environment.NewLine + log.ToString());
+                
             }
 
 
@@ -198,15 +190,14 @@ namespace UI
             }
 
             // Display pass and fail test count
-            logsDisplayBox.AppendText(Environment.NewLine + "-----------------------------------------------");
-            logsDisplayBox.AppendText(Environment.NewLine + $"Total Tests: {passCount + failCount}");
-            logsDisplayBox.AppendText(Environment.NewLine + $"Passed Tests: {passCount}");
-            logsDisplayBox.AppendText(Environment.NewLine + $"Failed Tests: {failCount}");
+            textBoxLogs.AppendText(Environment.NewLine + "-----------------------------------------------");
+            textBoxLogs.AppendText(Environment.NewLine + $"Total Tests: {passCount + failCount}");
+            textBoxLogs.AppendText(Environment.NewLine + $"Passed Tests: {passCount}");
+            textBoxLogs.AppendText(Environment.NewLine + $"Failed Tests: {failCount}");
             TestLogger.eventLogs.Clear();
 
             EndOfProcess();
         }
-
 
         //Stop button
         private void stopButton_Click(object sender, EventArgs e)
@@ -224,20 +215,16 @@ namespace UI
         }
 
 
-
-
         /*
          * *********************************************METHODS HERE*****************************************************
          */
-
-
 
 
         public void StartProcess()
         {
             bool hasCheckedNode = false;
 
-            foreach (TreeNode node in TestCasesTreeView.Nodes)
+            foreach (TreeNode node in treeViewTestCases.Nodes)
             {
                 foreach (TreeNode childNode in node.Nodes)
                 {
@@ -256,91 +243,33 @@ namespace UI
 
             if (hasCheckedNode)
             {
-                welcomeTextBox.Visible = false;
-                logsDisplayBox.Visible = true;
-                stopButtonEnabled.Visible = true;
+                textBoxSummary.Visible = false;
+                textBoxLogs.Visible = true;
+                buttonStop.Visible = true;
                 TestLogger.logMessages.Clear();
                 TestLogger.eventLogs.Clear();
-                logsDisplayBox.Clear();
-                runButtonEnabled.Visible = false;
-                selectAll.Enabled = false;
-                TestCasesTreeView.Enabled = false;
+                textBoxLogs.Clear();
+                buttonStartEnabled.Visible = false;
+                buttonSelectAllEnabled.Visible = false;
+                treeViewTestCases.Enabled = false;
+                buttonSelectAllDisabled.Visible = true;
+                buttonSelectAllEnabled.Visible = false;
 
             }
             else
             {
-                welcomeTextBox.Visible = true;
-                logsDisplayBox.Visible = false;
-                stopButtonEnabled.Visible = false;
-                runButtonEnabled.Visible = false;
+                textBoxSummary.Visible = true;
+                textBoxLogs.Visible = false;
+                buttonStop.Visible = false;
+                buttonStartEnabled.Visible = false;
                 TestLogger.logMessages.Clear();
                 TestLogger.eventLogs.Clear();
-                welcomeTextBox.Clear();
-                welcomeTextBox.Text = "No test case selected";
-                welcomeTextBox.AppendText(Environment.NewLine + " ");
-                welcomeTextBox.AppendText(Environment.NewLine + "Select a test case. . .");
+                textBoxSummary.Clear();
+                textBoxSummary.Text = "No test case selected";
+                textBoxSummary.AppendText(Environment.NewLine + " ");
+                textBoxSummary.AppendText(Environment.NewLine + "Select a test case. . .");
             }
         }
-
-
-
-
-
-
-        public void StopProcess()
-        {
-            stopButtonEnabled.Visible = false;
-            cancellationTokenSource?.Cancel();
-            selectAll.Checked = false;
-
-            Process[] chromeDriverProcesses = Process.GetProcessesByName("chromedriver");
-            foreach (Process process in chromeDriverProcesses)
-            {
-                process.Kill();
-            }
-
-            Thread.Sleep(5000);
-            runButtonEnabled.Cursor = Cursors.Default;
-            TestCasesTreeView.Enabled = true;
-            selectAll.Enabled = true;
-            welcomeTextBox.Visible = true;
-            logsDisplayBox.Visible = false;
-            welcomeTextBox.Clear();
-            welcomeTextBox.Text = "Select a test case. . .";
-            runButtonEnabled.Enabled = true;
-            foreach (TreeNode node in TestCasesTreeView.Nodes)
-            {
-                node.Checked = false;
-
-                foreach (TreeNode childNode in node.Nodes)
-                {
-                    childNode.Checked = false;
-                }
-            }
-        }
-
-
-
-
-
-
-
-        public void EndOfProcess()
-        {
-            //Stop all chromedrivers
-            Process[] chromeDriverProcesses = Process.GetProcessesByName("chromedriver");
-            foreach (Process process in chromeDriverProcesses)
-            {
-                process.Kill();
-            }
-            runButtonEnabled.Enabled = true;
-            selectAll.Enabled = true;
-            selectAll.Checked = false;
-            stopButtonEnabled.Visible = false;
-            TestCasesTreeView.Enabled = true;
-        }
-
-
 
 
         //task to display event logs in real time
@@ -352,7 +281,7 @@ namespace UI
                 {
                     if (TestLogger.eventLogs.TryDequeue(out var logMessage))
                     {
-                        logsDisplayBox.AppendText(Environment.NewLine + logMessage.ToString());
+                        textBoxLogs.AppendText(Environment.NewLine + logMessage.ToString());
                     }
                     else
                     {
@@ -362,6 +291,54 @@ namespace UI
             });
         }
 
+
+        public void EndOfProcess()
+        {
+            //Stop all chromedrivers
+            Process[] chromeDriverProcesses = Process.GetProcessesByName("chromedriver");
+            foreach (Process process in chromeDriverProcesses)
+            {
+                process.Kill();
+            }
+            buttonSelectAllEnabled.Visible = true;
+            buttonSelectAllDisabled.Visible = false;
+            buttonStartEnabled.Visible = false;
+            buttonStartDisabled.Visible = true;
+            buttonStop.Visible = false;
+            treeViewTestCases.Enabled = true;
+        }
+
+        public void StopProcess()
+        {
+            buttonStop.Visible = false;
+            buttonStartDisabled.Visible = true;
+            cancellationTokenSource?.Cancel();
+            buttonSelectAllEnabled.Visible = false;
+
+            Process[] chromeDriverProcesses = Process.GetProcessesByName("chromedriver");
+            foreach (Process process in chromeDriverProcesses)
+            {
+                process.Kill();
+            }
+
+            Thread.Sleep(5000);
+            buttonStartEnabled.Cursor = Cursors.Default;
+            treeViewTestCases.Enabled = true;
+            buttonSelectAllEnabled.Visible = true;
+            textBoxSummary.Visible = true;
+            textBoxLogs.Visible = false;
+            textBoxSummary.Clear();
+            textBoxSummary.Text = "Select a test case. . .";
+            foreach (TreeNode node in treeViewTestCases.Nodes)
+            {
+                node.Checked = false;
+
+                foreach (TreeNode childNode in node.Nodes)
+                {
+                    childNode.Checked = false;
+                }
+            }
+        }
 
         public bool IsRunningProcess()
         {
@@ -378,104 +355,28 @@ namespace UI
             return false;
         }
 
-
-        /*
-        * *******************************FRONTEND METHODS*********************************************
-        */
-
-
-        //Log text box to show scroll bars when text exceeds the box height
-        private void logsDisplayBox_TextChanged(object sender, EventArgs e)
+/*
+* *******************************FRONTEND METHODS*********************************************
+*/
+        private void textBoxLogs_TextChanged(object sender, EventArgs e)
         {
-            if (logsDisplayBox.TextLength > logsDisplayBox.ClientSize.Height)
+            if (textBoxLogs.TextLength > textBoxLogs.ClientSize.Height)
             {
 
-                logsDisplayBox.ScrollBars = ScrollBars.Vertical;
+                textBoxLogs.ScrollBars = ScrollBars.Vertical;
             }
             else
             {
-                logsDisplayBox.ScrollBars = ScrollBars.None;
+                textBoxLogs.ScrollBars = ScrollBars.None;
             }
         }
 
-
-
-
-
-        //select all check box to check all items in the list
-        private void selectAll_CheckedChanged(object sender, EventArgs e)
-        {
-            if (selectAll.Checked)
-            {
-                runButtonEnabled.Visible = true;
-            }
-            else
-            {
-                runButtonEnabled.Visible = false;
-            }
-
-            if (selectAll.Checked)
-            {
-                foreach (TreeNode node in TestCasesTreeView.Nodes)
-                {
-                    node.Checked = true;
-
-                    foreach (TreeNode childNode in node.Nodes)
-                    {
-                        childNode.Checked = true;
-                    }
-                }
-            }
-            else
-            {
-                foreach (TreeNode node in TestCasesTreeView.Nodes)
-                {
-                    node.Checked = false;
-
-                    foreach (TreeNode childNode in node.Nodes)
-                    {
-                        childNode.Checked = false;
-                    }
-                }
-            }
-
-        }
-
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (IsRunningProcess())
-            {
-                DialogResult hasProcess = MessageBox.Show("Do you want to stop the test execution and exit?", "Confirm Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (hasProcess == DialogResult.No)
-                {
-                    e.Cancel = true;
-                }
-                else
-                {
-                    StopProcess();
-                }
-            }
-            else
-            {
-                DialogResult noProcess = MessageBox.Show("Do you want to exit the application?", "Confirm Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (noProcess == DialogResult.No)
-                {
-                    e.Cancel = true;
-                }
-                else
-                {
-
-                }
-            }
-        }
-
-
-        public void TestCasesTreeView_AfterSelect(object sender, TreeViewEventArgs e)
+        private void treeViewTestCases_AfterSelect(object sender, TreeViewEventArgs e)
         {
             //Run Button to appear when there is at least 1 child node selected
             bool hasCheckedNode = false;
 
-            foreach (TreeNode node in TestCasesTreeView.Nodes)
+            foreach (TreeNode node in treeViewTestCases.Nodes)
             {
                 foreach (TreeNode childNode in node.Nodes)
                 {
@@ -494,19 +395,21 @@ namespace UI
 
             if (hasCheckedNode)
             {
-                runButtonEnabled.Visible = true;
+                buttonStartEnabled.Visible = true;
+                buttonStartDisabled.Visible = false;
             }
             else
             {
-                runButtonEnabled.Visible = false;
+                buttonStartEnabled.Visible = false;
+                buttonStartDisabled.Visible = true;
             }
+
 
             //checks all parent node if all child node are checked and check all childnode if parent node is checked
             if (e.Action != TreeViewAction.Unknown)
             {
                 Stack<TreeNode> stack = new Stack<TreeNode>();
                 stack.Push(e.Node);
-
                 while (stack.Count > 0)
                 {
                     TreeNode node = stack.Pop();
@@ -538,14 +441,117 @@ namespace UI
                     }
 
                     
+
+                    
                 }
 
-                
+                int parentCount = 0;
+                int checkCount = 0;
+
+                // If the node is checked, increment the count
+                foreach (TreeNode parentNode in treeViewTestCases.Nodes)
+                {
+                    parentCount++;
+
+                    if (parentNode.Checked)
+                    {
+                        checkCount++;
+                    }
+                }
+
+                if(parentCount == checkCount)
+                {
+                    buttonSelectAllEnabled.Visible = false;
+                    buttonDeselectAllEnabled.Visible = true;
+                }
+                else
+                {
+                    buttonSelectAllEnabled.Visible = true;
+                    buttonDeselectAllEnabled.Visible = false;
+                }
             }
 
-           
 
         }
 
+        private void MainPage_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (IsRunningProcess())
+            {
+                DialogResult hasProcess = MessageBox.Show("Do you want to stop the test execution and exit?", "Confirm Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (hasProcess == DialogResult.No)
+                {
+                    e.Cancel = true;
+                }
+                else
+                {
+                    StopProcess();
+                }
+            }
+            else
+            {
+                DialogResult noProcess = MessageBox.Show("Do you want to exit the application?", "Confirm Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (noProcess == DialogResult.No)
+                {
+                    e.Cancel = true;
+                }
+                else
+                {
+
+                }
+            }
+        }
+
+        private void buttonSelectAllEnabled_Click(object sender, EventArgs e)
+        {
+            buttonSelectAllEnabled.Visible = false;
+            buttonDeselectAllEnabled.Visible = true;
+
+
+                foreach (TreeNode node in treeViewTestCases.Nodes)
+                {
+                    node.Checked = true;
+
+                    foreach (TreeNode childNode in node.Nodes)
+                    {
+                        childNode.Checked = true;
+                    }
+                }
+
+        }
+
+        private void buttonSelectAllDisabled_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void buttonDeselectAllEnabled_Click(object sender, EventArgs e)
+        {
+            buttonSelectAllEnabled.Visible = true;
+            buttonDeselectAllEnabled.Visible = false;
+
+            foreach (TreeNode node in treeViewTestCases.Nodes)
+            {
+                node.Checked = false;
+
+                foreach (TreeNode childNode in node.Nodes)
+                {
+                    childNode.Checked = false;
+                }
+            }
+        }
+
+        private void buttonStop_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Do you want to stop the test execution?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                StopProcess();
+            }
+            else
+            {
+
+            }
+        }
     }
 }

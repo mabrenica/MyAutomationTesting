@@ -29,125 +29,120 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            runButtonEnabled = new Button();
-            logsDisplayBox = new TextBox();
-            stopButtonEnabled = new Button();
-            selectAll = new CheckBox();
-            welcomeTextBox = new TextBox();
-            runButtonDisabled = new Button();
-            stopButtonDisabled = new Button();
-            TestCasesTreeView = new TreeView();
-            SuspendLayout();
+            this.runButtonEnabled = new System.Windows.Forms.Button();
+            this.logsDisplayBox = new System.Windows.Forms.TextBox();
+            this.stopButtonEnabled = new System.Windows.Forms.Button();
+            this.selectAll = new System.Windows.Forms.CheckBox();
+            this.welcomeTextBox = new System.Windows.Forms.TextBox();
+            this.runButtonDisabled = new System.Windows.Forms.Button();
+            this.stopButtonDisabled = new System.Windows.Forms.Button();
+            this.TestCasesTreeView = new System.Windows.Forms.TreeView();
+            this.SuspendLayout();
             // 
             // runButtonEnabled
             // 
-            runButtonEnabled.Location = new Point(1076, 45);
-            runButtonEnabled.Name = "runButtonEnabled";
-            runButtonEnabled.Size = new Size(97, 37);
-            runButtonEnabled.TabIndex = 1;
-            runButtonEnabled.Text = "Run";
-            runButtonEnabled.UseVisualStyleBackColor = true;
-            runButtonEnabled.Click += button1_Click;
+            this.runButtonEnabled.Location = new System.Drawing.Point(1076, 45);
+            this.runButtonEnabled.Name = "runButtonEnabled";
+            this.runButtonEnabled.Size = new System.Drawing.Size(97, 37);
+            this.runButtonEnabled.TabIndex = 1;
+            this.runButtonEnabled.Text = "Run";
+            this.runButtonEnabled.UseVisualStyleBackColor = true;
             // 
             // logsDisplayBox
             // 
-            logsDisplayBox.BackColor = Color.FromArgb(192, 255, 255);
-            logsDisplayBox.Location = new Point(701, 142);
-            logsDisplayBox.Multiline = true;
-            logsDisplayBox.Name = "logsDisplayBox";
-            logsDisplayBox.ReadOnly = true;
-            logsDisplayBox.Size = new Size(472, 312);
-            logsDisplayBox.TabIndex = 2;
-            logsDisplayBox.TextChanged += logsDisplayBox_TextChanged;
+            this.logsDisplayBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.logsDisplayBox.Location = new System.Drawing.Point(701, 142);
+            this.logsDisplayBox.Multiline = true;
+            this.logsDisplayBox.Name = "logsDisplayBox";
+            this.logsDisplayBox.ReadOnly = true;
+            this.logsDisplayBox.Size = new System.Drawing.Size(472, 312);
+            this.logsDisplayBox.TabIndex = 2;
             // 
             // stopButtonEnabled
             // 
-            stopButtonEnabled.Location = new Point(1076, 88);
-            stopButtonEnabled.Name = "stopButtonEnabled";
-            stopButtonEnabled.Size = new Size(97, 37);
-            stopButtonEnabled.TabIndex = 3;
-            stopButtonEnabled.Text = "Stop";
-            stopButtonEnabled.UseVisualStyleBackColor = true;
-            stopButtonEnabled.Visible = false;
-            stopButtonEnabled.Click += stopButton_Click;
+            this.stopButtonEnabled.Location = new System.Drawing.Point(1076, 88);
+            this.stopButtonEnabled.Name = "stopButtonEnabled";
+            this.stopButtonEnabled.Size = new System.Drawing.Size(97, 37);
+            this.stopButtonEnabled.TabIndex = 3;
+            this.stopButtonEnabled.Text = "Stop";
+            this.stopButtonEnabled.UseVisualStyleBackColor = true;
+            this.stopButtonEnabled.Visible = false;
             // 
             // selectAll
             // 
-            selectAll.AutoSize = true;
-            selectAll.Location = new Point(43, 118);
-            selectAll.Name = "selectAll";
-            selectAll.Size = new Size(93, 24);
-            selectAll.TabIndex = 4;
-            selectAll.Text = "Select All";
-            selectAll.UseVisualStyleBackColor = true;
-            selectAll.CheckedChanged += selectAll_CheckedChanged;
+            this.selectAll.AutoSize = true;
+            this.selectAll.Location = new System.Drawing.Point(43, 118);
+            this.selectAll.Name = "selectAll";
+            this.selectAll.Size = new System.Drawing.Size(93, 24);
+            this.selectAll.TabIndex = 4;
+            this.selectAll.Text = "Select All";
+            this.selectAll.UseVisualStyleBackColor = true;
             // 
             // welcomeTextBox
             // 
-            welcomeTextBox.BackColor = Color.FromArgb(192, 255, 255);
-            welcomeTextBox.Enabled = false;
-            welcomeTextBox.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point);
-            welcomeTextBox.ForeColor = SystemColors.MenuText;
-            welcomeTextBox.Location = new Point(701, 142);
-            welcomeTextBox.Multiline = true;
-            welcomeTextBox.Name = "welcomeTextBox";
-            welcomeTextBox.Size = new Size(472, 312);
-            welcomeTextBox.TabIndex = 5;
-            welcomeTextBox.Text = "Select a test case . . .";
+            this.welcomeTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.welcomeTextBox.Enabled = false;
+            this.welcomeTextBox.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.welcomeTextBox.ForeColor = System.Drawing.SystemColors.MenuText;
+            this.welcomeTextBox.Location = new System.Drawing.Point(701, 142);
+            this.welcomeTextBox.Multiline = true;
+            this.welcomeTextBox.Name = "welcomeTextBox";
+            this.welcomeTextBox.Size = new System.Drawing.Size(472, 312);
+            this.welcomeTextBox.TabIndex = 5;
+            this.welcomeTextBox.Text = "Select a test case . . .";
             // 
             // runButtonDisabled
             // 
-            runButtonDisabled.BackColor = Color.LightGray;
-            runButtonDisabled.Enabled = false;
-            runButtonDisabled.Location = new Point(1076, 46);
-            runButtonDisabled.Name = "runButtonDisabled";
-            runButtonDisabled.Size = new Size(97, 36);
-            runButtonDisabled.TabIndex = 6;
-            runButtonDisabled.Text = "Run";
-            runButtonDisabled.UseVisualStyleBackColor = false;
+            this.runButtonDisabled.BackColor = System.Drawing.Color.LightGray;
+            this.runButtonDisabled.Enabled = false;
+            this.runButtonDisabled.Location = new System.Drawing.Point(1076, 46);
+            this.runButtonDisabled.Name = "runButtonDisabled";
+            this.runButtonDisabled.Size = new System.Drawing.Size(97, 36);
+            this.runButtonDisabled.TabIndex = 6;
+            this.runButtonDisabled.Text = "Run";
+            this.runButtonDisabled.UseVisualStyleBackColor = false;
             // 
             // stopButtonDisabled
             // 
-            stopButtonDisabled.BackColor = Color.LightGray;
-            stopButtonDisabled.BackgroundImageLayout = ImageLayout.None;
-            stopButtonDisabled.Enabled = false;
-            stopButtonDisabled.Location = new Point(1076, 88);
-            stopButtonDisabled.Name = "stopButtonDisabled";
-            stopButtonDisabled.Size = new Size(97, 37);
-            stopButtonDisabled.TabIndex = 7;
-            stopButtonDisabled.Text = "Stop";
-            stopButtonDisabled.UseVisualStyleBackColor = false;
+            this.stopButtonDisabled.BackColor = System.Drawing.Color.LightGray;
+            this.stopButtonDisabled.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.stopButtonDisabled.Enabled = false;
+            this.stopButtonDisabled.Location = new System.Drawing.Point(1076, 88);
+            this.stopButtonDisabled.Name = "stopButtonDisabled";
+            this.stopButtonDisabled.Size = new System.Drawing.Size(97, 37);
+            this.stopButtonDisabled.TabIndex = 7;
+            this.stopButtonDisabled.Text = "Stop";
+            this.stopButtonDisabled.UseVisualStyleBackColor = false;
             // 
             // TestCasesTreeView
             // 
-            TestCasesTreeView.CheckBoxes = true;
-            TestCasesTreeView.Location = new Point(43, 148);
-            TestCasesTreeView.Name = "TestCasesTreeView";
-            TestCasesTreeView.Size = new Size(606, 312);
-            TestCasesTreeView.TabIndex = 8;
-            TestCasesTreeView.AfterCheck += TestCasesTreeView_AfterSelect;
+            this.TestCasesTreeView.CheckBoxes = true;
+            this.TestCasesTreeView.Location = new System.Drawing.Point(43, 148);
+            this.TestCasesTreeView.Name = "TestCasesTreeView";
+            this.TestCasesTreeView.Size = new System.Drawing.Size(606, 312);
+            this.TestCasesTreeView.TabIndex = 8;
+            this.TestCasesTreeView.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.TestCasesTreeView_AfterSelect);
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.White;
-            ClientSize = new Size(1213, 500);
-            Controls.Add(TestCasesTreeView);
-            Controls.Add(welcomeTextBox);
-            Controls.Add(selectAll);
-            Controls.Add(stopButtonEnabled);
-            Controls.Add(logsDisplayBox);
-            Controls.Add(runButtonEnabled);
-            Controls.Add(runButtonDisabled);
-            Controls.Add(stopButtonDisabled);
-            Icon = (Icon)resources.GetObject("$this.Icon");
-            Name = "Form1";
-            Text = "Curogram Automation Testing";
-            FormClosing += Form1_FormClosing;
-            Load += Form1_Load;
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(1213, 500);
+            this.Controls.Add(this.TestCasesTreeView);
+            this.Controls.Add(this.welcomeTextBox);
+            this.Controls.Add(this.selectAll);
+            this.Controls.Add(this.stopButtonEnabled);
+            this.Controls.Add(this.logsDisplayBox);
+            this.Controls.Add(this.runButtonEnabled);
+            this.Controls.Add(this.runButtonDisabled);
+            this.Controls.Add(this.stopButtonDisabled);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "Form1";
+            this.Text = "Curogram Automation Testing";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion

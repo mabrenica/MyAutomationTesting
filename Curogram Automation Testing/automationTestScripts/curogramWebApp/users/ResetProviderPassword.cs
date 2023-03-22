@@ -138,8 +138,8 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Users
                 a.TypeM("//input[@type='password']", Password);
                 a.Pause(1);
                 a.ClickOn("//button[contains(text(),'Reset password')]");
-                a.Pause(3);
-                a.VerifyText("//div[contains(text(),'Quick Actions')]", "Quick Actions");
+                a.WUntil("//div[contains(text(),'Main Menu')]");
+                a.VerifyText("//div[contains(text(),'Main Menu')]", "Main Menu");
                 a.DQuit();
 
 

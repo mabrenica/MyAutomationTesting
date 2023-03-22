@@ -4,13 +4,10 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net7.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
-    <UseWindowsForms>true</UseWindowsForms>
+    <UseWindowsForms>True</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <StartupObject>UI.UiMain</StartupObject>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="MaterialSkin" Version="0.2.1" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Curogram Automation Testing\Curogram Automation Testing.csproj" />
