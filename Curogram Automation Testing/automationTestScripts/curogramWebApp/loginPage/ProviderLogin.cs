@@ -23,7 +23,6 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
 
 
 
-
         public void ProviderLoginSuccess()
         {
             string testCaseTitle = "Curogram Web Provider Login Success";
@@ -43,7 +42,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
                 a.Type("//input[@type=\'password\']", "password1");
                 a.Pause(3);
                 a.ClickOn("//button[@type=\'submit\']");
-                a.Pause(7);
+                a.WUntil("//section/div/div");
                 a.VerifyText("//section/div/div", "Quick Actions");
                 a.DClose();
 
@@ -56,7 +55,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
                 string message = $"Fail: {testCaseTitle} - - " + e.Message;
                 a.AddLog("allType", message);
                 Console.WriteLine(message);
-                a.DQuit();
+                //a.DQuit();
                 Assert.That(e.Message, Is.EqualTo(""));
             }
         }
@@ -83,7 +82,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
                 a.TypeM("//input[@type=\'password\']", "incorrect");
                 a.Pause(2);
                 a.ClickOn("//button[@type=\'submit\']");
-                a.Pause(5);
+                a.WUntil("//div[@class='alert-red text-center']");
                 a.VerifyText("//div[@class=\'alert-red text-center\']", "Your password is not matching our records.");
                 a.DClose();
 
@@ -120,7 +119,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
                 a.TypeM("//input[@type=\'text\']", "incorrectemailformat");
                 a.Pause(2);
                 a.ClickOn("//input[@type=\'password\']");
-                a.Pause(3);
+                a.WUntil("//input[@type='password']");
                 a.VerifyText("//curo-validation-messages/div", "You entered wrong email or phone number. Example: example@example.com, 1234567890");
                 a.DClose();
 

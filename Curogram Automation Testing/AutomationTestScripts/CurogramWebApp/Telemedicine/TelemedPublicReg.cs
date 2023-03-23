@@ -60,7 +60,6 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
         public static String? DLNum;
 
         //Window Variables
-        public static String? YopWeb;
         public static String? RegPage;
         public static String? WProvider;
         public static String? TeleRoom;
@@ -73,7 +72,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
             PFName      = a.StringGenerator("allletters",   9);
             PMName      = a.StringGenerator("allletters",   9);
             PLName      = a.StringGenerator("allletters",   9);
-            PEmail      = a.StringGenerator("alphanumeric", 9) + "@mailsac.com";
+            PEmail      = a.StringGenerator("alphanumeric", 12) + "@mailsac.com";
             PAddress    = a.StringGenerator("allletters",   9);
             PUnitNo     = a.StringGenerator("allnumbers",   4);
             PCity       = a.StringGenerator("allletters",   5);
@@ -111,7 +110,6 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
             DLNum       = a.StringGenerator("alphanumeric", 9);
 
             //Windows
-            YopWeb      = a.StringGenerator("allletters",   9);
             RegPage     = a.StringGenerator("allletters",   9);
             WProvider   = a.StringGenerator("allletters",   9);
             TeleRoom    = a.StringGenerator("allletters",   9);
@@ -130,24 +128,11 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
 
             try
             {
-                //open yopmail website
-                a.StartDriver("Chrome", YopWeb);
-                a.NavTo("https://mailsac.com/login");
-                a.Pause(4);
-                a.TypeM("//input[@name='username']", "marnel.abrenica@curogram.com");
-                a.TypeM("//input[@name='password']", "G3h_amping123");
-                a.ClickOn("//button[@type='submit']");
-                a.Pause(4);
-
-
-                //register generated email in mailsac
-                a.TypeM("//input[@type='text'][1]", PEmail);
-                a.Pause(1);
-                a.ClickOn("//button[contains(text(),'Check the mail!')]");
-
+                //Register Patient email to Mailsac via api
+                a.GenerateOtpEmail(PEmail);
 
                 //Open registration page
-                a.StartNewWindow(RegPage);
+                a.StartDriver("Chrome", RegPage);
                 a.NavTo("https://staging.curogram.com/registrations/6400a92a073cd10ee0c9a868");
 
 
@@ -161,13 +146,9 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
                 a.TypeM("//input[@placeholder='Email']", PEmail);
                 a.ClickOn("//button[contains(text(),'Next')]");
                 a.WUntil("//h4[@class='check-result__title']");
-                a.SwitchWindow(YopWeb);
-                a.RefreshUntil("//strong[contains(text(),'no-reply@curogram.com')]");
-                a.ClickOn("//strong[contains(text(),'no-reply@curogram.com')]");
-                a.Pause(1);
 
                 //Extract OPT code and enter
-                var otpCode = a.GetOtp("//p[@class='o_mb-md o_sick-message']");
+                var otpCode = a.OtpViaMailSac(PEmail);
                 a.SwitchWindow(RegPage);
                 a.TypeCode(otpCode, "//input[@placeholder='—']");
 
@@ -347,7 +328,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
                 a.Pause(3);
 
                 //Provider telemedicine room
-                a.SaveWindow(TeleRoom, 3);
+                a.SaveWindow(TeleRoom, 2);
                 a.SwitchWindow(TeleRoom);
                 a.WUntil("//video[@style='height: 100%; position: absolute;']");
                 a.CheckElement("//video[@style='height: 100%; position: absolute;']");
@@ -389,7 +370,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
                 string message = $"Fail: {testCaseTitle} - - " + e.Message;
                 a.AddLog("allType", message);
                 Console.WriteLine(message);
-                a.DQuit();
+                //a.DQuit();
                 Assert.That(e.Message, Is.EqualTo(""));
 
             }

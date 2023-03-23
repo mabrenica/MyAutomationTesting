@@ -8,6 +8,7 @@ using System.Data;
 using System.Text.RegularExpressions;
 using Curogram_Automation_Testing.appManager;
 using System.Text;
+using Curogram_Automation_Testing.CurogramApi.Other;
 
 
 namespace Curogram_Automation_Testing.AppManager
@@ -370,7 +371,17 @@ namespace Curogram_Automation_Testing.AppManager
             }
         }
 
+        public string OtpViaMailSac(string email)
+        {
+            MailsacGetOtp a = new();
+            string otp = a.GetOTP(email);
+            return otp;
+        }
 
-     
+        public void GenerateOtpEmail(string email, string mailsacKey = "k_rtJ7fZ6197XAsC5f4Ujyp2477Xc479U0rI4tg66ef")
+        {
+            GenerateMailsacEmail a = new();
+            a.Generate(generatedEmail: email, passedMailsacKey: mailsacKey).Wait();
+        }
     }
 }

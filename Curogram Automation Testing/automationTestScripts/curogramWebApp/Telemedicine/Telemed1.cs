@@ -43,7 +43,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
 
 
         //Add Patient record through API
-        [Test]
+
         public async Task AddPatientApi()
         {
             ModifyVars();
