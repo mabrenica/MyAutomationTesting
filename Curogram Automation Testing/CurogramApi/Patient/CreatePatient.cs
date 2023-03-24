@@ -2,24 +2,44 @@
 using System.Net;
 using NUnit.Framework;
 using Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telemedicine;
+using Curogram_Automation_Testing.AppManager;
+using System.Net.NetworkInformation;
+using Newtonsoft.Json.Linq;
 
 namespace Curogram_Automation_Testing.CurogramApi.Practice
 {
-
+    [TestFixture]
     internal class CreatePatient
     {
-        public async Task<HttpResponseMessage> CreatePatientMethod(string firstName, string lastName, string email, string authToken)
+        public static String AuthToken;
+        public static String MailsacKey ;
+        public static String PatientInfo;
+        public static String PracticeId;
+        public static bool ForOtp;
+
+        public async Task CreatePatientMethod()
         {
+            SeleniumCommands b = new();
+
+
+            string firstName = b.StringGenerator();
+            string lastName = b.StringGenerator();
+            string middleName = b.StringGenerator();
+            string email = b.EmailGenerator(mailsacKey: MailsacKey, forOtp: ForOtp) ;
+
+
             var handler = new HttpClientHandler();
+
+            
 
             handler.AutomaticDecompression = ~DecompressionMethods.None;
             using (var httpClient = new HttpClient(handler))
             {
-                using (var request = new HttpRequestMessage(new HttpMethod("POST"), "https://api-v2.staging.curogram.com/practices/63d295fe2046a186b99b2537/patients"))
+                using (var request = new HttpRequestMessage(new HttpMethod("POST"), $"https://api-v2.staging.curogram.com/practices/{PracticeId}/patients"))
                 {
                     request.Headers.TryAddWithoutValidation("Accept", "application/json, text/plain, */*");
                     request.Headers.TryAddWithoutValidation("Accept-Language", "en-US,en;q=0.9");
-                    request.Headers.TryAddWithoutValidation("Authorization", authToken);
+                    request.Headers.TryAddWithoutValidation("Authorization", AuthToken);
                     request.Headers.TryAddWithoutValidation("Connection", "keep-alive");
                     request.Headers.TryAddWithoutValidation("Origin", "https://app.staging.curogram.com");
                     request.Headers.TryAddWithoutValidation("Referer", "https://app.staging.curogram.com/");
@@ -32,15 +52,25 @@ namespace Curogram_Automation_Testing.CurogramApi.Practice
                     request.Headers.TryAddWithoutValidation("sec-ch-ua-platform", "\"Windows\"");
                     request.Headers.TryAddWithoutValidation("sec-gpc", "1");
 
-                    request.Content = new StringContent("{\"firstName\":\"" + firstName + "\",\"lastName\":\"" + lastName + "\",\"emails\":[\"" + email + "\"]}");
+                    request.Content = new StringContent("{\"firstName\":\"" + firstName + "\",\"middleName\":\""+ middleName + "\",\"lastName\":\"" + lastName + "\",\"emails\":[\"" + email + "\"],\"dob\":\"2023-01-01T12:00:00.000Z\"}");
                     request.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
 
                     var response = await httpClient.SendAsync(request);
                     if (response.IsSuccessStatusCode)
                     {
                         var responseContent = await response.Content.ReadAsStringAsync();
-                        //Console.WriteLine(responseContent);
-                        return response;
+                        //Console.WriteLine(response);
+
+                        JObject obj = JObject.Parse(responseContent);
+                        string patientID = obj["id"].ToString();
+                        string patientFirstName = obj["firstName"].ToString();
+                        string patientMiddleName = obj["middleName"].ToString();
+                        string patientLastName = obj["lastName"].ToString();
+                        string patientDob = obj["dob"].ToString();
+                        string patientEmail = obj["emails"][0].ToString();
+
+
+                        PatientInfo = $"{patientID},{patientFirstName},{patientMiddleName},{patientLastName},{patientDob},{patientEmail}";
                     }
                     else
                     {
@@ -50,20 +80,18 @@ namespace Curogram_Automation_Testing.CurogramApi.Practice
                 }
             }
         }
+        [Test]
+        public string PatientGenerator(string practiceId, string authToken, string mailsacKey = "k_rtJ7fZ6197XAsC5f4Ujyp2477Xc479U0rI4tg66ef", bool forOtp = false)
+        {
+            PracticeId = practiceId;
+            AuthToken= authToken;
+            MailsacKey = mailsacKey;
+            ForOtp= forOtp;
+
+
+            CreatePatient a = new();
+            a.CreatePatientMethod().Wait();
+            return PatientInfo;
+        }
     }
 }
-/* use this to call this method from a different class
-         public async Task AddPatientApi()
-        {
-            var firstName = "{firstName}";
-            var lastName = "{lastName}";
-            var email = "{email}";
-            var authToken = "Basic eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXZpY2VUeXBlIjoid2ViIiwiaXNzdWVyIjoiYXBpIiwiYWNjb3VudElkIjoiNjNlMzZmYTFhY2EyMTA1NGM2YzNjOGQ3IiwiY3JlYXRlZEF0IjoxNjc3MDgxNDc1MDc0LCJidXNpbmVzc0lkIjoiNjNkMjk1ZmUyMDQ2YTE4NmI5OWIyNTM3IiwiaWF0IjoxNjc3MDgxNDc1LCJleHAiOjE2Nzk2NzM0NzUsImlzcyI6ImFwaSJ9.akR27vti8P0wn2dnl8OPtPs2u4JPmzoxE_CQDJqJ7x4NIiejSsR8onbYaBYn2Zv2bqeeuMheMI6cqfvN4ScXB1oPYbzcsVWLI_QOKuUEuHWso9z1w6lss9k-zOD64aECe7lWwgLCdKDF5WLv59Pe0lkUsv5TXNZmM6OABOp_fUX9ccF8ge59gNMzLYOMCg762-eMz2Yl9zqKRZGw6I5K4AXSCwPOp20nDJ6CVP0bwXzQwba9wJ_76yHWTPWReLJU64eh5JQ_0Cdb-_L4IIvtPjavdzstwBrMd59XJh59e-aRoaS6Jd0QJpXu7xT4mgE__YZz2teoFzhHpEKNlQnKgw";
-            var response = await new CreatePatient().CreatePatientMethod(firstName, lastName, email, authToken);
-            Console.WriteLine(response);
-        }
-*/
-
-/* API link
- * https://api-v2.dev.curogram.com/apidoc/static/index.html#/Patients/PracticePatientsController_updateOrCreate
- */

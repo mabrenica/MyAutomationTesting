@@ -3,6 +3,8 @@ using NUnit.Framework;
 using Curogram_Automation_Testing.CurogramApi.Practice;
 using NUnit.Framework.Internal;
 using Curogram_Automation_Testing.appManager;
+using System.Reflection.PortableExecutable;
+using System.Xml.Linq;
 
 namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telemedicine
 {
@@ -17,14 +19,22 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
         public static String? WindowRoot;
         public static String? WindowProvider;
         public static String? WindowPatient;
+        public static String PracticeId = "63d295fe2046a186b99b2537";
+        public static String AuthToken = "Basic eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXZpY2VUeXBlIjoid2ViIiwiaXNzdWVyIjoiYXBpIiwiYWNjb3VudElkIjoiNjNlMzZmYTFhY2EyMTA1NGM2YzNjOGQ3IiwiY3JlYXRlZEF0IjoxNjc3MDgxNDc1MDc0LCJidXNpbmVzc0lkIjoiNjNkMjk1ZmUyMDQ2YTE4NmI5OWIyNTM3IiwiaWF0IjoxNjc3MDgxNDc1LCJleHAiOjE2Nzk2NzM0NzUsImlzcyI6ImFwaSJ9.akR27vti8P0wn2dnl8OPtPs2u4JPmzoxE_CQDJqJ7x4NIiejSsR8onbYaBYn2Zv2bqeeuMheMI6cqfvN4ScXB1oPYbzcsVWLI_QOKuUEuHWso9z1w6lss9k-zOD64aECe7lWwgLCdKDF5WLv59Pe0lkUsv5TXNZmM6OABOp_fUX9ccF8ge59gNMzLYOMCg762-eMz2Yl9zqKRZGw6I5K4AXSCwPOp20nDJ6CVP0bwXzQwba9wJ_76yHWTPWReLJU64eh5JQ_0Cdb-_L4IIvtPjavdzstwBrMd59XJh59e-aRoaS6Jd0QJpXu7xT4mgE__YZz2teoFzhHpEKNlQnKgw";
+
 
 
         public static void ModifyVars()
         {
             SeleniumCommands a = new();
-            LastName = a.StringGenerator("allletters", 9);
-            FirstName = a.StringGenerator("allletters", 9);
-            Email = a.StringGenerator("allletters", 9);
+            CreatePatient b = new CreatePatient();
+            string[] patientInfo = b.PatientGenerator(practiceId: PracticeId, authToken: AuthToken).Split(",");
+
+            //patient info
+            FirstName = patientInfo[1];
+            LastName = patientInfo[3];
+            Email = patientInfo[5];
+
             WindowRoot = a.StringGenerator("alphanumeric", 9);
             WindowProvider = a.StringGenerator("alphanumeric", 9);
             WindowPatient = a.StringGenerator("alphanumeric", 9);
@@ -36,22 +46,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
         public async Task TimeZone()
         {
             var practiceName = "TestRigor Automation General (Do not change settings)";
-            var authToken = "Basic eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXZpY2VUeXBlIjoid2ViIiwiaXNzdWVyIjoiYXBpIiwiYWNjb3VudElkIjoiNjNlMzZmYTFhY2EyMTA1NGM2YzNjOGQ3IiwiY3JlYXRlZEF0IjoxNjc3MDgxNDc1MDc0LCJidXNpbmVzc0lkIjoiNjNkMjk1ZmUyMDQ2YTE4NmI5OWIyNTM3IiwiaWF0IjoxNjc3MDgxNDc1LCJleHAiOjE2Nzk2NzM0NzUsImlzcyI6ImFwaSJ9.akR27vti8P0wn2dnl8OPtPs2u4JPmzoxE_CQDJqJ7x4NIiejSsR8onbYaBYn2Zv2bqeeuMheMI6cqfvN4ScXB1oPYbzcsVWLI_QOKuUEuHWso9z1w6lss9k-zOD64aECe7lWwgLCdKDF5WLv59Pe0lkUsv5TXNZmM6OABOp_fUX9ccF8ge59gNMzLYOMCg762-eMz2Yl9zqKRZGw6I5K4AXSCwPOp20nDJ6CVP0bwXzQwba9wJ_76yHWTPWReLJU64eh5JQ_0Cdb-_L4IIvtPjavdzstwBrMd59XJh59e-aRoaS6Jd0QJpXu7xT4mgE__YZz2teoFzhHpEKNlQnKgw";
-            var response = await new AutoUpdateTimeZone().AutoTimeZone(authToken, practiceName);
-            Console.WriteLine(response);
-        }
-
-
-        //Add Patient record through API
-
-        public async Task AddPatientApi()
-        {
-            ModifyVars();
-            var firstName = FirstName;
-            var lastName = LastName;
-            var email = Email + "@mailsac.com";
-            var authToken = "Basic eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXZpY2VUeXBlIjoid2ViIiwiaXNzdWVyIjoiYXBpIiwiYWNjb3VudElkIjoiNjNlMzZmYTFhY2EyMTA1NGM2YzNjOGQ3IiwiY3JlYXRlZEF0IjoxNjc3MDgxNDc1MDc0LCJidXNpbmVzc0lkIjoiNjNkMjk1ZmUyMDQ2YTE4NmI5OWIyNTM3IiwiaWF0IjoxNjc3MDgxNDc1LCJleHAiOjE2Nzk2NzM0NzUsImlzcyI6ImFwaSJ9.akR27vti8P0wn2dnl8OPtPs2u4JPmzoxE_CQDJqJ7x4NIiejSsR8onbYaBYn2Zv2bqeeuMheMI6cqfvN4ScXB1oPYbzcsVWLI_QOKuUEuHWso9z1w6lss9k-zOD64aECe7lWwgLCdKDF5WLv59Pe0lkUsv5TXNZmM6OABOp_fUX9ccF8ge59gNMzLYOMCg762-eMz2Yl9zqKRZGw6I5K4AXSCwPOp20nDJ6CVP0bwXzQwba9wJ_76yHWTPWReLJU64eh5JQ_0Cdb-_L4IIvtPjavdzstwBrMd59XJh59e-aRoaS6Jd0QJpXu7xT4mgE__YZz2teoFzhHpEKNlQnKgw";
-            var response = await new CreatePatient().CreatePatientMethod(firstName, lastName, email, authToken);
+            var response = await new AutoUpdateTimeZone().AutoTimeZone(AuthToken, practiceName);
             Console.WriteLine(response);
         }
 
@@ -61,9 +56,8 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
         public void Telemed()
         {
             string testCaseTitle = "Instant Telemedicine Test";
-            _ = TimeZone();
+            TimeZone().Wait();
             ModifyVars();
-            _ = AddPatientApi();
             SeleniumCommands a = new SeleniumCommands();
             a.AddLog("event", $"Started:  {testCaseTitle}");
 
@@ -113,7 +107,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
                 a.Pause(3);
                 a.ClickOn("//curogram-icon[@name='refresh-1']");
                 a.Pause(2);
-                a.TypeM("//input[@placeholder='Email']", Email + "@mailsac.com");
+                a.TypeM("//input[@placeholder='Email']", Email);
                 a.Pause(2);
                 a.ClickOn("//button[contains(text(),'Resend')]");
                 a.Pause(5);

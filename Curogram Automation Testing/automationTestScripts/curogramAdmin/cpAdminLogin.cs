@@ -96,6 +96,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin
                 a.ClickOn("//span[contains(.,\'Log in\')]");
                 a.SwitchWindow(WindowRoot);
                 a.Pause(5);
+                a.WUntil("//a[contains(text(),'Admin panel')]");
                 a.VerifyText("//a[contains(text(),\'Admin panel\')]", "Admin panel");
                 a.DClose();
                 a.AddLog("allType", $"Pass:  {testCaseTitle}");

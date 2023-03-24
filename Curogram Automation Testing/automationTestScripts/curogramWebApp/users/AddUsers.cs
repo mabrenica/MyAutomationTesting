@@ -62,6 +62,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.AddUs
                 a.ClickOn("//span[contains(.,\'Log in\')]");
                 a.Pause(5);
                 a.SwitchWindow(WindowRoot);
+                a.WUntil("//a[contains(text(),'Admin panel')]");
                 a.VerifyText("//a[contains(text(),\'Admin panel\')]", "Admin panel");
 
 

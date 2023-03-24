@@ -16,6 +16,7 @@ namespace UI_V2
             SetControlCorners(ContainerTestCases, 25, 572, 582);
             SetControlCorners(textBoxLogs, 25, 506, 528);
             SetControlCorners(textBoxSummary, 25, 506, 528);
+            SetControlCorners(ContainerLogs, 25, 506, 528);
         }
         private void SetControlCorners(Control control, int cornerRadius, int width, int height)
         {

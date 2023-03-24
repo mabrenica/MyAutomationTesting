@@ -72,7 +72,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
             PFName      = a.StringGenerator("allletters",   9);
             PMName      = a.StringGenerator("allletters",   9);
             PLName      = a.StringGenerator("allletters",   9);
-            PEmail      = a.StringGenerator("alphanumeric", 12) + "@mailsac.com";
+            PEmail      = a.EmailGenerator("alphanumeric", 12, true);
             PAddress    = a.StringGenerator("allletters",   9);
             PUnitNo     = a.StringGenerator("allnumbers",   4);
             PCity       = a.StringGenerator("allletters",   5);
@@ -128,9 +128,6 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
 
             try
             {
-                //Register Patient email to Mailsac via api
-                a.GenerateOtpEmail(PEmail);
-
                 //Open registration page
                 a.StartDriver("Chrome", RegPage);
                 a.NavTo("https://staging.curogram.com/registrations/6400a92a073cd10ee0c9a868");
@@ -370,7 +367,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
                 string message = $"Fail: {testCaseTitle} - - " + e.Message;
                 a.AddLog("allType", message);
                 Console.WriteLine(message);
-                //a.DQuit();
+                a.DQuit();
                 Assert.That(e.Message, Is.EqualTo(""));
 
             }

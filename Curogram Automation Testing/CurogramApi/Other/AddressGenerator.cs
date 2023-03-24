@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Curogram_Automation_Testing.CurogramApi.Other
 {
-    internal class AddressGenerator
+
+    public class AddressGenerator
     {
+        public static String GeneratedAddress;
         public async Task<String> AddGen()
         {
             var handler = new HttpClientHandler();
@@ -41,6 +39,21 @@ namespace Curogram_Automation_Testing.CurogramApi.Other
                     {
                         string responseContent = await response.Content.ReadAsStringAsync();
                         //Console.WriteLine(responseContent);
+
+                        string[] fullAddress = responseContent.ToString().Split(",");
+                        string[] firstLine = fullAddress[0].Split("\"");
+                        string[] zipLine = fullAddress[2].Split("-");
+
+                        string AddressLine1 = firstLine[1].ToString();
+                        string AptNo = fullAddress[1].ToString();
+                        string City = fullAddress[3].ToString();
+                        string State = fullAddress[4].ToString();
+                        string ZipCode = zipLine[0].ToString();
+                        GeneratedAddress = $"{firstLine[1]},{fullAddress[1]},{fullAddress[3]},{fullAddress[4]},{zipLine[0]}";
+
+
+
+
                         return responseContent;
                     }
                     else
@@ -52,5 +65,12 @@ namespace Curogram_Automation_Testing.CurogramApi.Other
             }
         }
 
+
+        public string GenerateAddress()
+        {
+            AddressGenerator a = new();
+            a.AddGen().Wait();
+            return GeneratedAddress;
+        }
     }
 }

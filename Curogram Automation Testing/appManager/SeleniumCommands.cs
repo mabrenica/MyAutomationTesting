@@ -9,7 +9,9 @@ using System.Text.RegularExpressions;
 using Curogram_Automation_Testing.appManager;
 using System.Text;
 using Curogram_Automation_Testing.CurogramApi.Other;
-
+using Microsoft.VisualBasic;
+using System.Globalization;
+using Curogram_Automation_Testing.CurogramApi.Practice;
 
 namespace Curogram_Automation_Testing.AppManager
 {
@@ -80,7 +82,7 @@ namespace Curogram_Automation_Testing.AppManager
         }
 
 
-        //4. generate random strings
+        //4.a generate random strings
         public string StringGenerator(string type= "allletters", int digit = 9)
         {
             Random ranInt = new();
@@ -93,8 +95,17 @@ namespace Curogram_Automation_Testing.AppManager
                 case "alphanumeric":
                     allowedChars = "abcdefghijklmnopqrstuvwxyz0123456789";
                     break;
+                case "alphanumeric+SpecialChar":
+                    allowedChars = "abcdefghijklmnopqrstuvwxyz0123456789!()-@_\"#$%&'*+,./;:<=>?[|]~ ";
+                    break;
+                case "specialcharacters":
+                    allowedChars = "!()-@_\"#$%&'*+,./;:<=>?[|]~ ";
+                    break;
                 case "allletters":
                     allowedChars = "abcdefghijklmnopqrstuvwxyz";
+                    break;
+                case "allletters+SpecialChar":
+                    allowedChars = "abcdefghijklmnopqrstuvwxyz!()-@_\"#$%&'*+,./;:<=>?[|]~ ";
                     break;
                 case "allnumbers":
                     allowedChars = "0123456789";
@@ -111,16 +122,20 @@ namespace Curogram_Automation_Testing.AppManager
             return newString;
         }
 
-        //Email Generator
-        public string EmailGenerator(string type = "alphanumeric", int digit = 9, string emailDomain = "@curogram.com")
+        //4.b Email Generator
+        public static String GeneratedEmail;
+        public string EmailGenerator(string type = "alphanumeric", int digit = 10, bool forOtp = false, string mailsacKey = "k_rtJ7fZ6197XAsC5f4Ujyp2477Xc479U0rI4tg66ef")
         {
             Random ranInt = new();
             var seedInt = ranInt.Next();
             Random rand = new(seedInt);
             string allowedChars = "";
+            
 
-            switch (type)
-            {
+            if (forOtp)
+            { 
+                switch (type)
+                {
                 case "alphanumeric":
                     allowedChars = "abcdefghijklmnopqrstuvwxyz0123456789";
                     break;
@@ -133,13 +148,68 @@ namespace Curogram_Automation_Testing.AppManager
                 default:
                     allowedChars = "abcdefghijklmnopqrstuvwxyz0123456789";
                     break;
-            }
+                }
 
 
-            var newString = new string(Enumerable.Repeat(allowedChars, digit)
+                var newString = new string(Enumerable.Repeat(allowedChars, digit)
                 .Select(s => s[rand.Next(s.Length)]).ToArray()).Substring(1);
-            return newString + emailDomain;
+
+                GenerateMailsacEmail a = new();
+                a.Generate(generatedEmail: newString + "@mailsac.com", passedMailsacKey: mailsacKey).Wait();
+                GeneratedEmail = newString + "@mailsac.com";
+            }
+            else
+            {
+                switch (type)
+                {
+                    case "alphanumeric":
+                        allowedChars = "abcdefghijklmnopqrstuvwxyz0123456789";
+                        break;
+                    case "allletters":
+                        allowedChars = "abcdefghijklmnopqrstuvwxyz";
+                        break;
+                    case "allnumbers":
+                        allowedChars = "0123456789";
+                        break;
+                    default:
+                        allowedChars = "abcdefghijklmnopqrstuvwxyz0123456789";
+                        break;
+                }
+
+
+                var newString = new string(Enumerable.Repeat(allowedChars, digit)
+                .Select(s => s[rand.Next(s.Length)]).ToArray()).Substring(1);
+                GeneratedEmail = newString + "@curogram.com";
+            }
+            return GeneratedEmail;
         }
+
+        //4.c
+        [Test]
+        public void DobGenerator()
+        {
+            Random ranInt = new();
+            var seedInt = ranInt.Next();
+            Random random = new Random(seedInt);
+            int year = random.Next(1995, 2022);
+            int month = random.Next(1, 12);
+            int day = random.Next(1, 28);
+
+            string monthName = new DateTimeFormatInfo().GetMonthName(month);
+
+            string dateTime = DateTime.Now.ToString($"{year}-{month}-{day}THH:mm:ss.fffZ");
+            Console.WriteLine(dateTime ); 
+            Console.WriteLine(monthName+ " "+ day + " "+year);
+        }
+
+        //4.d Address generator
+        public string NewAddress()
+        {
+            AddressGenerator a = new();
+            string fullAddress = a.GenerateAddress();
+            return fullAddress;
+        }
+
 
         //5. Close current window
         public void DClose()
@@ -351,6 +421,7 @@ namespace Curogram_Automation_Testing.AppManager
             driver.SwitchTo().DefaultContent();
         }
 
+        //Add event log
         public void AddLog(string logType, string message)
         {
            switch (logType) 
@@ -371,6 +442,7 @@ namespace Curogram_Automation_Testing.AppManager
             }
         }
 
+        //Get OTP
         public string OtpViaMailSac(string email)
         {
             MailsacGetOtp a = new();
@@ -378,10 +450,11 @@ namespace Curogram_Automation_Testing.AppManager
             return otp;
         }
 
-        public void GenerateOtpEmail(string email, string mailsacKey = "k_rtJ7fZ6197XAsC5f4Ujyp2477Xc479U0rI4tg66ef")
+        //Cler input field
+        public void ClearInput(string targetElement)
         {
-            GenerateMailsacEmail a = new();
-            a.Generate(generatedEmail: email, passedMailsacKey: mailsacKey).Wait();
+            driver.FindElement(By.XPath(targetElement)).Clear();
         }
+
     }
 }

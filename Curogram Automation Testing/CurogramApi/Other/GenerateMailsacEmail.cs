@@ -11,7 +11,7 @@ namespace Curogram_Automation_Testing.CurogramApi.Other
     public class GenerateMailsacEmail
     {
  
-        public async Task Generate(string generatedEmail = "skdjfowdhfw@mailsac.com", string passedMailsacKey = "k_rtJ7fZ6197XAsC5f4Ujyp2477Xc479U0rI4tg66ef")
+        public async Task Generate(string generatedEmail, string passedMailsacKey = "k_rtJ7fZ6197XAsC5f4Ujyp2477Xc479U0rI4tg66ef")
         {
             var handler = new HttpClientHandler();
 

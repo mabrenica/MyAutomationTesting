@@ -5,9 +5,7 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curogram Automation Testing", "Curogram Automation Testing\Curogram Automation Testing.csproj", "{17F227D2-FB6B-4188-96F4-E01383F0225D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UI", "UI\UI.csproj", "{2587F044-858B-4576-A123-32A62D82179A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI_V2", "UI_V2\UI_V2.csproj", "{542397E0-51CD-43BA-A0EA-6012F7887A7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UI_V2", "UI_V2\UI_V2.csproj", "{542397E0-51CD-43BA-A0EA-6012F7887A7B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +17,6 @@ Global
 		{17F227D2-FB6B-4188-96F4-E01383F0225D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17F227D2-FB6B-4188-96F4-E01383F0225D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17F227D2-FB6B-4188-96F4-E01383F0225D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2587F044-858B-4576-A123-32A62D82179A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2587F044-858B-4576-A123-32A62D82179A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2587F044-858B-4576-A123-32A62D82179A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2587F044-858B-4576-A123-32A62D82179A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{542397E0-51CD-43BA-A0EA-6012F7887A7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{542397E0-51CD-43BA-A0EA-6012F7887A7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{542397E0-51CD-43BA-A0EA-6012F7887A7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
