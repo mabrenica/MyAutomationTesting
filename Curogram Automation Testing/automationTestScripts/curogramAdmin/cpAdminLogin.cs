@@ -34,11 +34,11 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin
         public void IncorrectPassword()
         {
             string testCaseTitle = "Cp Incorrect Password Test";
-            ModifyVars();
             SeleniumCommands a = new();
             a.AddLog("event", $"Started:  {testCaseTitle}");
 
             try {
+                ModifyVars();
                 a.StartDriver("Chrome", WindowRoot);
                 a.NavTo("https://cp.staging.curogram.com/");
                 a.Pause(10);

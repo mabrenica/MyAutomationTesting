@@ -9,7 +9,6 @@ namespace Curogram_Automation_Testing.CurogramApi.Other
     public class FormStackSubmitForm
     {
         public static String? SubmissionID;
-        [Test]
         public async Task<string> SubmitFormApi(string firstName, string middleName, string lastName, string email, string address, string nonce, string homePhone = "(845) 266-7150", string cellPhone = "(845) 266-7150")
         {
             string fileName = "test_image.png";

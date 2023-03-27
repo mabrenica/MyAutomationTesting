@@ -25,13 +25,13 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
 
         public void ProviderLoginSuccess()
         {
-            string testCaseTitle = "Curogram Web Provider Login Success";
-            ModifyVars();
+            string testCaseTitle = "Curogram Web Provider Login Success";           
             SeleniumCommands a = new SeleniumCommands();
             a.AddLog("event", $"Started:  {testCaseTitle}");
 
             try
             {
+                ModifyVars();
                 a.StartDriver("Chrome", WindowRoot);
                 a.NavTo("https://staging.curogram.com/");
                 a.Pause(10);
@@ -65,13 +65,13 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
 
         public void IncorrectPassword()
         {
-            string testCaseTitle = "Curogram Web Incorrect Password";
-            ModifyVars();
+            string testCaseTitle = "Curogram Web Incorrect Password";            
             SeleniumCommands a = new();
             a.AddLog("event", $"Started:  {testCaseTitle}");
 
             try
             {
+                ModifyVars();
                 a.StartDriver("Chrome", WindowRoot);
                 a.NavTo("https://staging.curogram.com/");
                 a.Pause(5);
@@ -104,13 +104,13 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Provi
 
         public void IncorrectEmailFormat()
         {
-            string testCaseTitle = "Curogram Web Incorrect Email Format Test";
-            ModifyVars();
+            string testCaseTitle = "Curogram Web Incorrect Email Format Test";          
             SeleniumCommands a = new();
             a.AddLog("event", $"Started:  {testCaseTitle}");
 
             try
             {
+                ModifyVars();
                 a.StartDriver("Chrome", WindowRoot);
                 a.NavTo("https://staging.curogram.com/");
                 a.Pause(10);

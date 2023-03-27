@@ -121,13 +121,13 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
         [Test]
         public void TelePubReg()
         {
-            string testCaseTitle = "Instant Telemedicine Public Registration Test";
-            ModifyVars();
+            string testCaseTitle = "Instant Telemedicine Public Registration Test";          
             SeleniumCommands a = new();
             a.AddLog("event", $"Started:  {testCaseTitle}");
 
             try
             {
+                ModifyVars();
                 //Open registration page
                 a.StartDriver("Chrome", RegPage);
                 a.NavTo("https://staging.curogram.com/registrations/6400a92a073cd10ee0c9a868");

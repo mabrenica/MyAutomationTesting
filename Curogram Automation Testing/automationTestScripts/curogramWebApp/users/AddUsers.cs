@@ -40,13 +40,13 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.AddUs
         [Test]
         public void addUser()
         {
-            string testCaseTitle = "Add User Test";
-            ModifyVars();
+            string testCaseTitle = "Add User Test";            
             SeleniumCommands a = new();
             a.AddLog("event", $"Started:  {testCaseTitle}");
 
             try
             {
+                ModifyVars();
                 //Login as provider in CP
                 a.StartDriver("Chrome", WindowRoot);
                 a.NavTo("https://cp.staging.curogram.com/");
