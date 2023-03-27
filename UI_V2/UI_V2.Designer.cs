@@ -32,6 +32,7 @@
             this.ContainerTestCases = new System.Windows.Forms.Panel();
             this.treeViewTestCases = new System.Windows.Forms.TreeView();
             this.ContainerSelectAll = new System.Windows.Forms.Panel();
+            this.buttonDeselectAllDisabled = new System.Windows.Forms.Button();
             this.buttonDeselectAllEnabled = new System.Windows.Forms.Button();
             this.buttonSelectAllEnabled = new System.Windows.Forms.Button();
             this.buttonSelectAllDisabled = new System.Windows.Forms.Button();
@@ -79,6 +80,7 @@
             // ContainerSelectAll
             // 
             this.ContainerSelectAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(58)))), ((int)(((byte)(88)))));
+            this.ContainerSelectAll.Controls.Add(this.buttonDeselectAllDisabled);
             this.ContainerSelectAll.Controls.Add(this.buttonDeselectAllEnabled);
             this.ContainerSelectAll.Controls.Add(this.buttonSelectAllEnabled);
             this.ContainerSelectAll.Controls.Add(this.buttonSelectAllDisabled);
@@ -87,9 +89,24 @@
             this.ContainerSelectAll.Size = new System.Drawing.Size(538, 42);
             this.ContainerSelectAll.TabIndex = 0;
             // 
+            // buttonDeselectAllDisabled
+            // 
+            this.buttonDeselectAllDisabled.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(49)))));
+            this.buttonDeselectAllDisabled.Enabled = false;
+            this.buttonDeselectAllDisabled.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.buttonDeselectAllDisabled.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.buttonDeselectAllDisabled.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(72)))), ((int)(((byte)(78)))), ((int)(((byte)(80)))));
+            this.buttonDeselectAllDisabled.Location = new System.Drawing.Point(3, 7);
+            this.buttonDeselectAllDisabled.Name = "buttonDeselectAllDisabled";
+            this.buttonDeselectAllDisabled.Size = new System.Drawing.Size(89, 32);
+            this.buttonDeselectAllDisabled.TabIndex = 3;
+            this.buttonDeselectAllDisabled.Text = "Deselect All";
+            this.buttonDeselectAllDisabled.UseVisualStyleBackColor = false;
+            // 
             // buttonDeselectAllEnabled
             // 
             this.buttonDeselectAllEnabled.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(51)))), ((int)(((byte)(82)))));
+            this.buttonDeselectAllEnabled.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonDeselectAllEnabled.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.buttonDeselectAllEnabled.ForeColor = System.Drawing.Color.White;
             this.buttonDeselectAllEnabled.Location = new System.Drawing.Point(3, 7);
@@ -106,6 +123,7 @@
             this.buttonSelectAllEnabled.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.buttonSelectAllEnabled.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.buttonSelectAllEnabled.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkSlateBlue;
+            this.buttonSelectAllEnabled.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonSelectAllEnabled.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.buttonSelectAllEnabled.ForeColor = System.Drawing.Color.White;
             this.buttonSelectAllEnabled.Location = new System.Drawing.Point(3, 7);
@@ -121,6 +139,7 @@
             // 
             this.buttonSelectAllDisabled.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(51)))), ((int)(((byte)(82)))));
             this.buttonSelectAllDisabled.Enabled = false;
+            this.buttonSelectAllDisabled.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonSelectAllDisabled.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.buttonSelectAllDisabled.ForeColor = System.Drawing.Color.White;
             this.buttonSelectAllDisabled.Location = new System.Drawing.Point(3, 7);
@@ -133,34 +152,41 @@
             // 
             // ContainerLogs
             // 
+            this.ContainerLogs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.ContainerLogs.Controls.Add(this.textBoxSummary);
             this.ContainerLogs.Controls.Add(this.textBoxLogs);
-            this.ContainerLogs.Location = new System.Drawing.Point(623, 81);
+            this.ContainerLogs.Location = new System.Drawing.Point(620, 81);
             this.ContainerLogs.Name = "ContainerLogs";
             this.ContainerLogs.Size = new System.Drawing.Size(501, 520);
             this.ContainerLogs.TabIndex = 1;
             // 
             // textBoxSummary
             // 
+            this.textBoxSummary.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.textBoxSummary.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.textBoxSummary.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxSummary.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.textBoxSummary.Location = new System.Drawing.Point(3, 3);
-            this.textBoxSummary.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
+            this.textBoxSummary.Location = new System.Drawing.Point(0, 0);
+            this.textBoxSummary.Margin = new System.Windows.Forms.Padding(0);
             this.textBoxSummary.Multiline = true;
             this.textBoxSummary.Name = "textBoxSummary";
-            this.textBoxSummary.Size = new System.Drawing.Size(498, 514);
+            this.textBoxSummary.ReadOnly = true;
+            this.textBoxSummary.Size = new System.Drawing.Size(501, 520);
             this.textBoxSummary.TabIndex = 1;
             this.textBoxSummary.WordWrap = false;
             // 
             // textBoxLogs
             // 
+            this.textBoxLogs.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.textBoxLogs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.textBoxLogs.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxLogs.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.textBoxLogs.Location = new System.Drawing.Point(3, 3);
-            this.textBoxLogs.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
+            this.textBoxLogs.Location = new System.Drawing.Point(0, 0);
+            this.textBoxLogs.Margin = new System.Windows.Forms.Padding(0);
             this.textBoxLogs.Multiline = true;
             this.textBoxLogs.Name = "textBoxLogs";
-            this.textBoxLogs.Size = new System.Drawing.Size(498, 514);
+            this.textBoxLogs.ReadOnly = true;
+            this.textBoxLogs.Size = new System.Drawing.Size(501, 520);
             this.textBoxLogs.TabIndex = 0;
             this.textBoxLogs.TextChanged += new System.EventHandler(this.textBoxLogs_TextChanged);
             // 
@@ -256,5 +282,6 @@
         public Button buttonStop;
         public TreeView treeViewTestCases;
         public System.Diagnostics.Process process1;
+        public Button buttonDeselectAllDisabled;
     }
 }
