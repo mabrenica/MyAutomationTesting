@@ -185,8 +185,7 @@ namespace Curogram_Automation_Testing.AppManager
         }
 
         //4.c
-        [Test]
-        public void DobGenerator()
+        public string DobGenerator()
         {
             Random ranInt = new();
             var seedInt = ranInt.Next();
@@ -194,12 +193,8 @@ namespace Curogram_Automation_Testing.AppManager
             int year = random.Next(1995, 2022);
             int month = random.Next(1, 12);
             int day = random.Next(1, 28);
-
-            string monthName = new DateTimeFormatInfo().GetMonthName(month);
-
-            string dateTime = DateTime.Now.ToString($"{year}-{month}-{day}THH:mm:ss.fffZ");
-            Console.WriteLine(dateTime ); 
-            Console.WriteLine(monthName+ " "+ day + " "+year);
+            string dateTime = DateTime.Now.ToString($"{year}-{month.ToString("00")}-{day.ToString("00")}THH:mm:ss.fffZ");
+            return dateTime;
         }
 
         //4.d Address generator
@@ -279,7 +274,7 @@ namespace Curogram_Automation_Testing.AppManager
 
 
         //12. Simulate Manual typing
-        public void TypeM(string targetElement, string text, int typeSpeed = 5, int pauseAfterType = 100)
+        public void TypeM(string targetElement, string text, int typeSpeed = 2, int pauseAfterType = 100)
         {
             {
                 WebDriverWait wait = new WebDriverWait(driver, System.TimeSpan.FromSeconds(20));

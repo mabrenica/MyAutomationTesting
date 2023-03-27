@@ -54,7 +54,6 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Users
         //Create a user with yopmail email via api
         public async Task ApiRequest()
         {
-            ModifyVars();
             string practiceId = "63d295fe2046a186b99b2537";
             string firstName = FirstName;
             string lastName = LastName;  
@@ -72,13 +71,13 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Users
         public void ResetUserPassword()
         {
             string testCaseTitle = "Reset User Password";
-            ModifyVars();
-            _=ApiRequest();
             SeleniumCommands a = new SeleniumCommands();
             a.AddLog("event", $"Started:  {testCaseTitle}");
 
             try
             {
+                ModifyVars();
+                ApiRequest().Wait();
                 //open yopmail website
                 a.StartDriver("Chrome", YopWeb);
                 a.NavTo("https://mailsac.com/login");

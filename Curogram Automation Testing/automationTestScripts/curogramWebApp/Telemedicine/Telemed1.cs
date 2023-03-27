@@ -20,7 +20,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
         public static String? WindowProvider;
         public static String? WindowPatient;
         public static String PracticeId = "63d295fe2046a186b99b2537";
-        public static String AuthToken = "Basic eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXZpY2VUeXBlIjoid2ViIiwiaXNzdWVyIjoiYXBpIiwiYWNjb3VudElkIjoiNjNlMzZmYTFhY2EyMTA1NGM2YzNjOGQ3IiwiY3JlYXRlZEF0IjoxNjc3MDgxNDc1MDc0LCJidXNpbmVzc0lkIjoiNjNkMjk1ZmUyMDQ2YTE4NmI5OWIyNTM3IiwiaWF0IjoxNjc3MDgxNDc1LCJleHAiOjE2Nzk2NzM0NzUsImlzcyI6ImFwaSJ9.akR27vti8P0wn2dnl8OPtPs2u4JPmzoxE_CQDJqJ7x4NIiejSsR8onbYaBYn2Zv2bqeeuMheMI6cqfvN4ScXB1oPYbzcsVWLI_QOKuUEuHWso9z1w6lss9k-zOD64aECe7lWwgLCdKDF5WLv59Pe0lkUsv5TXNZmM6OABOp_fUX9ccF8ge59gNMzLYOMCg762-eMz2Yl9zqKRZGw6I5K4AXSCwPOp20nDJ6CVP0bwXzQwba9wJ_76yHWTPWReLJU64eh5JQ_0Cdb-_L4IIvtPjavdzstwBrMd59XJh59e-aRoaS6Jd0QJpXu7xT4mgE__YZz2teoFzhHpEKNlQnKgw";
+        public static String AuthToken = "Basic eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXZpY2VUeXBlIjoid2ViIiwiaXNzdWVyIjoiYXBpIiwiYWNjb3VudElkIjoiNjNlMzZmYTFhY2EyMTA1NGM2YzNjOGQ3IiwiY3JlYXRlZEF0IjoxNjc5OTE3NjU1OTA5LCJidXNpbmVzc0lkIjoiNjNkMjk1ZmUyMDQ2YTE4NmI5OWIyNTM3IiwiaWF0IjoxNjc5OTE3NjU1LCJleHAiOjE2ODI1MDk2NTUsImlzcyI6ImFwaSJ9.nTKgCY25PT0b9--S7LeoympcJCPyctRnJ95TQUYU98EDq-KDiXW6G7RHGPf_1LPrDZqlpPsSZGqeXsefU0_LKFTYlwcLet6q40rW9eCneqCm8lknBHScoAYHq5uWw_TAQaroEVomE-vhkfDI2meK9UfdsaRcCO70Dz7roypS4G_-15TsZ2-oqnmapA74JH1hgHtDL6LttP9Z9Zq98In851Mpzl36P8scKsyxKXGelPUOv_p1W9vAEP5813itDg-OezoupCcxE7hC7MFiKrkiPnwUUyjdCPbv78Y4j2OomWdLL-OaAjBmaQ8g8fMNYOm9q5w7tEfDsqBm5i9dINNxbQ";
 
 
 
@@ -33,7 +33,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
             //patient info
             FirstName = patientInfo[1];
             LastName = patientInfo[3];
-            Email = patientInfo[5];
+            Email = patientInfo[4];
 
             WindowRoot = a.StringGenerator("alphanumeric", 9);
             WindowProvider = a.StringGenerator("alphanumeric", 9);
@@ -56,14 +56,13 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
         public void Telemed()
         {
             string testCaseTitle = "Instant Telemedicine Test";
-            TimeZone().Wait();
-            ModifyVars();
             SeleniumCommands a = new SeleniumCommands();
             a.AddLog("event", $"Started:  {testCaseTitle}");
 
 
-            try { 
-
+            try {
+                TimeZone().Wait();
+                ModifyVars();
                 //logging in to practice
                 a.StartDriver("Chrome", WindowRoot);
                 a.NavTo("https://staging.curogram.com/login?returnUrl=/");
@@ -149,7 +148,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
 
 
                 //Verify in telemedicine tab
-                a.TypeM("//input[@placeholder='Find by name']", FirstName);
+                a.TypeM("//input[@placeholder='Find by name']", FirstName, typeSpeed: 200, pauseAfterType: 500);
                 a.Pause(5);
                 a.CheckElement("//span[contains(text(),\" Visit completed \")]");
 

@@ -32,6 +32,7 @@ namespace UI_V2
             Demo t7 = new();
             Demo2 t8 = new();
             FormStack t9 = new();
+            PatientPortalLogin t10 = new();
 
 
             //Add Test cases to the list
@@ -44,6 +45,7 @@ namespace UI_V2
             testMethods.Add(7, Tuple.Create(new Action(t7.DemoTest), "Demo Test - Pass Test", "Demo"));
             testMethods.Add(8, Tuple.Create(new Action(t8.DemoTest), "Demo Test 2 - Fail Test", "Demo"));
             testMethods.Add(9, Tuple.Create(new Action(t9.PatientForm), "Patient Form Test", "CuroWeb"));
+            testMethods.Add(10, Tuple.Create(new Action(t10.CreateUserName), "Patient Portal Login", "PatientPortal"));
 
 
             //Display test cases list
@@ -53,10 +55,11 @@ namespace UI_V2
             buttonStop.Visible = false;
             textBoxSummary.Visible = true;
             textBoxLogs.Visible = false;
-
+            buttonDeselectAllDisabled.Visible = false;
 
             treeViewTestCases.Nodes.Add("Curogram Web");
             treeViewTestCases.Nodes.Add("Cp");
+            treeViewTestCases.Nodes.Add("Patient Portal");
             treeViewTestCases.Nodes.Add("Demo");
 
             foreach (var item in testMethods)
@@ -71,11 +74,17 @@ namespace UI_V2
                     string displayText = $"{item.Value.Item2}";
                     treeViewTestCases.Nodes[1].Nodes.Add(displayText);
                 }
-                if (item.Value.Item3 == "Demo")
+                if (item.Value.Item3 == "PatientPortal")
                 {
                     string displayText = $"{item.Value.Item2}";
                     treeViewTestCases.Nodes[2].Nodes.Add(displayText);
                 }
+                if (item.Value.Item3 == "Demo")
+                {
+                    string displayText = $"{item.Value.Item2}";
+                    treeViewTestCases.Nodes[3].Nodes.Add(displayText);
+                }
+
             }
         }
 
@@ -250,10 +259,18 @@ namespace UI_V2
                 TestLogger.eventLogs.Clear();
                 textBoxLogs.Clear();
                 buttonStartEnabled.Visible = false;
-                buttonSelectAllEnabled.Visible = false;
                 treeViewTestCases.Enabled = false;
-                buttonSelectAllDisabled.Visible = true;
-                buttonSelectAllEnabled.Visible = false;
+
+                if (buttonSelectAllEnabled.Visible)
+                {
+                    buttonSelectAllDisabled.Visible = true;
+                    buttonSelectAllEnabled.Visible = false;
+                }
+                if (buttonDeselectAllEnabled.Visible)
+                {
+                    buttonDeselectAllDisabled.Visible = true;
+                    buttonDeselectAllEnabled.Visible = false;
+                }
 
             }
             else
@@ -300,12 +317,18 @@ namespace UI_V2
             {
                 process.Kill();
             }
-            buttonSelectAllEnabled.Visible = true;
-            buttonSelectAllDisabled.Visible = false;
+
             buttonStartEnabled.Visible = false;
             buttonStartDisabled.Visible = true;
             buttonStop.Visible = false;
             treeViewTestCases.Enabled = true;
+            buttonSelectAllEnabled.Visible = true;
+            buttonSelectAllDisabled.Visible = false;
+            buttonDeselectAllDisabled.Visible = false;
+            buttonDeselectAllEnabled.Visible = false;
+
+
+
         }
 
         public void StopProcess()
@@ -313,7 +336,8 @@ namespace UI_V2
             buttonStop.Visible = false;
             buttonStartDisabled.Visible = true;
             cancellationTokenSource?.Cancel();
-            buttonSelectAllEnabled.Visible = false;
+
+
 
             Process[] chromeDriverProcesses = Process.GetProcessesByName("chromedriver");
             foreach (Process process in chromeDriverProcesses)
@@ -324,7 +348,6 @@ namespace UI_V2
             Thread.Sleep(5000);
             buttonStartEnabled.Cursor = Cursors.Default;
             treeViewTestCases.Enabled = true;
-            buttonSelectAllEnabled.Visible = true;
             textBoxSummary.Visible = true;
             textBoxLogs.Visible = false;
             textBoxSummary.Clear();
@@ -338,6 +361,10 @@ namespace UI_V2
                     childNode.Checked = false;
                 }
             }
+            buttonSelectAllEnabled.Visible = true;
+            buttonSelectAllDisabled.Visible = false;
+            buttonDeselectAllDisabled.Visible = false;
+            buttonDeselectAllEnabled.Visible = false;
         }
 
         public bool IsRunningProcess()
