@@ -40,13 +40,13 @@ namespace Curogram_Automation_Testing.AppManager
                     options.AddArguments("use-fake-ui-for-media-stream");
                     options.AddArguments("--disable-notifications");
                     driver = new ChromeDriver(chromeDriverService, options);
-                    driver.Manage().Window.Maximize();
+                    driver.Manage().Window.Minimize();
                     break;
 
                 case "Firefox":
                     FirefoxOptions foptions = new();
                     driver = new FirefoxDriver(foptions);
-                    driver.Manage().Window.Maximize();
+                    driver.Manage().Window.Minimize();
                     break;
 
 
@@ -59,10 +59,10 @@ namespace Curogram_Automation_Testing.AppManager
 
 
         //2. click on element
-        public void ClickOn(string elementName)
+        public void ClickOn(string elementName, int timeOut = 20)
         {
             {
-                WebDriverWait wait = new WebDriverWait(driver, System.TimeSpan.FromSeconds(20));
+                WebDriverWait wait = new WebDriverWait(driver, System.TimeSpan.FromSeconds(timeOut));
                 wait.Until(driver => driver.FindElements(By.XPath(elementName)).Count > 0);
             }
             driver.FindElement(By.XPath(elementName)).Click();
@@ -272,6 +272,19 @@ namespace Curogram_Automation_Testing.AppManager
 
         }
 
+        public bool ElementExist (string elementName)
+        {
+            bool targetElement = driver.FindElement(By.XPath(elementName)).Displayed;
+            if (targetElement)
+            {
+                return true;
+            }
+            else
+            {
+                throw new Exception($"Element not found: " + elementName);
+            };
+
+        }
 
         //12. Simulate Manual typing
         public void TypeM(string targetElement, string text, int typeSpeed = 2, int pauseAfterType = 100)
@@ -445,11 +458,47 @@ namespace Curogram_Automation_Testing.AppManager
             return otp;
         }
 
+        //check string from email
+        public void CheckStringFromEmail(string email, string searchString)
+        {
+            MailsacGetOtp a = new();
+            bool matchFound = a.IsMatched(email, searchString);
+            if (matchFound)
+            {
+                Console.WriteLine("Match Found");
+            }
+            else
+            {
+                throw new Exception("String not found from Email: " + searchString);
+            }
+            
+        } 
+
         //Cler input field
         public void ClearInput(string targetElement)
         {
             driver.FindElement(By.XPath(targetElement)).Clear();
         }
 
+        //Validate email subject
+        public void CheckEmailSubject(string email, string searchString, string mailsacKey = "k_rtJ7fZ6197XAsC5f4Ujyp2477Xc479U0rI4tg66ef")
+        {           
+            MailsacGetOtp a = new();
+            string reponse = a.ExtractEmailSubject(email, mailsacKey: mailsacKey);
+            bool matchFound = false;
+            if(reponse == searchString)
+            {
+                matchFound = true;
+            }
+
+            if (matchFound)
+            {
+                Console.WriteLine("Match Found");
+            }
+            else
+            {
+                throw new Exception("String not found from Email: " + searchString);
+            }
+        }
     }
 }
