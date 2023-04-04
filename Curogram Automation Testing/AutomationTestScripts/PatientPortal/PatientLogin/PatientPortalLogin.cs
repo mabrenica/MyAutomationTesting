@@ -59,7 +59,8 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
         public static string RecoveryAnswer1;
         public static string RecoveryAnswer2;
 
-
+        //Forget Password
+        public static string NewPassword;
 
         //Window Variables
         public static string? PatientPortal;
@@ -108,12 +109,18 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
             string passAllLetters = a.StringGenerator("allletters", 3);
             string passAllNumbers = a.StringGenerator("allnumbers", 3);
             string passSpecialChar = a.StringGenerator("specialcharacters", 3);
+            NewPassword = a.StringGenerator("alphanumeric", 10);
 
             PassAllLetters = passAllLetters;
             PassAllNumbers = passAllNumbers;
             PasswordSpecialChar = passSpecialChar;
             UserPassword = passAllLetters + passAllNumbers + passSpecialChar;
 
+            string newPassAllLetters = a.StringGenerator("allletters", 3);
+            string newPassAllNumbers = a.StringGenerator("allnumbers", 3);
+            string newPassSpecialChar = a.StringGenerator("specialcharacters", 3);
+
+            NewPassword = newPassAllLetters + newPassAllNumbers + newPassSpecialChar;
             //Windows
             PatientPortal = a.StringGenerator("allletters", 9);
             
@@ -365,8 +372,48 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telem
                 a.StartDriver("Chrome", PatientPortal);
                 a.NavTo("https://staging.curogram.com/login?hsLang=en");
                 a.ClickOn("//button[contains(text(),' Login as Patient ')]");
-                
+                a.ClickOn("//a[contains(text(),'Forgot password?')]");
+                a.TypeM("//input[@placeholder=\"Enter your email address\"]", PEmail);
+                a.ClickOn("//button[@type=\"submit\"]");
+                a.Pause(5);
+                var otp4 = a.OtpViaMailSac(PEmail);
+                a.TypeCode(otp4, "//input[@placeholder=\"—\"]");
+                a.ClickOn("//button[@type=\"submit\"]");
+                a.WUntil("//div[@formarrayname=\"questions\"][1]//div[@class=\"login-form__label login-form__label--bold mb-2\"]");
+                RQuestion1 = a.SaveText("//div[@formarrayname=\"questions\"][1]//div[@class=\"login-form__label login-form__label--bold mb-2\"]");
+                RQuestion2 = a.SaveText("//div[@formarrayname=\"questions\"][2]//div[@class=\"login-form__label login-form__label--bold mb-2\"]");
 
+                foreach (KeyValuePair<int, string> question in SecurityQuestions)
+                {
+                    if (question.Value == RQuestion1.Substring(3))
+                    {
+                        int keyNumber1 = question.Key;
+                        RecoveryAnswer1 = AnswerList[keyNumber1];
+                    }
+                    if (question.Value == RQuestion2.Substring(3))
+                    {
+                        int keyNumber2 = question.Key;
+                        RecoveryAnswer2 = AnswerList[keyNumber2];
+                    }
+                }
+                a.TypeM("//div[@formarrayname=\"questions\"][1]//input[@placeholder=\"Enter your answer\"]", RecoveryAnswer1);
+                a.TypeM("//div[@formarrayname=\"questions\"][2]//input[@placeholder=\"Enter your answer\"]", RecoveryAnswer2);
+                a.ClickOn("//button[@type=\"submit\"]");
+                a.TypeM("//input[@placeholder=\"Password\"]", NewPassword);
+                a.TypeM("//input[@placeholder=\"Confirm Password\"]", NewPassword);
+                a.ClickOn("//button[contains(text(),'Set New Password')]");
+                a.WUntil("//div[contains(text(),'Your new password has been reset successfully.')]");
+                a.CheckElement("//div[contains(text(),'Your new password has been reset successfully.')]");
+                a.ClickOn("//a[@type=\"submit\"]");
+                a.ClickOn("//button[contains(text(),' Login as Patient ')]");
+                a.TypeM("//input[@placeholder=\"Username\"]", UserName);
+                a.TypeM("//input[@placeholder=\"Password\"]", NewPassword);
+                a.ClickOn("//button[@type=\"submit\"]");
+                a.Pause(5);
+                var otp5 = a.OtpViaMailSac(PEmail);
+                a.TypeCode(otp5, "//input[@placeholder=\"—\"]");
+                a.ClickOn("//button[@type=\"submit\"]");
+                a.WUntil("//aside[@class=\"main-menu d-flex flex-column\"]", 60);
 
                 //Test Pass
                 a.DQuit();

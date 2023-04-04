@@ -40,13 +40,13 @@ namespace Curogram_Automation_Testing.AppManager
                     options.AddArguments("use-fake-ui-for-media-stream");
                     options.AddArguments("--disable-notifications");
                     driver = new ChromeDriver(chromeDriverService, options);
-                    driver.Manage().Window.Minimize();
+                    driver.Manage().Window.Maximize();
                     break;
 
                 case "Firefox":
                     FirefoxOptions foptions = new();
                     driver = new FirefoxDriver(foptions);
-                    driver.Manage().Window.Minimize();
+                    driver.Manage().Window.Maximize();
                     break;
 
 
