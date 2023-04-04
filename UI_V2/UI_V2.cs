@@ -45,7 +45,7 @@ namespace UI_V2
             testMethods.Add(7, Tuple.Create(new Action(t7.DemoTest), "Demo Test - Pass Test", "Demo"));
             testMethods.Add(8, Tuple.Create(new Action(t8.DemoTest), "Demo Test 2 - Fail Test", "Demo"));
             testMethods.Add(9, Tuple.Create(new Action(t9.PatientForm), "Patient Form Test", "CuroWeb"));
-            testMethods.Add(10, Tuple.Create(new Action(t10.CreateUserName), "Patient Portal Login", "PatientPortal"));
+            testMethods.Add(10, Tuple.Create(new Action(t10.ForgotPassword), "Patient Portal Login", "PatientPortal"));
 
 
             //Display test cases list
