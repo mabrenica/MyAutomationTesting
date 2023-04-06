@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curogram Automation Testing
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UI_V2", "UI_V2\UI_V2.csproj", "{542397E0-51CD-43BA-A0EA-6012F7887A7B}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Curogram_Automation_SetUp", "Curogram_Automation_SetUp\Curogram_Automation_SetUp.vdproj", "{9AE2A690-A643-4D5B-8B92-7E612CB37E2C}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Curogram_Automation", "Curogram_Automation_SetUp\Curogram_Automation_SetUp.vdproj", "{9AE2A690-A643-4D5B-8B92-7E612CB37E2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Curogram_Automation_Updater", "Curogram_Automation_Updater\Curogram_Automation_Updater.csproj", "{2938B2B2-06DE-4DC6-8940-864F1CD7DC33}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +27,10 @@ Global
 		{542397E0-51CD-43BA-A0EA-6012F7887A7B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9AE2A690-A643-4D5B-8B92-7E612CB37E2C}.Debug|Any CPU.ActiveCfg = Debug
 		{9AE2A690-A643-4D5B-8B92-7E612CB37E2C}.Release|Any CPU.ActiveCfg = Release
+		{2938B2B2-06DE-4DC6-8940-864F1CD7DC33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2938B2B2-06DE-4DC6-8940-864F1CD7DC33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2938B2B2-06DE-4DC6-8940-864F1CD7DC33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2938B2B2-06DE-4DC6-8940-864F1CD7DC33}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
