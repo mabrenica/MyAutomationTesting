@@ -7,6 +7,8 @@ using Curogram_Automation_Testing.appManager;
 using System.Diagnostics;
 using Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.FormStack;
 using OpenQA.Selenium.DevTools.V107.DOM;
+using System.Net;
+using System.Diagnostics;
 
 namespace UI_V2
 {
@@ -18,6 +20,33 @@ namespace UI_V2
         {
             InitializeComponent();
             Custom();
+
+
+            WebClient webclient = new();
+
+            try
+            {
+                if (!webclient.DownloadString("https://pastebin.com/raw/20irZKm8").Contains("1.0.2"))
+                {
+                    if (MessageBox.Show("Update available. Do you want to download it?", "Curogram Automation", MessageBoxButtons.YesNo,MessageBoxIcon.Question)==DialogResult.Yes)
+                    {
+                        try
+                        {
+                            Process.Start("Curogram_Automation_Updater.exe");
+                            //MessageBox.Show("Updating Please wait.", "Curogram Automation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.Close();
+                        }
+                        catch (Exception a)
+                        {
+                            MessageBox.Show("Error encountered: "+ a.ToString(), "Curogram Automation", MessageBoxButtons.OK, MessageBoxIcon.Error) ;
+                        }
+                    }
+                }
+            }
+            catch
+            {
+              
+            }
         }
 
         private void UI_V2_Load(object sender, EventArgs e)

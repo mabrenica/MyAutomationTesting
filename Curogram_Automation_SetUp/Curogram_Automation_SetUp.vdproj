@@ -21,6 +21,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_1F4D7FFDAA8443C0B748B912D779AE15"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_65C0E3F04DFE4B5F99C84053A8FD8467"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -33,7 +39,7 @@
         "DisplayName" = "8:Debug"
         "IsDebugOnly" = "11:TRUE"
         "IsReleaseOnly" = "11:FALSE"
-        "OutputFilename" = "8:Debug\\Curogram_Automation_SetUp.msi"
+        "OutputFilename" = "8:Debug\\Curogram_Automation.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -43,6 +49,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -59,6 +81,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -165,9 +203,9 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:Curogram_Automation_SetUp"
-        "ProductCode" = "8:{04D28600-F8AC-4AA6-B9C8-9A293B4EC32B}"
-        "PackageCode" = "8:{D66B6008-A490-405C-BF67-D8B00F2A1FC9}"
+        "ProductName" = "8:Curogram Automation"
+        "ProductCode" = "8:{6546EBF9-5F9F-40A7-9045-609E619E4934}"
+        "PackageCode" = "8:{35E6A13B-8C8B-4CE2-A973-2329644830AA}"
         "UpgradeCode" = "8:{E4F7F9DF-F1CA-4357-AC05-5C6DFAA0386E}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
@@ -175,12 +213,12 @@
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
         "ProductVersion" = "8:1.0.0"
-        "Manufacturer" = "8:Default Company Name"
+        "Manufacturer" = "8:Curogram Inc."
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:Curogram_Automation_SetUp"
+        "Title" = "8:Curogram Automation"
         "Subject" = "8:"
-        "ARPCONTACT" = "8:Default Company Name"
+        "ARPCONTACT" = "8:Curogram Inc."
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"
@@ -297,6 +335,20 @@
             "Transitive" = "11:FALSE"
             "Target" = "8:_0BDF0B043DF041B5918F3C1CD30C7309"
             "Folder" = "8:_240C50042A57458F9B46608EBEE66497"
+            "WorkingFolder" = "8:_EA3DE7A2AB814F4DBD2AE7F791AA0147"
+            "Icon" = "8:_65C0E3F04DFE4B5F99C84053A8FD8467"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_D3732471534B4F2DB716336E3D309E6A"
+            {
+            "Name" = "8:Curogram Automation"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_0BDF0B043DF041B5918F3C1CD30C7309"
+            "Folder" = "8:_894F617001C440A3AA8E8E296C55825C"
             "WorkingFolder" = "8:_EA3DE7A2AB814F4DBD2AE7F791AA0147"
             "Icon" = "8:_65C0E3F04DFE4B5F99C84053A8FD8467"
             "Feature" = "8:"
@@ -723,6 +775,34 @@
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:PublishItems"
             "OutputProjectGuid" = "8:{542397E0-51CD-43BA-A0EA-6012F7887A7B}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_1F4D7FFDAA8443C0B748B912D779AE15"
+            {
+            "SourcePath" = "8:..\\Curogram_Automation_Updater\\obj\\Debug\\net7.0-windows\\apphost.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_EA3DE7A2AB814F4DBD2AE7F791AA0147"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:PublishItems"
+            "OutputProjectGuid" = "8:{2938B2B2-06DE-4DC6-8940-864F1CD7DC33}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {
