@@ -5,11 +5,11 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curogram Automation Testing", "Curogram Automation Testing\Curogram Automation Testing.csproj", "{17F227D2-FB6B-4188-96F4-E01383F0225D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UI_V2", "UI_V2\UI_V2.csproj", "{542397E0-51CD-43BA-A0EA-6012F7887A7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curogram_Automation_UI", "UI_V2\Curogram_Automation_UI.csproj", "{542397E0-51CD-43BA-A0EA-6012F7887A7B}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Curogram_Automation", "Curogram_Automation_SetUp\Curogram_Automation_SetUp.vdproj", "{9AE2A690-A643-4D5B-8B92-7E612CB37E2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Curogram_Automation_Updater", "Curogram_Automation_Updater\Curogram_Automation_Updater.csproj", "{2938B2B2-06DE-4DC6-8940-864F1CD7DC33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curogram_Automation_Updater", "Curogram_Automation_Updater\Curogram_Automation_Updater.csproj", "{2938B2B2-06DE-4DC6-8940-864F1CD7DC33}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

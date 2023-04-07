@@ -16,36 +16,48 @@ namespace UI_V2
     {
         Dictionary<int, Tuple<Action, string, string>> testMethods = new();
         public CancellationTokenSource cancellationTokenSource;
+        public static string Version = "1.0.5";
+        public static string AvailableVersion = "";
         public MainPage()
         {
             InitializeComponent();
             Custom();
 
 
+
+
+
+
+
+
+
             WebClient webclient = new();
+            
 
             try
             {
-                if (!webclient.DownloadString("https://pastebin.com/raw/20irZKm8").Contains("1.0.2"))
+                string availableVerison = webclient.DownloadString("https://pastebin.com/raw/20irZKm8");
+                AvailableVersion= availableVerison;
+
+                if (!availableVerison.Contains(Version))
                 {
-                    if (MessageBox.Show("Update available. Do you want to download it?", "Curogram Automation", MessageBoxButtons.YesNo,MessageBoxIcon.Question)==DialogResult.Yes)
+                    if (MessageBox.Show($"Version {AvailableVersion} is available. Do you want to download it?", "Curogram Automation", MessageBoxButtons.YesNo,MessageBoxIcon.Question)==DialogResult.Yes)
                     {
                         try
                         {
                             Process.Start("Curogram_Automation_Updater.exe");
-                            //MessageBox.Show("Updating Please wait.", "Curogram Automation", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             this.Close();
                         }
-                        catch (Exception a)
+                        catch 
                         {
-                            MessageBox.Show("Error encountered: "+ a.ToString(), "Curogram Automation", MessageBoxButtons.OK, MessageBoxIcon.Error) ;
+                            
                         }
                     }
                 }
             }
             catch
             {
-              
+                MessageBox.Show("Error encountered while updating.", "Curogram Automation", MessageBoxButtons.OK);
             }
         }
 

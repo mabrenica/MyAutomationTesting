@@ -256,7 +256,7 @@
             this.MaximumSize = new System.Drawing.Size(1167, 678);
             this.MinimumSize = new System.Drawing.Size(1167, 678);
             this.Name = "MainPage";
-            this.Text = "Curogram Automation Testing 1.0.2";
+            this.Text = "Curogram Automation Testing";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainPage_FormClosing);
             this.Load += new System.EventHandler(this.UI_V2_Load);
             this.ContainerTestCases.ResumeLayout(false);

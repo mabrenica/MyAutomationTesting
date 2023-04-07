@@ -174,6 +174,17 @@
             "Property" = "8:ProgramMenuFolder"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_E2C7A79B3EC1487ABB859C0A0CC15379"
+                    {
+                    "Name" = "8:app"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_4F0013D3D4DA49D38DB6B7C4E172283D"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_EA3DE7A2AB814F4DBD2AE7F791AA0147"
@@ -204,15 +215,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Curogram Automation"
-        "ProductCode" = "8:{6546EBF9-5F9F-40A7-9045-609E619E4934}"
-        "PackageCode" = "8:{35E6A13B-8C8B-4CE2-A973-2329644830AA}"
+        "ProductCode" = "8:{E9EF66C2-43FF-4E33-8853-C5DCE6D88715}"
+        "PackageCode" = "8:{DC6349AB-C424-4916-B095-041440991CA1}"
         "UpgradeCode" = "8:{E4F7F9DF-F1CA-4357-AC05-5C6DFAA0386E}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:1.0.5"
         "Manufacturer" = "8:Curogram Inc."
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -348,7 +359,7 @@
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
             "Target" = "8:_0BDF0B043DF041B5918F3C1CD30C7309"
-            "Folder" = "8:_894F617001C440A3AA8E8E296C55825C"
+            "Folder" = "8:_E2C7A79B3EC1487ABB859C0A0CC15379"
             "WorkingFolder" = "8:_EA3DE7A2AB814F4DBD2AE7F791AA0147"
             "Icon" = "8:_65C0E3F04DFE4B5F99C84053A8FD8467"
             "Feature" = "8:"

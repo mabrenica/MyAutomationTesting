@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UI_V2.Properties {
+namespace Curogram_Automation_UI.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace UI_V2.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("UI_V2.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Curogram_Automation_UI.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -76,6 +76,16 @@ namespace UI_V2.Properties {
         internal static System.Drawing.Bitmap selectAllActive1 {
             get {
                 object obj = ResourceManager.GetObject("selectAllActive1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap selectAllActive2 {
+            get {
+                object obj = ResourceManager.GetObject("selectAllActive2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
