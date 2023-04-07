@@ -9,6 +9,7 @@ using Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.FormStack
 using OpenQA.Selenium.DevTools.V107.DOM;
 using System.Net;
 using System.Diagnostics;
+using System.Configuration;
 
 namespace UI_V2
 {
@@ -16,15 +17,16 @@ namespace UI_V2
     {
         Dictionary<int, Tuple<Action, string, string>> testMethods = new();
         public CancellationTokenSource cancellationTokenSource;
-        public static string Version = "1.0.5";
+        public static string Version = "1.0.6";
         public static string AvailableVersion = "";
+        public static int MaxParallel;
         public MainPage()
         {
             InitializeComponent();
-            Custom();
+            //Custom();
 
 
-
+           
 
 
 
@@ -74,6 +76,13 @@ namespace UI_V2
             Demo2 t8 = new();
             FormStack t9 = new();
             PatientPortalLogin t10 = new();
+
+            //Max parallel
+            string maxParallel = System.Configuration.ConfigurationManager.AppSettings["maxParallel"];
+            maxParallelBox.Value = Convert.ToInt32(maxParallel);
+
+
+
 
 
             //Add Test cases to the list
@@ -138,7 +147,6 @@ namespace UI_V2
             //Add checked items to execution list
             List<Action> selectedTests = new List<Action>();
             selectedTests.Clear();
-            int maxParallelTasks = 4;
 
             foreach (TreeNode node in treeViewTestCases.Nodes)
             {
@@ -162,7 +170,7 @@ namespace UI_V2
             {
                 textBoxLogs.Text = "TEST EXECUTION IN PROGRESS . . .";
                 StartDisplayingLogs();
-                await Task.Run(() => Parallel.ForEach(selectedTests, new ParallelOptions { MaxDegreeOfParallelism = maxParallelTasks, CancellationToken = cancellationTokenSource.Token }, testMethod =>
+                await Task.Run(() => Parallel.ForEach(selectedTests, new ParallelOptions { MaxDegreeOfParallelism = MaxParallel, CancellationToken = cancellationTokenSource.Token }, testMethod =>
 
                 {
                     if (cancellationTokenSource.IsCancellationRequested)
@@ -620,6 +628,18 @@ namespace UI_V2
             {
 
             }
+        }
+
+        private void maxParallelBox_ValueChanged(object sender, EventArgs e)
+        {
+            string boxvalue = maxParallelBox.Value.ToString();
+            ConfigurationManager.AppSettings["maxParallel"] = boxvalue;
+
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            config.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection("appSettings");
+
+            MaxParallel = Convert.ToInt32(boxvalue);
         }
     }
 }

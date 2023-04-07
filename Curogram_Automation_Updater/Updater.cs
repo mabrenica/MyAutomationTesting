@@ -70,7 +70,7 @@ namespace Curogram_Automation_Updater
             catch (Exception ex) 
             {
 
-                MessageBox.Show(ex.ToString(), "Curogram Automation Updater", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error encountered while updating.", "Curogram Automation Updater", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Process.Start("Curogram_Automation_UI.exe");
                 this.Close();
             } 

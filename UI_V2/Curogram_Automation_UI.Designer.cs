@@ -43,9 +43,11 @@
             this.buttonStartDisabled = new System.Windows.Forms.Button();
             this.buttonStop = new System.Windows.Forms.Button();
             this.process1 = new System.Diagnostics.Process();
+            this.maxParallelBox = new System.Windows.Forms.NumericUpDown();
             this.ContainerTestCases.SuspendLayout();
             this.ContainerSelectAll.SuspendLayout();
             this.ContainerLogs.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.maxParallelBox)).BeginInit();
             this.SuspendLayout();
             // 
             // ContainerTestCases
@@ -195,7 +197,7 @@
             this.buttonStartEnabled.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(51)))), ((int)(((byte)(82)))));
             this.buttonStartEnabled.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.buttonStartEnabled.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(202)))));
-            this.buttonStartEnabled.Location = new System.Drawing.Point(998, 40);
+            this.buttonStartEnabled.Location = new System.Drawing.Point(1009, 40);
             this.buttonStartEnabled.Name = "buttonStartEnabled";
             this.buttonStartEnabled.Size = new System.Drawing.Size(112, 35);
             this.buttonStartEnabled.TabIndex = 2;
@@ -209,7 +211,7 @@
             this.buttonStartDisabled.Enabled = false;
             this.buttonStartDisabled.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.buttonStartDisabled.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(202)))));
-            this.buttonStartDisabled.Location = new System.Drawing.Point(998, 40);
+            this.buttonStartDisabled.Location = new System.Drawing.Point(1009, 40);
             this.buttonStartDisabled.Name = "buttonStartDisabled";
             this.buttonStartDisabled.Size = new System.Drawing.Size(112, 35);
             this.buttonStartDisabled.TabIndex = 3;
@@ -221,7 +223,7 @@
             this.buttonStop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(51)))), ((int)(((byte)(82)))));
             this.buttonStop.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.buttonStop.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(202)))));
-            this.buttonStop.Location = new System.Drawing.Point(998, 40);
+            this.buttonStop.Location = new System.Drawing.Point(1009, 40);
             this.buttonStop.Name = "buttonStop";
             this.buttonStop.Size = new System.Drawing.Size(112, 35);
             this.buttonStop.TabIndex = 4;
@@ -240,12 +242,37 @@
             this.process1.StartInfo.UserName = "";
             this.process1.SynchronizingObject = this;
             // 
+            // maxParallelBox
+            // 
+            this.maxParallelBox.Location = new System.Drawing.Point(620, 40);
+            this.maxParallelBox.Maximum = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            this.maxParallelBox.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.maxParallelBox.Name = "maxParallelBox";
+            this.maxParallelBox.Size = new System.Drawing.Size(51, 27);
+            this.maxParallelBox.TabIndex = 5;
+            this.maxParallelBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.maxParallelBox.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.maxParallelBox.ValueChanged += new System.EventHandler(this.maxParallelBox_ValueChanged);
+            // 
             // MainPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(28)))), ((int)(((byte)(52)))));
             this.ClientSize = new System.Drawing.Size(1149, 631);
+            this.Controls.Add(this.maxParallelBox);
             this.Controls.Add(this.buttonStop);
             this.Controls.Add(this.buttonStartDisabled);
             this.Controls.Add(this.buttonStartEnabled);
@@ -263,6 +290,7 @@
             this.ContainerSelectAll.ResumeLayout(false);
             this.ContainerLogs.ResumeLayout(false);
             this.ContainerLogs.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.maxParallelBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -283,5 +311,6 @@
         public TreeView treeViewTestCases;
         public System.Diagnostics.Process process1;
         public Button buttonDeselectAllDisabled;
+        private NumericUpDown maxParallelBox;
     }
 }
