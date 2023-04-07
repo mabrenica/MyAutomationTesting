@@ -9,4 +9,8 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\UI_V2\Curogram_Automation_UI.csproj" />
+  </ItemGroup>
+
 </Project>

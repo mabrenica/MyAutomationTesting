@@ -17,6 +17,7 @@ namespace UI_V2
             //SetControlCorners(textBoxLogs, 25, 506, 528);
             //SetControlCorners(textBoxSummary, 25, 506, 528);
             SetControlCorners(ContainerLogs, 25, 506, 528);
+            this.Text = $"Curogram Automation {Version}";
         }
         private void SetControlCorners(Control control, int cornerRadius, int width, int height)
         {
