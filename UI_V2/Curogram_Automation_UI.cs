@@ -7,6 +7,8 @@ using Curogram_Automation_Testing.appManager;
 using System.Diagnostics;
 using Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.FormStack;
 using OpenQA.Selenium.DevTools.V107.DOM;
+using System.Net;
+using System.Diagnostics;
 
 namespace UI_V2
 {
@@ -14,10 +16,49 @@ namespace UI_V2
     {
         Dictionary<int, Tuple<Action, string, string>> testMethods = new();
         public CancellationTokenSource cancellationTokenSource;
+        public static string Version = "1.0.5";
+        public static string AvailableVersion = "";
         public MainPage()
         {
             InitializeComponent();
             Custom();
+
+
+
+
+
+
+
+
+
+            WebClient webclient = new();
+            
+
+            try
+            {
+                string availableVerison = webclient.DownloadString("https://pastebin.com/raw/20irZKm8");
+                AvailableVersion= availableVerison;
+
+                if (!availableVerison.Contains(Version))
+                {
+                    if (MessageBox.Show($"Version {AvailableVersion} is available. Do you want to download it?", "Curogram Automation", MessageBoxButtons.YesNo,MessageBoxIcon.Question)==DialogResult.Yes)
+                    {
+                        try
+                        {
+                            Process.Start("Curogram_Automation_Updater.exe");
+                            this.Close();
+                        }
+                        catch 
+                        {
+                            
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Error encountered while updating.", "Curogram Automation", MessageBoxButtons.OK);
+            }
         }
 
         private void UI_V2_Load(object sender, EventArgs e)
@@ -45,7 +86,7 @@ namespace UI_V2
             testMethods.Add(7, Tuple.Create(new Action(t7.DemoTest), "Demo Test - Pass Test", "Demo"));
             testMethods.Add(8, Tuple.Create(new Action(t8.DemoTest), "Demo Test 2 - Fail Test", "Demo"));
             testMethods.Add(9, Tuple.Create(new Action(t9.PatientForm), "Patient Form Test", "CuroWeb"));
-            testMethods.Add(10, Tuple.Create(new Action(t10.CreateUserName), "Patient Portal Login", "PatientPortal"));
+            testMethods.Add(10, Tuple.Create(new Action(t10.ForgotPassword), "Patient Portal Login", "PatientPortal"));
 
 
             //Display test cases list
