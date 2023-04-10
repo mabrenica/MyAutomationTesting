@@ -139,9 +139,7 @@ namespace UI_V2
 
         private async void buttonStartEnabled_Click(object sender, EventArgs e)
         {
-            cancellationTokenSource = new CancellationTokenSource();
-            string maxParallel = ConfigurationManager.AppSettings["maxParallel"];
-            MaxParallel = Convert.ToInt32(maxParallel);
+            GetConfig();
 
             StartProcess();
 
@@ -566,7 +564,7 @@ namespace UI_V2
                 }
             }
             else
-            {
+            {  /*
                 DialogResult noProcess = MessageBox.Show("Do you want to exit the application?", "Confirm Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (noProcess == DialogResult.No)
                 {
@@ -575,7 +573,7 @@ namespace UI_V2
                 else
                 {
 
-                }
+                }    */
             }
         }
 
@@ -637,6 +635,13 @@ namespace UI_V2
             SettingsForm showSettings = new();
             showSettings.ShowDialog();
 
+        }
+
+        public void GetConfig()
+        {
+            cancellationTokenSource = new CancellationTokenSource();
+            string maxParallel = ConfigurationManager.AppSettings["maxParallel"];
+            MaxParallel = Convert.ToInt32(maxParallel);
         }
     }
 }
