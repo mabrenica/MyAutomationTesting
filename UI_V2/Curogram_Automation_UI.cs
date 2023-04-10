@@ -10,6 +10,8 @@ using OpenQA.Selenium.DevTools.V107.DOM;
 using System.Net;
 using System.Diagnostics;
 using System.Configuration;
+using SettingsModal;
+
 
 namespace UI_V2
 {
@@ -77,9 +79,6 @@ namespace UI_V2
             FormStack t9 = new();
             PatientPortalLogin t10 = new();
 
-            //Max parallel
-            string maxParallel = System.Configuration.ConfigurationManager.AppSettings["maxParallel"];
-            maxParallelBox.Value = Convert.ToInt32(maxParallel);
 
 
 
@@ -141,6 +140,8 @@ namespace UI_V2
         private async void buttonStartEnabled_Click(object sender, EventArgs e)
         {
             cancellationTokenSource = new CancellationTokenSource();
+            string maxParallel = ConfigurationManager.AppSettings["maxParallel"];
+            MaxParallel = Convert.ToInt32(maxParallel);
 
             StartProcess();
 
@@ -630,16 +631,12 @@ namespace UI_V2
             }
         }
 
-        private void maxParallelBox_ValueChanged(object sender, EventArgs e)
+
+        private void button1_Click(object sender, EventArgs e)
         {
-            string boxvalue = maxParallelBox.Value.ToString();
-            ConfigurationManager.AppSettings["maxParallel"] = boxvalue;
+            SettingsForm showSettings = new();
+            showSettings.ShowDialog();
 
-            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            config.Save(ConfigurationSaveMode.Modified);
-            ConfigurationManager.RefreshSection("appSettings");
-
-            MaxParallel = Convert.ToInt32(boxvalue);
         }
     }
 }

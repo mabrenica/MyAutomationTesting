@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Curogram Automation Testing\Curogram Automation Testing.csproj" />
+    <ProjectReference Include="..\SettingsModal\SettingsModal.csproj" />
   </ItemGroup>
 
   <ItemGroup>
