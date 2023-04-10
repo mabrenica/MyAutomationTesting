@@ -34,11 +34,6 @@ namespace SettingsModal
             MaxParallel = maxParallel;
         }
 
-        private void maxParallelBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-
-        }
 
         private void buttonSave_Click(object sender, EventArgs e)
         {

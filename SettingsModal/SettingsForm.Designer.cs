@@ -98,7 +98,6 @@
             this.maxParallelBox.Name = "maxParallelBox";
             this.maxParallelBox.Size = new System.Drawing.Size(359, 28);
             this.maxParallelBox.TabIndex = 2;
-            this.maxParallelBox.SelectedIndexChanged += new System.EventHandler(this.maxParallelBox_SelectedIndexChanged);
             // 
             // label1
             // 
