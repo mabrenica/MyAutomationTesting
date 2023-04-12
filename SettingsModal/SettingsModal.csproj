@@ -8,4 +8,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Curogram Automation Testing\Curogram Automation Testing.csproj" />
+  </ItemGroup>
+
 </Project>

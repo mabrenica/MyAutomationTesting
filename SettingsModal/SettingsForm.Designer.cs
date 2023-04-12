@@ -39,10 +39,17 @@
             this.maxParallelBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.labelCheckCredentials = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.textBoxPassword = new System.Windows.Forms.TextBox();
+            this.textBoxUserEmail = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.buttonResetStaging = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonSave
@@ -69,8 +76,6 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(9, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -105,6 +110,7 @@
             // environmentsBox
             // 
             this.environmentsBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.environmentsBox.Enabled = false;
             this.environmentsBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.environmentsBox.FormattingEnabled = true;
             this.environmentsBox.Items.AddRange(new object[] {
@@ -155,33 +161,94 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.buttonResetStaging);
+            this.tabPage2.Controls.Add(this.labelCheckCredentials);
+            this.tabPage2.Controls.Add(this.button1);
+            this.tabPage2.Controls.Add(this.textBoxPassword);
+            this.tabPage2.Controls.Add(this.textBoxUserEmail);
+            this.tabPage2.Controls.Add(this.label5);
+            this.tabPage2.Controls.Add(this.label4);
+            this.tabPage2.Controls.Add(this.label3);
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(529, 440);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Development";
+            this.tabPage2.Text = "Staging";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // tabPage3
+            // labelCheckCredentials
             // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 29);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(529, 440);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Staging";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.labelCheckCredentials.AutoSize = true;
+            this.labelCheckCredentials.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelCheckCredentials.Location = new System.Drawing.Point(147, 97);
+            this.labelCheckCredentials.Name = "labelCheckCredentials";
+            this.labelCheckCredentials.Size = new System.Drawing.Size(0, 19);
+            this.labelCheckCredentials.TabIndex = 6;
             // 
-            // tabPage4
+            // button1
             // 
-            this.tabPage4.Location = new System.Drawing.Point(4, 29);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(529, 440);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Production";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.button1.Location = new System.Drawing.Point(419, 97);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(62, 28);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Check";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // textBoxPassword
+            // 
+            this.textBoxPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxPassword.Location = new System.Drawing.Point(147, 64);
+            this.textBoxPassword.Name = "textBoxPassword";
+            this.textBoxPassword.Size = new System.Drawing.Size(334, 27);
+            this.textBoxPassword.TabIndex = 4;
+            // 
+            // textBoxUserEmail
+            // 
+            this.textBoxUserEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxUserEmail.Location = new System.Drawing.Point(147, 31);
+            this.textBoxUserEmail.Name = "textBoxUserEmail";
+            this.textBoxUserEmail.Size = new System.Drawing.Size(334, 27);
+            this.textBoxUserEmail.TabIndex = 3;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(55, 71);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(70, 20);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "Password";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(55, 38);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(79, 20);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "User Email";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(5, 8);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(183, 20);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Provider Login Credentials";
+            // 
+            // buttonResetStaging
+            // 
+            this.buttonResetStaging.Location = new System.Drawing.Point(6, 400);
+            this.buttonResetStaging.Name = "buttonResetStaging";
+            this.buttonResetStaging.Size = new System.Drawing.Size(69, 34);
+            this.buttonResetStaging.TabIndex = 7;
+            this.buttonResetStaging.Text = "Reset";
+            this.buttonResetStaging.UseVisualStyleBackColor = true;
+            this.buttonResetStaging.Click += new System.EventHandler(this.buttonResetStaging_Click);
             // 
             // SettingsForm
             // 
@@ -200,6 +267,8 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -210,13 +279,19 @@
         private Button buttonCancel;
         private TabControl tabControl1;
         private TabPage tabPage1;
-        private TabPage tabPage2;
         private Label label1;
         private ComboBox maxParallelBox;
         private ComboBox environmentsBox;
         private Label label2;
-        private TabPage tabPage3;
-        private TabPage tabPage4;
         private Button buttonReset1;
+        private TabPage tabPage2;
+        private TextBox textBoxPassword;
+        private TextBox textBoxUserEmail;
+        private Label label5;
+        private Label label4;
+        private Label label3;
+        private Label labelCheckCredentials;
+        private Button button1;
+        private Button buttonResetStaging;
     }
 }

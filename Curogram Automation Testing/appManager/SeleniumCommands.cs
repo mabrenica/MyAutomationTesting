@@ -7,11 +7,10 @@ using NUnit.Framework;
 using System.Data;
 using System.Text.RegularExpressions;
 using Curogram_Automation_Testing.appManager;
-using System.Text;
 using Curogram_Automation_Testing.CurogramApi.Other;
-using Microsoft.VisualBasic;
-using System.Globalization;
-using Curogram_Automation_Testing.CurogramApi.Practice;
+using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Curogram_Automation_Testing.AppManager
 {
@@ -499,6 +498,50 @@ namespace Curogram_Automation_Testing.AppManager
             {
                 throw new Exception("String not found from Email: " + searchString);
             }
+        }
+
+        [Test]  
+        public void InitializeJson()
+        {
+            string sample = "Sample";
+            string demo = "Demo1";
+            string result = "Pass";
+
+
+            var testResults = new Dictionary<string, Dictionary<string, string>>
+            {
+                { $"{sample}", new Dictionary<string, string> 
+                    { 
+                        { "TestName", $"{demo}" }, 
+                        { "Result", $"{result}" } 
+                    } 
+                }
+            };
+
+            // Convert the dictionary to a JSON string.
+            string json = JsonConvert.SerializeObject(testResults, Formatting.Indented);
+
+            // Write the JSON string to a file.
+            File.WriteAllText(@".\test_results.json", json);
+        }
+
+        [Test]
+        public void UpdateJson()
+        {
+            // Read the existing JSON data from the file.
+            string jsonData = File.ReadAllText("test_results.json");
+
+            // Deserialize the JSON data into a C# object.
+            var testResults = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, string>>>(jsonData);
+
+            // Add or update the necessary properties of the C# object.
+            testResults["Test04"] = new Dictionary<string, string> { { "TestName", "Demo1" }, { "Result", "Fail" } };
+
+            // Serialize the modified C# object back into a JSON string.
+            string json = JsonConvert.SerializeObject(testResults, Formatting.Indented);
+
+            // Write the JSON string to the file, overwriting the existing data.
+            File.WriteAllText("test_results.json", json);
         }
     }
 }
