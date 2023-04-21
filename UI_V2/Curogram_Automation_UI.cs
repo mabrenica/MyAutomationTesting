@@ -17,7 +17,7 @@ namespace UI_V2
 {
     public partial class MainPage : Form
     {
-        Dictionary<int, Tuple<Action, string, string>> testMethods = new();
+        Dictionary<int, Tuple<Action, string, string,string>> testMethods = new();
         public CancellationTokenSource cancellationTokenSource;
         public static string Version = "1.0.6";
         public static string AvailableVersion = "";
@@ -26,13 +26,6 @@ namespace UI_V2
         {
             InitializeComponent();
             //Custom();
-
-
-           
-
-
-
-
 
 
             WebClient webclient = new();
@@ -84,17 +77,17 @@ namespace UI_V2
 
 
 
-            //Add Test cases to the list
-            testMethods.Add(1, Tuple.Create(new Action(t1.ProviderLoginTest), "Provider Login Test", "CuroWeb"));
-            testMethods.Add(2, Tuple.Create(new Action(t2.addUser), "Add User Test", "CuroWeb"));
-            testMethods.Add(3, Tuple.Create(new Action(t3.ResetUserPassword), "Reset User Password Test", "CuroWeb"));
-            testMethods.Add(4, Tuple.Create(new Action(t4.CpAdminLogin), "CP Admin Login Test", "Cp"));
-            testMethods.Add(5, Tuple.Create(new Action(t5.Telemed), "Instant Telemedicine Test", "CuroWeb"));
-            testMethods.Add(6, Tuple.Create(new Action(t6.TelePubReg), "Telemedicine Public Registration", "CuroWeb"));
-            testMethods.Add(7, Tuple.Create(new Action(t7.DemoTest), "Demo Test - Pass Test", "Demo"));
-            testMethods.Add(8, Tuple.Create(new Action(t8.DemoTest), "Demo Test 2 - Fail Test", "Demo"));
-            testMethods.Add(9, Tuple.Create(new Action(t9.PatientForm), "Patient Form Test", "CuroWeb"));
-            testMethods.Add(10, Tuple.Create(new Action(t10.ForgotPassword), "Patient Portal Login", "PatientPortal"));
+            //Add Test cases to the list    
+            testMethods.Add(1, Tuple.Create(new Action(t1.ProviderLoginTest),   "Provider Login Test",                  "CuroWeb",          "User"));
+            testMethods.Add(2, Tuple.Create(new Action(t2.addUser),             "Add User Test",                        "CuroWeb",          "User"));
+            testMethods.Add(3, Tuple.Create(new Action(t3.ResetUserPassword),   "Reset User Password Test",             "CuroWeb",          "User"));
+            testMethods.Add(4, Tuple.Create(new Action(t4.CpAdminLogin),        "CP Admin Login Test",                  "Cp",               "Cp Login"));
+            testMethods.Add(5, Tuple.Create(new Action(t5.Telemed),             "Instant Telemedicine Test",            "CuroWeb",          "Telemedicine"));
+            testMethods.Add(6, Tuple.Create(new Action(t6.TelePubReg),          "Telemedicine Public Registration",     "CuroWeb",          "Telemedicine"));
+            testMethods.Add(7, Tuple.Create(new Action(t7.DemoTest),            "Demo Test - Pass Test",                "Demo",             "Demo"));
+            testMethods.Add(8, Tuple.Create(new Action(t8.DemoTest),            "Demo Test 2 - Fail Test",              "Demo",             "Demo"));
+            testMethods.Add(9, Tuple.Create(new Action(t9.PatientForm),         "Patient Form Test",                    "CuroWeb",          "Patient Form"));
+            testMethods.Add(10, Tuple.Create(new Action(t10.ForgotPassword),    "Patient Portal Login",                 "PatientPortal",    "Patient Login"));
 
 
             //Display test cases list
@@ -107,31 +100,60 @@ namespace UI_V2
             buttonDeselectAllDisabled.Visible = false;
 
             treeViewTestCases.Nodes.Add("Curogram Web");
+            treeViewTestCases.Nodes[0].Nodes.Add("User");
+            treeViewTestCases.Nodes[0].Nodes.Add("Telemedicine");
+            treeViewTestCases.Nodes[0].Nodes.Add("Patient Form");
+
+
             treeViewTestCases.Nodes.Add("Cp");
+            treeViewTestCases.Nodes[1].Nodes.Add("Cp Login");
+
+
             treeViewTestCases.Nodes.Add("Patient Portal");
+            treeViewTestCases.Nodes[2].Nodes.Add("Patient Login");
+
             treeViewTestCases.Nodes.Add("Demo");
+            treeViewTestCases.Nodes[3].Nodes.Add("Demo");
 
             foreach (var item in testMethods)
             {
-                if (item.Value.Item3 == "CuroWeb")
+                if (item.Value.Item4 == "User")
                 {
                     string displayText = $"{item.Value.Item2}";
-                    treeViewTestCases.Nodes[0].Nodes.Add(displayText);
+                    treeViewTestCases.Nodes[0].Nodes[0].Nodes.Add(displayText);
                 }
-                if (item.Value.Item3 == "Cp")
+                if (item.Value.Item4 == "Telemedicine")
                 {
                     string displayText = $"{item.Value.Item2}";
-                    treeViewTestCases.Nodes[1].Nodes.Add(displayText);
+                    treeViewTestCases.Nodes[0].Nodes[1].Nodes.Add(displayText);
                 }
-                if (item.Value.Item3 == "PatientPortal")
+                if (item.Value.Item4 == "Patient Form")
                 {
                     string displayText = $"{item.Value.Item2}";
-                    treeViewTestCases.Nodes[2].Nodes.Add(displayText);
+                    treeViewTestCases.Nodes[0].Nodes[2].Nodes.Add(displayText);
                 }
-                if (item.Value.Item3 == "Demo")
+
+
+                if (item.Value.Item4 == "Cp Login")
                 {
                     string displayText = $"{item.Value.Item2}";
-                    treeViewTestCases.Nodes[3].Nodes.Add(displayText);
+                    treeViewTestCases.Nodes[1].Nodes[0].Nodes.Add(displayText);
+                }
+
+
+
+
+                if (item.Value.Item4 == "Patient Login")
+                {
+                    string displayText = $"{item.Value.Item2}";
+                    treeViewTestCases.Nodes[2].Nodes[0].Nodes.Add(displayText);
+                }
+
+
+                if (item.Value.Item4 == "Demo")
+                {
+                    string displayText = $"{item.Value.Item2}";
+                    treeViewTestCases.Nodes[3].Nodes[0].Nodes.Add(displayText);
                 }
 
             }
@@ -154,10 +176,14 @@ namespace UI_V2
 
                     if (childNode.Checked)
                     {
-                        string searchValue = childNode.Text;
-                        int key = testMethods.FirstOrDefault(x => x.Value.Item2 == searchValue).Key;
-                        Action testMethod = testMethods[key].Item1;
-                        selectedTests.Add(testMethod);
+                        foreach(TreeNode grandChild in childNode.Nodes)
+                        {
+                            string searchValue = grandChild.Text;
+                            int key = testMethods.FirstOrDefault(x => x.Value.Item2 == searchValue).Key;
+                            Action testMethod = testMethods[key].Item1;
+                            selectedTests.Add(testMethod);
+                        }
+   
                     }
                 }
             }
@@ -446,26 +472,34 @@ namespace UI_V2
             }
         }
 
-        private void treeViewTestCases_AfterSelect(object sender, TreeViewEventArgs e)
+
+        private async void treeViewTestCases_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            //Run Button to appear when there is at least 1 child node selected
+
+
             bool hasCheckedNode = false;
 
             foreach (TreeNode node in treeViewTestCases.Nodes)
             {
                 foreach (TreeNode childNode in node.Nodes)
                 {
-                    if (childNode.Checked)
+                    foreach (TreeNode grandChildNode in childNode.Nodes)
                     {
-                        hasCheckedNode = true;
-                        break;
-                    }
-                }
 
+                        if (grandChildNode.Checked)
+                        {
+                            hasCheckedNode = true;
+                            break;
+                        }
+
+                    }
+
+                }
                 if (hasCheckedNode)
                 {
                     break;
                 }
+
             }
 
             if (hasCheckedNode)
@@ -483,6 +517,8 @@ namespace UI_V2
             //checks all parent node if all child node are checked and check all childnode if parent node is checked
             if (e.Action != TreeViewAction.Unknown)
             {
+                int siblingCount = 0;
+                int siblingChecked = 0;
                 Stack<TreeNode> stack = new Stack<TreeNode>();
                 stack.Push(e.Node);
                 while (stack.Count > 0)
@@ -495,33 +531,59 @@ namespace UI_V2
                         {
                             childNode.Checked = node.Checked;
                             stack.Push(childNode);
+                           
                         }
+
                     }
+
+                   
 
                     if (node.Parent != null)
                     {
                         bool allChecked = true;
+                        
                         foreach (TreeNode siblingNode in node.Parent.Nodes)
                         {
-                            if (!siblingNode.Checked)
-                            {
-                                allChecked = false;
-                                break;
-                            }
+                                if (!siblingNode.Checked)
+                                {
+                                    allChecked = false;
+                                    break;
+                                }    
+                                 
                         }
-
                         node.Parent.Checked = allChecked;
 
-
-                    }
-
-                    
-
-                    
+                    }   
+                    ;
                 }
 
                 int parentCount = 0;
                 int checkCount = 0;
+
+
+                foreach(TreeNode nodes in treeViewTestCases.Nodes)
+                {
+                    
+                    foreach(TreeNode childNode in nodes.Nodes)
+                    {
+                        siblingCount++;
+                        if (childNode.Checked)
+                        {
+                            siblingChecked++;
+                        }
+                    }
+                    if(siblingChecked == siblingCount)
+                    {
+                        nodes.Checked = true;
+                    }
+                    else
+                    {
+                        nodes.Checked = false;
+                    }
+                    siblingChecked = 0;
+                    siblingCount = 0;
+                }
+
 
                 // If the node is checked, increment the count
                 foreach (TreeNode parentNode in treeViewTestCases.Nodes)
@@ -532,9 +594,14 @@ namespace UI_V2
                     {
                         checkCount++;
                     }
+
                 }
 
-                if(parentCount == checkCount)
+
+
+
+
+                if (parentCount == checkCount)
                 {
                     buttonSelectAllEnabled.Visible = false;
                     buttonDeselectAllEnabled.Visible = true;
@@ -545,8 +612,7 @@ namespace UI_V2
                     buttonDeselectAllEnabled.Visible = false;
                 }
             }
-
-
+           
         }
 
         private void MainPage_FormClosing(object sender, FormClosingEventArgs e)
@@ -563,18 +629,7 @@ namespace UI_V2
                     StopProcess();
                 }
             }
-            else
-            {  /*
-                DialogResult noProcess = MessageBox.Show("Do you want to exit the application?", "Confirm Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (noProcess == DialogResult.No)
-                {
-                    e.Cancel = true;
-                }
-                else
-                {
 
-                }    */
-            }
         }
 
         private void buttonSelectAllEnabled_Click(object sender, EventArgs e)
@@ -590,6 +645,11 @@ namespace UI_V2
                     foreach (TreeNode childNode in node.Nodes)
                     {
                         childNode.Checked = true;
+                        foreach (TreeNode grandChildNode in childNode.Nodes)
+                        {
+                            grandChildNode.Checked = true;
+                        }
+
                     }
                 }
 
@@ -612,6 +672,11 @@ namespace UI_V2
                 foreach (TreeNode childNode in node.Nodes)
                 {
                     childNode.Checked = false;
+                    foreach(TreeNode grandChildNode in childNode.Nodes)
+                    {
+                        grandChildNode.Checked = false;
+                    }
+                    
                 }
             }
         }

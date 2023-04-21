@@ -2,13 +2,14 @@
  * Mailsac username: marnel.abrenica@curogram.com
  * Mailsac password: G3h_amping123
  */
-
-
-
+using System.Configuration;
 using NUnit.Framework;
 using Curogram_Automation_Testing.AppManager;
 using Curogram_Automation_Testing.appManager;
 using Curogram_Automation_Testing.CurogramApi.Provider;
+using System.Reflection;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel;
+
 
 namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Users.ResetProviderPassword
 {
@@ -23,7 +24,6 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Users
         public static String? YopWeb;
         public static String? CuroWeb;
         public static String? YopEmail;
-
 
 
         //modify class variables
@@ -48,7 +48,7 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Users
             YopEmail = yopEmail;
         }
 
-
+        
 
 
         //Create a user with yopmail email via api
@@ -58,12 +58,15 @@ namespace Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Users
             string firstName = FirstName;
             string lastName = LastName;  
             string email = Email;
-            string authToken = "Basic eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXZpY2VUeXBlIjoid2ViIiwiaXNzdWVyIjoiYXBpIiwiYWNjb3VudElkIjoiNjNlMzZmYTFhY2EyMTA1NGM2YzNjOGQ3IiwiY3JlYXRlZEF0IjoxNjc4Njk3MDc1NzcwLCJidXNpbmVzc0lkIjoiNjNkMjk1ZmUyMDQ2YTE4NmI5OWIyNTM3IiwiaWF0IjoxNjc4Njk3MDc1LCJleHAiOjE2ODEyODkwNzUsImlzcyI6ImFwaSJ9.Tul3DE0hyCRJftip7svQVyWrof55C7d7ntvNYeNMPU7-bxP_UVQRpx7vwAXMNog9tlDu9UpjawsIW9FSBFvQeRs6WYp9wdk1el0HqtfhzR6hlKQeClRjWTzC1mDIlQVXgNdssRs_MNi-ItKmwDUXOAHE4AWsZPoB0mB2QoX8rdQyS_m0f2H7eub7HnZDFPb6tn8zEGOMfuAAblYPv0kx0CQZjuYQyKtobauzSfLkScWVfnPfVnHpca5DwCK2nt2vMCJ6dlHFVxa4X7La7cGsVHEUI1FkkVEBtPj2C2CHnH-daleJYCRk8R20eCd7sUy6JjDedgrVk-RFxJgJqyQQuA";
+            //string authToken = ConfigurationManager.AppSettings["providerAuthTokenStaging"];
+            string authToken = "Basic eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXZpY2VUeXBlIjoid2ViIiwiaXNzdWVyIjoiYXBpIiwiYWNjb3VudElkIjoiNjNlMzZmYTFhY2EyMTA1NGM2YzNjOGQ3IiwiY3JlYXRlZEF0IjoxNjgxMjk4NDY5MzM2LCJidXNpbmVzc0lkIjoiNjNkMjk1ZmUyMDQ2YTE4NmI5OWIyNTM3IiwiaWF0IjoxNjgxMjk4NDY5LCJleHAiOjE2ODM4OTA0NjksImlzcyI6ImFwaSJ9.Zn6GrlNH4gk2Uh11GSFdyqBqDPlOpxaD0VY6fn0cqJz4tWJCtLtNL3YPakAfCYvfvtCeAszz7HnYYSOh4_zE2P5GQw0Hb6AF4n8ee8JeEptknkn-U65m0U-6IIEQwCmAgFMle3n9xjZP11he-c-fXI6RPItBWPor7uzRV28UPVt-k1XeGm3kfeHdcoiHcH1uzClbotftmVijaNd_zggJ4u7oHXpJoC7CZF00VIhgZisKfetBrJDM3AMQEg7ZBNCZmKNtBJIQO98zxVX11YLZwYLJ0prRtLNDDYZwW3_KsO0tPv2Mf71mVJzHndRnrTWa6JMZuL3kiNLq1_RTZ4gokw";
             var response = await new AddProviderApi().AddProvidertMethod(firstName, lastName, email, practiceId, authToken);
             Console.WriteLine(response);
+            
+            
         }
 
-
+        
 
 
 

@@ -11,7 +11,7 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Curogram_Automation", "Curo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curogram_Automation_Updater", "Curogram_Automation_Updater\Curogram_Automation_Updater.csproj", "{2938B2B2-06DE-4DC6-8940-864F1CD7DC33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SettingsModal", "SettingsModal\SettingsModal.csproj", "{FF21823E-8F27-4365-94E1-2F437A3E0F88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SettingsModal", "SettingsModal\SettingsModal.csproj", "{FF21823E-8F27-4365-94E1-2F437A3E0F88}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
