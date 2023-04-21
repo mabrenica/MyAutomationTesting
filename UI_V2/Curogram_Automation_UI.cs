@@ -512,7 +512,7 @@ namespace UI_V2
                 buttonStartEnabled.Visible = false;
                 buttonStartDisabled.Visible = true;
             }
-
+             
 
             //checks all parent node if all child node are checked and check all childnode if parent node is checked
             if (e.Action != TreeViewAction.Unknown)
