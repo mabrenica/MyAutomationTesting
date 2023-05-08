@@ -240,6 +240,10 @@ namespace UI_V2
                 foreach (TreeNode childNode in node.Nodes)
                 {
                     childNode.Checked = false;
+                    foreach(TreeNode grandchild in childNode.Nodes)
+                    {
+                        grandchild.Checked = false;
+                    }
                 }
             }
 
@@ -438,6 +442,11 @@ namespace UI_V2
                 foreach (TreeNode childNode in node.Nodes)
                 {
                     childNode.Checked = false;
+                    foreach (TreeNode grandchild in childNode.Nodes)
+                    {
+                        grandchild.Checked = false;
+                    }
+
                 }
             }
             buttonSelectAllEnabled.Visible = true;
