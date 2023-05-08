@@ -174,17 +174,19 @@ namespace UI_V2
                 foreach (TreeNode childNode in node.Nodes)
                 {
 
-                    if (childNode.Checked)
-                    {
+
                         foreach(TreeNode grandChild in childNode.Nodes)
                         {
+                            if (grandChild.Checked)
+                            {
                             string searchValue = grandChild.Text;
                             int key = testMethods.FirstOrDefault(x => x.Value.Item2 == searchValue).Key;
                             Action testMethod = testMethods[key].Item1;
                             selectedTests.Add(testMethod);
+                            }
                         }
    
-                    }
+                    
                 }
             }
 
@@ -311,10 +313,13 @@ namespace UI_V2
             {
                 foreach (TreeNode childNode in node.Nodes)
                 {
-                    if (childNode.Checked)
+                    foreach (TreeNode grandchild in childNode.Nodes)
                     {
-                        hasCheckedNode = true;
-                        break;
+                        if (grandchild.Checked)
+                        {
+                            hasCheckedNode = true;
+                            break;
+                        }
                     }
                 }
 
