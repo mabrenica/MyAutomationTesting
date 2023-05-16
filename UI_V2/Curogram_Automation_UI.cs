@@ -3,6 +3,7 @@ using Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.AddUsers;
 using Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Users.ResetProviderPassword;
 using Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.Telemedicine;
 using Curogram_Automation_Testing.AutomationTestScripts.CurogramAdmin;
+using Curogram_Automation_Testing.AutomationTestScripts.ApiTesting.Default;
 using Curogram_Automation_Testing.appManager;
 using System.Diagnostics;
 using Curogram_Automation_Testing.AutomationTestScripts.CurogramWebApp.FormStack;
@@ -71,6 +72,8 @@ namespace UI_V2
             Demo2 t8 = new();
             FormStack t9 = new();
             PatientPortalLogin t10 = new();
+            Default t11 = new();
+            Files t12 = new();
 
 
 
@@ -88,7 +91,8 @@ namespace UI_V2
             testMethods.Add(8, Tuple.Create(new Action(t8.DemoTest),            "Demo Test 2 - Fail Test",              "Demo",             "Demo"));
             testMethods.Add(9, Tuple.Create(new Action(t9.PatientForm),         "Patient Form Test",                    "CuroWeb",          "Patient Form"));
             testMethods.Add(10, Tuple.Create(new Action(t10.ForgotPassword),    "Patient Portal Login",                 "PatientPortal",    "Patient Login"));
-
+            testMethods.Add(11, Tuple.Create(new Action(t11.InvokeDefaultApi),  "Default",                              "Curogram API Testing", "Curogram Dashboard"));
+            testMethods.Add(12, Tuple.Create(new Action(t12.InvokeFilesApi),    "Files",                                "Curogram API Testing", "Curogram Dashboard"));
 
             //Display test cases list
             buttonSelectAllDisabled.Visible = false;
@@ -115,8 +119,12 @@ namespace UI_V2
             treeViewTestCases.Nodes.Add("Demo");
             treeViewTestCases.Nodes[3].Nodes.Add("Demo");
 
+            treeViewTestCases.Nodes.Add("Curogram API Testing");
+            treeViewTestCases.Nodes[4].Nodes.Add("Curogram Dashboard");
+
             foreach (var item in testMethods)
             {
+                //Curogram Web
                 if (item.Value.Item4 == "User")
                 {
                     string displayText = $"{item.Value.Item2}";
@@ -133,7 +141,7 @@ namespace UI_V2
                     treeViewTestCases.Nodes[0].Nodes[2].Nodes.Add(displayText);
                 }
 
-
+                //Cp
                 if (item.Value.Item4 == "Cp Login")
                 {
                     string displayText = $"{item.Value.Item2}";
@@ -142,18 +150,25 @@ namespace UI_V2
 
 
 
-
+                //Patient Portal
                 if (item.Value.Item4 == "Patient Login")
                 {
                     string displayText = $"{item.Value.Item2}";
                     treeViewTestCases.Nodes[2].Nodes[0].Nodes.Add(displayText);
                 }
 
-
+                //Demo
                 if (item.Value.Item4 == "Demo")
                 {
                     string displayText = $"{item.Value.Item2}";
                     treeViewTestCases.Nodes[3].Nodes[0].Nodes.Add(displayText);
+                }
+
+                //Curogram API Testing
+                if (item.Value.Item4 == "Curogram Dashboard")
+                {
+                    string displayText = $"{item.Value.Item2}";
+                    treeViewTestCases.Nodes[4].Nodes[0].Nodes.Add(displayText);
                 }
 
             }
